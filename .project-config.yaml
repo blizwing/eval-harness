@@ -1,0 +1,19 @@
+﻿project: eval-harness
+type: personal
+phase: 0-init
+status: not-started
+stack: TBD
+started: 2026-08-10
+owner_name: Pratham Mhatre
+company_name: Blueflame OPC Pvt. Ltd.
+blueflame_root: 'E:\SandBox\Claude Sandbox\Blueflame OPC Pvt. Ltd'
+gitea_repo: TBD
+woodpecker_repo: TBD
+taiga_project: TBD
+isolation: pending
+taiga_milestones:
+  sprint-1: TBD
+  sprint-2: TBD
+  sprint-3: TBD
+  sprint-4: TBD
+taiga_stories: {}

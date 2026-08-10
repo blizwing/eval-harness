@@ -1,0 +1,22 @@
+﻿# SoloShip tooling -- managed externally, not project artifacts
+.claude/commands/
+
+# Credentials
+.claude/settings.local.json
+
+# Environment files (stack-specific entries added during /dev)
+.env
+.env.*
+.env*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp

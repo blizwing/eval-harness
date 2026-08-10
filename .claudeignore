@@ -1,0 +1,32 @@
+﻿# Project-scoped .claudeignore
+.claude/settings.local.json
+
+# Dependencies
+src/node_modules/
+src/.pnp/
+src/.pnp.js
+
+# Build outputs
+src/.next/
+src/dist/
+src/build/
+src/out/
+src/__pycache__/
+src/*.pyc
+src/.venv/
+src/venv/
+
+# Secrets
+src/.env
+src/.env.local
+src/.env*.local
+
+# Test / coverage
+src/coverage/
+src/.nyc_output/
+
+# Lock files
+src/*.lock
+src/yarn.lock
+src/package-lock.json
+src/pnpm-lock.yaml
