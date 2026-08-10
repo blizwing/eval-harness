@@ -20,3 +20,6 @@ desktop.ini
 *.suo
 *.user
 *.swp
+
+# Python VENV
+.venv/
