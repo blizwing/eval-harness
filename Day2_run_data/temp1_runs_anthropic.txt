@@ -1,0 +1,50 @@
+--- run 1 ---
+Fifty green checks glow,
+A red failure hides somewhere—
+Coffee grows cold now.
+
+--- run 2 ---
+Assertions align,
+Red bar fights the failing code—
+Green draws the curtain.
+
+--- run 3 ---
+Assertions align,
+Green bars glow where failures fell—
+Code breathes, now at rest.
+
+--- run 4 ---
+Assertions ignite,
+red failures in morning light—
+refactor the code.
+
+--- run 5 ---
+A gentle red light
+A quiet question is asked
+Green means it can go.
+
+--- run 6 ---
+Red line on white glass—
+a small vial waits, then blooms
+its pink verdict.
+
+--- run 7 ---
+Assertions align,
+Red runs fade to green success—
+Code breathes, now at rest.
+
+--- run 8 ---
+Assertions ignite,
+a red bar breaks the stillness,
+green path now shines clear.
+
+--- run 9 ---
+Assertions align,
+Red builds fade to green success,
+Quiet code takes flight.
+
+--- run 10 ---
+Assertions ignite,
+red fails whisper in the dark,
+green blooms—code is true.
+

@@ -22,11 +22,9 @@ not one new call+print block.
 # which is what this script uses.
 
 from dataclasses import dataclass
-from http import client
 import json
 import os
 from pdb import main
-from urllib import response
 import anthropic
 import openai
 
@@ -38,7 +36,7 @@ load_dotenv()
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 MODEL = "deepseek-v4-flash"
 PROMPT = "Write a haiku about testing."
-MAX_TOKENS = 100
+MAX_TOKENS = 1024
 
 
 @dataclass
@@ -54,7 +52,7 @@ class CallResult:
 
 clientOpenAI = openai.OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
 
-def callAnthropicSchemaAPI() -> CallResult:
+def callAnthropicSchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> CallResult:
     """Call DeepSeek via the Anthropic-compatible Messages API."""
     clientAnthropic = anthropic.Client(
         api_key=DEEPSEEK_API_KEY, 
@@ -63,12 +61,13 @@ def callAnthropicSchemaAPI() -> CallResult:
     response = clientAnthropic.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
+        temperature=temperature,
         thinking={"type": "disabled"},
-        messages=[{"role": "user", "content": PROMPT}],
+        messages=[{"role": "user", "content": prompt}],
         stream=False
     )
     return CallResult(
-        schema="Anthropic",
+        schema="anthropic",
         raw_response=response.model_dump(),
         text=response.content[0].text,
         input_tokens=response.usage.input_tokens,
@@ -77,16 +76,17 @@ def callAnthropicSchemaAPI() -> CallResult:
         model_name=response.model
     )
 
-def callOpenAISchemaAPI() -> CallResult:
+def callOpenAISchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> CallResult:
     response = clientOpenAI.chat.completions.create(
         model=MODEL,
-        messages=[{"role": "user", "content": PROMPT}],
+        messages=[{"role": "user", "content": prompt}],
         extra_body={"thinking": {"type": "disabled"}},
         max_tokens=MAX_TOKENS,
+        temperature=temperature,
         stream=False
     )
     return CallResult(
-        schema="OpenAI",
+        schema="openai",
         raw_response=response.model_dump(),
         text=response.choices[0].message.content,
         input_tokens=response.usage.prompt_tokens,
@@ -118,7 +118,6 @@ def main() -> None:
     for call_fn in (callAnthropicSchemaAPI, callOpenAISchemaAPI):
         result = call_fn()
         report(result)
-
 
 if __name__ == "__main__":
     main()

@@ -3,3 +3,8 @@
 
 # Environment Variables
 .env
+
+# Python Cache
+*/pyc
+__pycache__/
+

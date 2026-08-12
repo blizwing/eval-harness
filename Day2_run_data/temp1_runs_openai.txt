@@ -1,0 +1,50 @@
+--- run 1 ---
+Question marks arise,
+Red failures light the dark path,
+Green speaks: "All is well."
+
+--- run 2 ---
+Red lines in the log,
+a failing test turns the screen
+a deeper crimson.
+
+--- run 3 ---
+A test suite runs green,
+A silent, passing verdict—
+Then the build breaks now.
+
+--- run 4 ---
+A test suite turns red,
+A failing line stares back blank—
+Then the fix is born.
+
+--- run 5 ---
+Assertions align,
+Red builds fade to green embrace—
+Truth in every case.
+
+--- run 6 ---
+A failed test is red.
+Code refactors, errors fly—
+Green means it can ship.
+
+--- run 7 ---
+Tests pass in silence,
+green checkmarks bloom on the screen—
+then the bugs crawl out.
+
+--- run 8 ---
+Errors bloom like flowers,
+Red petals on the screen spread—
+A bug hides, waiting.
+
+--- run 9 ---
+Tests fail, then they pass,
+Red lines fade to green success—
+Code learns to be true.
+
+--- run 10 ---
+Errors bloom, blood-red,
+The suite runs a crimson dawn—
+One line breaks the build.
+
