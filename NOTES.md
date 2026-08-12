@@ -1,5 +1,63 @@
 # Notes
 
+## Day 0 — Setup (11 Aug 2026)
+
+**Goal:** environment ready, nothing else. No learning, no build beyond scaffolding.
+
+**Done:**
+- Confirmed compute: Weeks 1–14 need only a laptop; GPU (RTX 4050, 6GB VRAM)
+  isn't needed until Week 16/Phase 3. Flagged early rather than discovered
+  in December.
+- Python 3.11+ confirmed installed.
+- Public GitHub repo created: [`blizwing/eval-harness`](https://github.com/blizwing/eval-harness).
+- Virtual environment set up, `.venv/` added to `.gitignore`.
+- DeepSeek API key obtained, placed in `.env`, `.env` added to `.gitignore`
+  (never committed).
+
+**Checkpoint met:** repo live on GitHub with an initial commit (`Init Project`),
+`.env` not present in it.
+
+---
+
+## Day 1 — What an LLM call actually is (11–12 Aug 2026)
+
+**Goal:** send one prompt, get the full response object back, and be able
+to point at five values in it: text, input tokens, output tokens, stop
+reason, model name.
+
+**Build:** `Day1_first_call.py`. Sends "Write a haiku about testing." to
+`deepseek-v4-flash`, once via the Anthropic-compatible Messages API
+(`api.deepseek.com/anthropic`) and once via the OpenAI-compatible Chat
+Completions API (`api.deepseek.com`), thinking disabled on both.
+
+Went through one structural revision across the day: the original version
+had two functions that each called their API *and* printed the result
+(duplicated print logic). Refactored to:
+- a shared `CallResult` dataclass that both schema calls normalize into
+- `callAnthropicSchemaAPI()` / `callOpenAISchemaAPI()` — client setup and
+  response parsing only, no printing
+- one shared `report()` function that prints the full response JSON, then
+  the five extracted values, for either schema
+
+This makes the file the reusable base for Day 2 onward (temperature and
+prompt were later added as parameters) rather than a one-off script.
+
+**Confirmed working live** — both schemas returned:
+- `input_tokens`: 11, `output_tokens`: 17
+- `model_name`: `deepseek-v4-flash`
+- `stop_reason`: `"end_turn"` (Anthropic) / `"stop"` (OpenAI) — same
+  underlying event, different label per schema
+
+**Key schema differences worth remembering:**
+- Anthropic: text at `response.content[i].text`; usage as
+  `input_tokens`/`output_tokens`
+- OpenAI: text at `response.choices[0].message.content`; usage as
+  `prompt_tokens`/`completion_tokens`
+
+**Checkpoint met:** all five values pointed at, in terminal, for both schemas.
+
+---
+
 ## Day 2 — Temperature and non-determinism (12 Aug 2026)
 
 **Setup:** Same prompt ("Write a haiku about testing."), same model
