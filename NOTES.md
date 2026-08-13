@@ -105,3 +105,31 @@ model/temperature settings.
 
 **Raw data:** `temp0_runs_anthropic.txt`, `temp0_runs_openai.txt`,
 `temp1_runs_anthropic.txt`, `temp1_runs_openai.txt`
+
+---
+
+## Day 3 — Latency and cost tracking (13 Aug 2026)
+
+**Goal:** wrap Day 1's call functions so every call also reports latency
+and cost, and so the process can keep a running total across many calls —
+without duplicating the Anthropic/OpenAI call logic itself.
+
+**Build:** `Day3_llm_client.py`. `LLMClient` wraps `callAnthropicSchemaAPI`
+/ `callOpenAISchemaAPI` from `Day1_first_call.py` through a shared `_wrap()`
+method:
+- times each call with `time.perf_counter()` around the request
+- prices each call from token counts using `deepseek-v4-flash` cache-miss
+  rates (`$0.14`/1M input, `$0.28`/1M output) — priced as a miss
+  unconditionally since cache hit/miss isn't tracked yet, so cost is never
+  under-reported
+- accumulates `total_cost_usd`, `total_input_tokens`, `total_output_tokens`,
+  `call_count` on the client instance across calls
+- returns a `MeteredResult` dataclass — `CallResult`'s fields plus
+  `latency_ms` and `cost_usd`
+
+This file is meant to outlive Day 3: it's the intended import point for P2
+and P3 instead of talking to the DeepSeek SDKs directly.
+
+**Note for later:** pricing is hardcoded from a point-in-time check of
+api-docs.deepseek.com/quick_start/pricing — needs re-verifying before
+relying on it beyond the Phase 1 $10 cap.
