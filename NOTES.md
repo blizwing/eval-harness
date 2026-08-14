@@ -133,3 +133,74 @@ and P3 instead of talking to the DeepSeek SDKs directly.
 **Note for later:** pricing is hardcoded from a point-in-time check of
 api-docs.deepseek.com/quick_start/pricing — needs re-verifying before
 relying on it beyond the Phase 1 $10 cap.
+
+---
+
+## Day 4 — JSON mode and untrustworthy structured output (14 Aug 2026)
+
+**Goal:** request a small structured JSON object from the model, then
+deliberately ask for a field it has no way to know, and observe exactly
+what happens — does it invent a value, refuse, or return something
+malformed?
+
+**Build:** `Day4_json_mode.py`. `call_OpenAI_json_mode()` calls DeepSeek's
+OpenAI-compatible endpoint with `response_format={"type": "json_object"}`
+(DeepSeek's JSON mode is OpenAI-schema only — no equivalent flag exists on
+the Anthropic-compatible endpoint, so this file only extends
+`callOpenAISchemaAPI`, not the Anthropic one). Two prompts run against the
+same fixed paragraph (a QA regression-testing scenario with two low- and
+one medium-severity defect):
+
+- `PROMPT` — asks for `summary` and `risk_level` only (both answerable
+  from the paragraph)
+- `BREAK_IT_PROMPT` — identical, plus a third field, `estimated_fix_hours`,
+  which the paragraph gives zero basis for
+
+**Finding 1 — the impossible field gets confidently fabricated, not flagged.**
+
+`BREAK_IT_PROMPT` returned:
+```json
+{"summary": "...", "risk_level": "low", "estimated_fix_hours": 6}
+```
+
+No refusal, no `null`, no error, no malformed JSON — `estimated_fix_hours`
+came back as a clean integer, formatted identically to the two fields that
+*are* grounded in the paragraph. Nothing in the response shape signals
+that this field is fabricated while the other two are derived from the
+source text. A downstream consumer parsing this JSON has no way to tell
+the difference from the response alone — the failure is silent, not loud,
+and would sail straight through a `try/except json.JSONDecodeError` check
+without tripping it.
+
+**Finding 2 — `risk_level` was inconsistent across repeated calls, even at
+`temperature=0`.**
+
+Running the *normal* (non-broken) prompt three times at `temperature=0`
+against the identical paragraph returned `risk_level` as `medium`,
+`medium`, and `low` across the three runs. This is notable against Day
+2's own data: on this same OpenAI-schema endpoint, Day 2 measured 1/10
+unique outputs at `temperature=0` (fully deterministic) for a free-text
+haiku prompt. That determinism didn't hold here. Open question, not yet
+answered: whether this is a property of JSON-mode sampling specifically,
+or of subjective/borderline classification tasks generally (the paragraph
+sits genuinely between "low" and "medium" — 2 minor defects, 1 moderate
+one — so even small amounts of residual randomness are enough to flip the
+label). Worth revisiting once more evidence exists.
+
+**Why this matters going forward**
+
+Two distinct failure modes now confirmed, not just theorized:
+1. Fabrication on fields with no grounding — silent, well-formatted, and
+   indistinguishable from legitimate output without an external check.
+2. Inconsistent judgment-based output even at `temperature=0` — meaning
+   even "the field the model *can* answer" isn't safe to trust from a
+   single run.
+
+Both point the same direction as Day 2's finding: exact-match or
+single-run trust doesn't work for this system. The eval harness needs
+checks that go beyond "did it parse" — grounding/hallucination checks for
+fields like `estimated_fix_hours`, and pass-rate thresholds across
+repeated runs for judgment fields like `risk_level`.
+
+**Raw examples:** see `Day4_json_mode.py` output — normal vs. break-it
+prompt and result pasted in Day 4 build discussion.
