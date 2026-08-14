@@ -50,13 +50,10 @@ class CallResult:
 
 
 clientOpenAI = openai.OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
+clientAnthropic = anthropic.Client(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com/anthropic")
 
 def callAnthropicSchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> CallResult:
     """Call DeepSeek via the Anthropic-compatible Messages API."""
-    clientAnthropic = anthropic.Client(
-        api_key=DEEPSEEK_API_KEY, 
-        base_url="https://api.deepseek.com/anthropic"
-        )
     response = clientAnthropic.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
