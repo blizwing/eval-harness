@@ -204,3 +204,68 @@ repeated runs for judgment fields like `risk_level`.
 
 **Raw examples:** see `Day4_json_mode.py` output — normal vs. break-it
 prompt and result pasted in Day 4 build discussion.
+
+---
+
+## Day 5 — `/advanced-learn` Session 1: structured output & schema validation (15 Aug 2026)
+
+**Goal:** build a Pydantic validation layer that fails loud and distinguishes
+three failure modes on a raw LLM string response — invalid JSON, valid JSON
+missing a required field, and valid JSON with a wrong/out-of-range value.
+Directly downstream of Day 4's finding that malformed and fabricated output
+both need to be caught before they reach the eval harness.
+
+**Build:** `day5_validate.py`. `validate_response(raw_text)` runs two
+separate stages instead of one blanket `except Exception`:
+1. `json.loads()` — is this parseable JSON at all? Failure here means the
+   model didn't even produce valid syntax (truncation, prose wrapping the
+   JSON, etc.) — caught as `json.JSONDecodeError`, tagged `invalid_json`.
+2. `EvalResult.model_validate()` — a Pydantic model with
+   `risk_level: Literal["low", "medium", "high"]` rather than a bare `str`.
+   Using `str` would have silently accepted `"extreme"` as valid, since it
+   *is* a string — `Literal` is what actually enforces the allowed value
+   set. Failures caught as `pydantic.ValidationError`.
+
+The triage inside stage 2 comes from `ValidationError.errors()`, which
+returns one dict per broken field, each tagged with a `type` string:
+`"missing"` when a required key is absent entirely, and a value-specific
+string (`"literal_error"`, `"string_type"`, etc.) when the key is present
+but the value doesn't fit the schema. Branching on that tag is the entire
+mechanism — no custom detection logic needed.
+
+**Extended past the DONE WHEN bar:** the first pass used `if missing: return
+... else: return ...`, which silently dropped every other problem once the
+first category was found — a payload with two simultaneous issues would
+only ever report one of them. Fixed by computing `missing` and `wrong_type`
+independently from the full `errors()` list and appending both to a
+`failures` list when both are present, instead of short-circuiting.
+
+**Confirmed working live** — four cases, four correct outcomes:
+```
+broken_json   -> ('invalid_json', ["Expecting ',' delimiter: line 1 column 47 (char 46)"])
+missing_field -> ('invalid', [('missing_field', "Missing required field(s): ['risk_level']")])
+wrong_type    -> ('invalid', [('wrong_type', [('risk_level', 'literal_error', "Input should be 'low', 'medium' or 'high'")])])
+both_at_once  -> ('invalid', [('missing_field', "Missing required field(s): ['summary']"),
+                               ('wrong_type', [('risk_level', 'literal_error', "Input should be 'low', 'medium' or 'high'")])])
+```
+`both_at_once` (`{"risk_level": "extreme"}` — missing `summary` *and* a bad
+`risk_level`) returns both failure entries in one list, proving the fix
+actually works rather than just not-crashing.
+
+**Known gap, not yet solved:** this layer only catches structural/type
+violations. Day 4's harder finding — a well-formed, correctly-typed but
+*fabricated* value (e.g. a plausible `estimated_fix_hours` invented from
+nothing) — passes this validator cleanly, because nothing about the shape
+signals fabrication. Schema validation and grounding/hallucination checks
+are separate concerns; this only solves the first one.
+
+**Why this matters going forward:** this becomes the parsing layer beneath
+the four hard assertions planned for Day 11 (Week 2) and the pluggable
+scorer in Week 4 — "did it even parse, and how" needs to be answered before
+assertion- or judge-based scoring runs at all.
+
+**Checkpoint met:** three (then four, including the combined case)
+deliberately broken responses each produced a distinct, readable, correctly
+categorized error.
+
+**Raw file:** `day5_validate.py`

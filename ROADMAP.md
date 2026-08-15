@@ -49,6 +49,8 @@ The skill is a single-sitting immersion. It does **not** fit a 30-minute weekday
 
 **DONE WHEN:** repo is on GitHub with one commit, and `.env` is *not* in it.
 
+**✅ Completed 11 Aug 2026** — see `NOTES.md` Day 0.
+
 ---
 
 # WEEK 1 — What an LLM call actually is
@@ -59,22 +61,42 @@ The skill is a single-sitting immersion. It does **not** fit a 30-minute weekday
 **BUILD (60 min):** One file. Send "Write a haiku about testing." Print the *entire* response object. Then print separately: text, input tokens, output tokens, stop reason, model name.
 **DONE WHEN:** you can point at all five values in your terminal.
 
+**✅ Completed 11–12 Aug 2026** — see `NOTES.md` Day 1. Refactored into a shared
+`CallResult` dataclass and one `report()` helper reused from Day 2 onward.
+
 ### Day 2 — Wed 12 Aug
 **LEARN (20 min):** Search "LLM temperature explained." Key idea: temperature 0 ≠ deterministic.
 **BUILD (70 min):** Same prompt ×10 at `temperature=0`, save to file. Repeat at `temperature=1`. Diff them manually.
 **DONE WHEN:** you can state from your own data whether temp 0 gave identical output every time.
+
+**✅ Completed 12 Aug 2026** — see `NOTES.md` Day 2. Temp=0 was fully deterministic
+on the OpenAI-schema endpoint (10/10 identical) but only 6/10 identical on the
+Anthropic-schema endpoint against the same model — the API surface itself affects
+determinism, not just temperature.
 *Most important observation of the six months. Non-determinism is why AI evaluation exists.*
 
 ### Day 3 — Thu 13 Aug
 **LEARN (25 min):** Your provider's pricing page. Input vs output token cost differ — usually a lot.
 **BUILD (65 min):** `llm_client.py` — wrapper returning text plus `{input_tokens, output_tokens, latency_ms, cost_usd}`. Print running total.
 **DONE WHEN:** two calls print an accurate cumulative cost.
+
+**✅ Completed 13 Aug 2026** — see `NOTES.md` Day 3. `LLMClient` in
+`Day3_llm_client.py` wraps Day 1's call functions and tracks `total_cost_usd`,
+`total_input_tokens`, `total_output_tokens`, `call_count` across calls. Pricing is
+hardcoded from a point-in-time check — flagged to re-verify before relying on it
+past the Phase 1 $10 cap.
 *Keep this file. Used in every project for six months.*
 
 ### Day 4 — Fri 14 Aug
 **LEARN (30 min):** Search "structured output JSON mode" for your provider.
 **BUILD (60 min):** Request `{"summary": str, "risk_level": "low"|"medium"|"high"}` for a paragraph. Then break it — ask for a field it can't know. Log the failure shape.
 **DONE WHEN:** you have one example your code couldn't parse or trust.
+
+**✅ Completed 14 Aug 2026** — see `NOTES.md` Day 4. Two findings: an ungroundable
+field (`estimated_fix_hours`) was fabricated cleanly with zero error signal, and
+`risk_level` was inconsistent across repeated calls even at `temperature=0` on a
+borderline paragraph. Both feed directly into Day 5's validator and the Week 4
+scorer design.
 
 ### Day 5 — **Sat 15 Aug — `/advanced-learn` SESSION 1** (4 hrs)
 
@@ -92,6 +114,10 @@ I need the LLM-specific traps.
 ```
 
 **DONE WHEN:** three deliberately broken responses give three distinct readable errors.
+
+**✅ Completed 15 Aug 2026** — see `NOTES.md` Day 5. Went past the bar: also
+catches multiple simultaneous failures in one payload (missing field + wrong
+type together) instead of only reporting the first one found.
 
 ### Day 6 — Sun 16 Aug — **BUFFER**
 
