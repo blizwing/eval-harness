@@ -14,12 +14,21 @@ def call_OpenAI_json_mode(prompt:str, temperature:float=0) -> CallResult:
         'type': 'json_object'
     }
     )
+
+    content = response.choices[0].message.content
+    if content is None:
+        raise ValueError("OpenAI response had no content (message.content was None)")
+
+    usage = response.usage
+    if usage is None:
+        raise ValueError("OpenAI response had no usage data")
+
     return CallResult(
         schema="openai",
         raw_response=response.model_dump(),
-        text=response.choices[0].message.content,
-        input_tokens=response.usage.prompt_tokens,
-        output_tokens=response.usage.completion_tokens,
+        text=content,
+        input_tokens=usage.prompt_tokens,
+        output_tokens=usage.completion_tokens,
         stop_reason=response.choices[0].finish_reason,
         model_name=response.model
     )
