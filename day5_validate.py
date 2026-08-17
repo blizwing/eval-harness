@@ -6,14 +6,14 @@ class EvalResult(BaseModel):
     summary: str
     risk_level: Literal["low", "medium", "high"]
 
-def validate_response(raw_text: str):
+def validate_response(raw_text: str, model: type[BaseModel]):
     try:
         parsed = json.loads(raw_text)
     except json.JSONDecodeError as e:
         return ("invalid_json", [str(e)])
 
     try:
-        result = EvalResult.model_validate(parsed)
+        result = model.model_validate(parsed)
     except ValidationError as e:
         errors = e.errors()
         missing = [err["loc"][0] for err in errors if err["type"] == "missing"]
@@ -36,5 +36,6 @@ test_cases = {
     "both_at_once":    '{"risk_level": "extreme"}',   # missing summary AND bad risk_level
 }
 
-for name, raw in test_cases.items():
-    print(name, "->", validate_response(raw))
+if __name__ == "__main__":
+    for name, raw in test_cases.items():
+        print(name, "->", validate_response(raw, EvalResult))

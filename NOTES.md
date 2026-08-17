@@ -269,3 +269,73 @@ deliberately broken responses each produced a distinct, readable, correctly
 categorized error.
 
 **Raw file:** `day5_validate.py`
+
+---
+
+## Day 6 — Buffer/Rest Day (16 Aug 2026)
+
+Recharging yourself is necessary in order to achieve great things.
+
+---
+
+## Day 7 — zero-shot requirement → structured test case (17 Aug 2026)
+
+**Goal:** turn a plain-English requirement into a structured JSON test case via
+a zero-shot prompt, with the prompt stored in its own file rather than inlined.
+Output validated through a generalized version of Day 5's `validate_response`.
+
+**Build:** `Day7_zeroshot_testcase.py`, prompt externalized to
+`Day7_prompt_file/prompt_testcase_v1.txt`. `TestCase` Pydantic model (`title`,
+`description`, `preconditions`, `test_steps`, `expected_result`, `priority`)
+mirrored exactly against the prompt's required JSON fields — an earlier draft
+had the prompt and model disagree on field names/count, which would have
+failed every response regardless of model quality. `day5_validate.py`'s
+`validate_response` was generalized to take a `model: type[BaseModel]` param
+instead of a hardcoded `EvalResult`, so the same two-stage json.loads() →
+model_validate() pattern is now reusable across days. 10 real requirements
+written by hand (secrets/burn-after-read service — token generation, passcode
+validation, single-view enforcement, race condition on concurrent access) run
+through `call_OpenAI_json_mode` and validated against `TestCase`.
+
+**Result: consistent ~7/10 valid across repeated runs, but WHICH 3 fail
+changes between runs — always on the same field.** Every failure across
+multiple runs was `missing_field: ['priority']` — never a different field,
+never a wrong type, never invalid JSON. One run failed on
+`"Create secret note successfully"` and `"Wrong passcode denies access"`;
+a later run failed on those same two plus `"Brute-force protection / lockout"`
+instead of, say, dropping a different field. The instability is in *whether*
+`priority` gets included, not in *which* requirement triggers it and not in
+any other field.
+
+**Second finding, no validator would catch this:** every valid response
+across every run returned `priority='high'` — including requirements that
+shouldn't obviously all be equally critical (e.g. "reject empty message" vs.
+"race condition on concurrent access"). Schema validation passes cleanly on
+all of them; nothing about `priority='high'` looks structurally wrong to
+Pydantic. This is a judgment/laziness failure, not a shape failure — same
+category as Day 4's fabricated `estimated_fix_hours`, but inverted: instead
+of inventing a specific-looking wrong value, the model appears to default to
+the "safe" value regardless of actual content.
+
+**Why this matters going forward:** the `priority` drop is the same
+non-determinism/inconsistency pattern from Day 2 and Day 4, now confirmed on
+a third, unrelated task, and specifically isolated to one field rather than
+being random across the schema — worth checking later whether `priority`
+being the *last* field in both the prompt's field list and the Pydantic model
+is a factor (positional effects in structured generation are a known
+suspect). Reinforces that the harness's assertions (Week 2) and scorer
+(Week 4) need per-field reliability checks, not just "did it parse." The
+`priority='high'` uniformity is a new failure category worth carrying into
+Day 10-11's labeling: a test case can pass every hard assertion and still be
+low-quality, because assertions check shape, not judgment.
+
+**Side lesson — module-level code runs on import:** `day5_validate.py`'s
+self-test loop (4 hardcoded broken-JSON cases) was sitting at module level,
+not behind `if __name__ == "__main__":`. Every `from day5_validate import
+validate_response` — including in this file — silently re-ran and printed
+all four of Day 5's test cases before Day 7's real output. Harmless here
+since results were unaffected, but a good reminder to gate demo/test blocks
+behind `__main__` in every reusable file going forward, not just ones that
+happen to get imported.
+
+**Raw files:** `Day7_zeroshot_testcase.py`, `Day7_prompt_file/prompt_testcase_v1.txt`
