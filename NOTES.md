@@ -287,55 +287,67 @@ Output validated through a generalized version of Day 5's `validate_response`.
 **Build:** `Day7_zeroshot_testcase.py`, prompt externalized to
 `Day7_prompt_file/prompt_testcase_v1.txt`. `TestCase` Pydantic model (`title`,
 `description`, `preconditions`, `test_steps`, `expected_result`, `priority`)
-mirrored exactly against the prompt's required JSON fields — an earlier draft
-had the prompt and model disagree on field names/count, which would have
-failed every response regardless of model quality. `day5_validate.py`'s
+mirrored exactly against the prompt's required JSON fields. `day5_validate.py`'s
 `validate_response` was generalized to take a `model: type[BaseModel]` param
 instead of a hardcoded `EvalResult`, so the same two-stage json.loads() →
-model_validate() pattern is now reusable across days. 10 real requirements
-written by hand (secrets/burn-after-read service — token generation, passcode
-validation, single-view enforcement, race condition on concurrent access) run
-through `call_OpenAI_json_mode` and validated against `TestCase`.
+model_validate() pattern is reusable across days; its demo/test block was also
+moved behind `if __name__ == "__main__":` after discovering it silently
+re-ran and printed on every import (see side lesson below). 10 real
+requirements written by hand (secrets/burn-after-read service — token
+generation, passcode validation, single-view enforcement, race condition on
+concurrent access) run through `call_OpenAI_json_mode` and validated against
+`TestCase`, three separate runs.
 
-**Result: consistent ~7/10 valid across repeated runs, but WHICH 3 fail
-changes between runs — always on the same field.** Every failure across
-multiple runs was `missing_field: ['priority']` — never a different field,
-never a wrong type, never invalid JSON. One run failed on
-`"Create secret note successfully"` and `"Wrong passcode denies access"`;
-a later run failed on those same two plus `"Brute-force protection / lockout"`
-instead of, say, dropping a different field. The instability is in *whether*
-`priority` gets included, not in *which* requirement triggers it and not in
-any other field.
+**Result across 3 runs — failure rate and failure set both unstable, but not
+fully random:**
+
+| Run | Missing `priority` | Which requirements |
+|---|---|---|
+| 1 | 2/10 | Create secret note successfully; Wrong passcode denies access |
+| 2 | 3/10 | above two + Brute-force protection / lockout |
+| 3 | 2/10 | Wrong passcode denies access; Race condition: two recipients opening simultaneously |
+
+Every failure across all 3 runs was `missing_field: ['priority']` — never a
+different field, never a wrong type, never invalid JSON. **"Wrong passcode
+denies access" failed in all 3 runs**, the only requirement to do so
+consistently; every other failure was a one-off. That consistency on one
+specific item, against inconsistency everywhere else, suggests this isn't
+pure random noise — something about that requirement's phrasing, length, or
+position in the batch may correlate with the drop, worth investigating later
+rather than writing off as noise.
 
 **Second finding, no validator would catch this:** every valid response
-across every run returned `priority='high'` — including requirements that
+across all 3 runs returned `priority='high'` — including requirements that
 shouldn't obviously all be equally critical (e.g. "reject empty message" vs.
 "race condition on concurrent access"). Schema validation passes cleanly on
 all of them; nothing about `priority='high'` looks structurally wrong to
 Pydantic. This is a judgment/laziness failure, not a shape failure — same
 category as Day 4's fabricated `estimated_fix_hours`, but inverted: instead
 of inventing a specific-looking wrong value, the model appears to default to
-the "safe" value regardless of actual content.
+the "safe" value regardless of actual content, every time.
 
 **Why this matters going forward:** the `priority` drop is the same
 non-determinism/inconsistency pattern from Day 2 and Day 4, now confirmed on
 a third, unrelated task, and specifically isolated to one field rather than
-being random across the schema — worth checking later whether `priority`
-being the *last* field in both the prompt's field list and the Pydantic model
-is a factor (positional effects in structured generation are a known
-suspect). Reinforces that the harness's assertions (Week 2) and scorer
-(Week 4) need per-field reliability checks, not just "did it parse." The
-`priority='high'` uniformity is a new failure category worth carrying into
-Day 10-11's labeling: a test case can pass every hard assertion and still be
+spread randomly across the schema. `priority` being the *last* field in both
+the prompt's field list and the Pydantic model is a plausible suspect
+(positional effects in structured generation are a known failure mode) —
+worth testing later by reordering the schema. Reinforces that the harness's
+assertions (Week 2) and scorer (Week 4) need per-field reliability checks
+across repeated runs, not just "did it parse once." The `priority='high'`
+uniformity is a new failure category worth carrying into Day 10-11's
+labeling: a test case can pass every hard assertion and still be
 low-quality, because assertions check shape, not judgment.
 
 **Side lesson — module-level code runs on import:** `day5_validate.py`'s
 self-test loop (4 hardcoded broken-JSON cases) was sitting at module level,
 not behind `if __name__ == "__main__":`. Every `from day5_validate import
 validate_response` — including in this file — silently re-ran and printed
-all four of Day 5's test cases before Day 7's real output. Harmless here
-since results were unaffected, but a good reminder to gate demo/test blocks
-behind `__main__` in every reusable file going forward, not just ones that
-happen to get imported.
+all four of Day 5's test cases before Day 7's real output. Fixed by gating
+behind `__main__`. Good reminder to do this in every reusable file going
+forward, not just ones that happen to get imported.
+
+**Checkpoint met:** requirement in, parseable JSON out — confirmed
+repeatedly across 3 full runs of 10 requirements each.
 
 **Raw files:** `Day7_zeroshot_testcase.py`, `Day7_prompt_file/prompt_testcase_v1.txt`
