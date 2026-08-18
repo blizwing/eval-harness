@@ -1,0 +1,65 @@
+# Day 8 — 10 hand-written requirements from real FSM work, anonymized.
+# No client, company, or internal system names. Domain: Field Service
+# Management (FSM) application — task creation, scheduling, mobile
+# technician workflow, evidence capture, reassignment, and access control.
+
+requirements:
+  - id: req_01
+    text: >
+      A task will be created with a unique task ID for a specific customer
+      with the customer details like their name, phone number, location,
+      service details which will go for a set amount of time.
+
+  - id: req_02
+    text: >
+      A technician with the matching skills will be assigned the task and
+      they have to travel to the job site, complete the formalities,
+      complete the work required to close the job all within the specified
+      time.
+
+  - id: req_03
+    text: >
+      FSM Scheduling needs to assign the created task to a technician for a
+      specific time based on a number of parameters like the distance
+      between the technician and the job site, mode of transport the
+      technician uses to travel, the skillset of the technician required
+      for the task, time required for the task.
+
+  - id: req_04
+    text: >
+      The technician will reach the job site, get the customer's approval
+      on the work, do the required work while simultaneously capturing the
+      evidence of the work they do with the FSM mobile app.
+
+  - id: req_05
+    text: >
+      Once the task is completed the technician will get the customer's
+      signature for the work done document and start travelling to the
+      home base.
+
+  - id: req_06
+    text: >
+      FSM Scheduling needs to reassign the task in the scenario where the
+      originally assigned technician is not able to work on that task, can
+      be due to things like falling sick, being on leave, or getting
+      assigned some other work.
+
+  - id: req_07
+    text: >
+      The FSM web application needs to show the entire result of the task,
+      once the technician submits the data from their end on task
+      completion.
+
+  - id: req_08
+    text: >
+      The evidences should be visible without any error.
+
+  - id: req_09
+    text: >
+      The FSM web app should allow login to only the Dispatcher and the
+      Admin user.
+
+  - id: req_10
+    text: >
+      The FSM mobile app should allow login to only the mobile user
+      (technician).

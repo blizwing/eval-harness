@@ -351,3 +351,50 @@ forward, not just ones that happen to get imported.
 repeatedly across 3 full runs of 10 requirements each.
 
 **Raw files:** `Day7_zeroshot_testcase.py`, `Day7_prompt_file/prompt_testcase_v1.txt`
+
+---
+
+## Day 8 — 10 hand-written requirements from real FSM work (18 Aug 2026)
+
+**Goal:** write 10 requirements by hand from real Field Service Management
+(FSM) work, anonymized — no company, client, or internal system names — and
+store them as `requirements.yaml`, in a state a stranger could read.
+
+**Build:** `fsm_requirements.yaml`. 10 requirements covering the FSM domain
+end to end: task creation with customer details (`req_01`), technician
+skill-matched assignment and on-site completion within a time window
+(`req_02`), the scheduling engine's assignment parameters — distance, mode
+of transport, skillset, task duration (`req_03`), the mobile technician
+workflow of approval → work → evidence capture (`req_04`), signature
+capture and return-to-base (`req_05`), reassignment triggers when a
+technician can't work the task — sick, on leave, reassigned elsewhere
+(`req_06`), the web app surfacing completed task data (`req_07`), evidence
+visibility with no errors (`req_08`), and role-gated login for both the web
+app — Dispatcher/Admin only (`req_09`) — and the mobile app — technician
+only (`req_10`).
+
+No anonymization was actually load-bearing here — the requirements as
+drafted never named a company, client, or internal system, so "anonymize"
+mostly meant not introducing any while writing. The real editing pass was
+copyediting for consistency: normalizing capitalization ("FSM Web
+Application" → "FSM web application" throughout, matching `req_01`'s
+lowercase style) and fixing parallelism in `req_06`'s list ("falling sick,
+be on leave, gets assigned" → "falling sick, being on leave, or getting
+assigned").
+
+**Why this matters going forward:** this is the ground-truth input for Day
+9 (run Day 7's zero-shot prompt against all 10, save outputs) and Day 10
+(label each `good`/`bad`/`borderline`). Because these come from real FSM
+work rather than invented examples, they carry real-world irregularities —
+`req_08` is a one-line, almost under-specified requirement ("The evidences
+should be visible without any error") sitting next to much more detailed
+ones like `req_03` — which is exactly the kind of unevenness Week 2's
+labeling and assertion work needs to be tested against, not a curated set
+where every item is equally well-formed.
+
+**Checkpoint met:** 10 requirements exist in `fsm_requirements.yaml`,
+covering task creation, scheduling, mobile workflow, evidence capture,
+reassignment, and access control — none reference a real company, client,
+or internal system name.
+
+**Raw file:** `fsm_requirements.yaml`
