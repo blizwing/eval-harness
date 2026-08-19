@@ -1,7 +1,7 @@
 from typing import Literal
 from pydantic import BaseModel
 from Day4_json_mode import call_OpenAI_json_mode
-from day5_validate import validate_response
+from Day5_validate import validate_response
 
 
 class TestCase(BaseModel):
@@ -57,9 +57,10 @@ test_cases = {
     )
 }
 
-for name, requirement in test_cases.items():
-    with open("Day7_prompt_file/prompt_testcase_v1.txt", "r", encoding="utf-8") as f:
-        PROMPT = f.read()
-    raw_response = call_OpenAI_json_mode(PROMPT.format(requirement=requirement))
-    result = validate_response(raw_response.text, TestCase)
-    print(name, "->", result)
+if __name__ == "__main__":
+    for name, requirement in test_cases.items():
+        with open("Day7_prompt_file/prompt_testcase_v1.txt", "r", encoding="utf-8") as f:
+            PROMPT = f.read()
+        raw_response = call_OpenAI_json_mode(PROMPT.format(requirement=requirement))
+        result = validate_response(raw_response.text, TestCase)
+        print(name, "->", result)

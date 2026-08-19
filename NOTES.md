@@ -397,4 +397,65 @@ covering task creation, scheduling, mobile workflow, evidence capture,
 reassignment, and access control — none reference a real company, client,
 or internal system name.
 
-**Raw file:** `fsm_requirements.yaml`
+**Raw file:** `fsm_requirements.yaml` (moved to `Day8_Project_Requirements/`
+as part of Day 9's setup — see below)
+
+---
+
+## Day 9 — run Day 7's prompt against all 10 Day 8 requirements (19 Aug 2026)
+
+**Goal:** run Day 7's zero-shot test-case prompt against all 10 of Day 8's
+hand-written FSM requirements, and save every raw response plus its
+validation verdict to one place so they can be read and manually labeled
+in Day 10.
+
+**Build:** `Day9_run_outputs.py`. Moved `fsm_requirements.yaml` into its own
+`Day8_Project_Requirements/` folder rather than leaving it at repo root.
+Loads the 10 requirements via `yaml.safe_load` (added `pyyaml` to
+`requirements.txt`), runs each through `call_OpenAI_json_mode` with Day 7's
+prompt template, validates each response against Day 7's `TestCase` model
+via `validate_response`, and writes one combined JSON file —
+`Day9_Requirements_JSON_Outputs/Day9_outputs.json` — containing per-requirement
+id, requirement text, raw response text, verdict, failure detail (if any),
+parsed output (if valid), token counts, and model name, plus a
+`generated_at` timestamp and source file paths at the top level.
+
+**Interpreted per Pratham's choice:** the DONE WHEN bar as originally phrased
+("10 output files, plus a note of which are wrong") was interpreted as one
+combined JSON file holding all 10 results rather than 10 separate files —
+folder name kept plural/per-requirement in spirit, content consolidated.
+
+**Result — the Day 7 `priority`-drop pattern reproduced on entirely new
+requirements:** 9/10 valid, 1/10 (`req_07` — "the FSM web application needs
+to show the entire result of the task...") failed with the exact same
+`missing_field: ['priority']` verdict as every Day 7 failure. Every one of
+the 9 valid responses again returned `priority: "high"`, continuing Day 7's
+finding that the model defaults to `"high"` regardless of the requirement's
+actual content or apparent severity. Nothing new in kind — but confirms the
+pattern isn't specific to the Day 7 requirement set, and holds on a
+completely different (real-world, FSM-domain) set of inputs.
+
+**Side fix, not yet verified cross-platform:** while wiring this up, found
+`Day7_zeroshot_testcase.py` importing `from day5_validate import
+validate_response` (lowercase `d`) against a file tracked in git as
+`day5_validate.py`. Changed both `Day7_zeroshot_testcase.py` and
+`Day9_run_outputs.py` to import `Day5_validate` (capital `D`) — this only
+works silently on Windows because its filesystem is case-insensitive; the
+file is still tracked in git under the lowercase name, so this will break
+on a case-sensitive filesystem (Linux CI, GitHub Actions) until either the
+import or the tracked filename is made consistent. Flagged, not fixed, since
+it doesn't block local work.
+
+**Why this matters going forward:** two independent requirement sets now
+both show the same two failure modes (occasional `priority` omission,
+uniform `priority="high"` when present) — this is no longer a one-batch
+fluke and should be treated as a real property of the current prompt/model
+combination going into Day 10's labeling and Week 2's assertion design.
+The case-sensitivity import issue should be resolved before this project
+ever runs in CI or on a non-Windows machine.
+
+**Checkpoint met:** all 10 requirements run, one combined JSON file with
+verdict + raw response per requirement saved to
+`Day9_Requirements_JSON_Outputs/Day9_outputs.json`.
+
+**Raw files:** `Day9_run_outputs.py`, `Day9_Requirements_JSON_Outputs/Day9_outputs.json`
