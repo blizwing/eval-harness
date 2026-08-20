@@ -459,3 +459,58 @@ verdict + raw response per requirement saved to
 `Day9_Requirements_JSON_Outputs/Day9_outputs.json`.
 
 **Raw files:** `Day9_run_outputs.py`, `Day9_Requirements_JSON_Outputs/Day9_outputs.json`
+
+---
+
+## Day 10 — label all 10 Day 9 outputs good/bad/borderline (20 Aug 2026)
+
+**Goal:** read all 10 requirement → generated-test-case pairs from
+`Day9_outputs.json` and hand-label each `good`/`bad`/`borderline` with a
+one-line reason — this is the ground truth every later comparison (Day 12's
+judge, Day 14's judge-vs-human agreement, Day 19's precision/recall) gets
+measured against.
+
+**Build:** `Day10_Ground_Truth/Day10_labels.json`. Keyed by `req_id` to join
+cleanly against `Day9_outputs.json`. Each entry carries three fields:
+`label` (good/bad/borderline), `requirement_ambiguous` (bool), and `reason`
+(one line). The `requirement_ambiguous` field was added after an initial
+pass folded requirement-level ambiguity and output-quality judgment into
+the same `label` value — splitting them out keeps "the requirement itself
+was compound/vague" separate from "the model's output was wrong," since
+those are different failure sources and Week 2/3's assertion and rubric
+work need to be able to tell them apart.
+
+**Result:** 7/10 `good`, 2/10 `bad`, 1/10 `borderline`.
+`requirement_ambiguous: true` on exactly one entry, `req_02`, which bundles
+two distinct behaviors (skill-matched assignment *and* travel-to-completion
+within a time window) into a single requirement — the generated test case's
+steps followed that same conflation rather than resolving it, which is
+requirement-level ambiguity feeding directly into output quality.
+
+Both `bad` labels trace to concrete, specific failures rather than vague
+dissatisfaction: `req_01`'s test case didn't capture the duration input in
+expected format, and `req_07` is the same validator-confirmed
+`missing_field: priority` failure already logged in Day 9 — initially
+labeled `good` with the reasoning "content is fine despite the missing
+field," then corrected to `bad` on review, since the row's own
+`validation_verdict` was `invalid` with `parsed_output: null`. A ground
+truth label disagreeing with the harness's own assertion layer on the same
+row would have been a silent inconsistency baked into Day 12 and Day 14
+before it was ever noticed.
+
+**Why this matters going forward:** this is the first artifact in the
+project that is pure human judgment with no model involved in producing
+it — everything before this (Day 7's prompt, Day 9's outputs) was
+model-generated and then read; this is Pratham's own read, unassisted,
+and it's what the LLM-judge gets checked against starting Day 12. The
+`req_07` correction is worth remembering specifically: a label and its
+own reason can look internally consistent while still contradicting a
+fact already sitting in the source data (the validator's verdict) — worth
+a fast cross-check against `Day9_outputs.json`'s `validation_verdict`
+field before trusting any label as final, not just a read of the reason
+text in isolation.
+
+**Checkpoint met:** all 10 requirements labeled, `Day10_labels.json`
+committed as the ground-truth file for Phase 1's remaining weeks.
+
+**Raw file:** `Day10_Ground_Truth/Day10_labels.json`

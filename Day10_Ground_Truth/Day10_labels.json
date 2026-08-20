@@ -1,0 +1,16 @@
+{
+  "labeled_at": "",
+  "source_file": "Day9_Requirements_JSON_Outputs/Day9_outputs.json",
+  "labels": {
+    "req_01": {"label": "bad", "requirement_ambiguous": false, "reason": "The test case is correct and meets the requirements. But it failed to capture the duration input in the expected format."},
+    "req_02": {"label": "borderline", "requirement_ambiguous": true, "reason": "The requirement contains two distinct things, which itself can become two test cases. The Test Steps created are wrong."},
+    "req_03": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_04": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_05": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_06": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_07": {"label": "bad", "requirement_ambiguous": false, "reason": "the priority field is missing for the test case"},
+    "req_08": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_09": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."},
+    "req_10": {"label": "good", "requirement_ambiguous": false, "reason": "The requirements are correctly captured and turned into test case."}
+  }
+}
