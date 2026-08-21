@@ -514,3 +514,46 @@ text in isolation.
 committed as the ground-truth file for Phase 1's remaining weeks.
 
 **Raw file:** `Day10_Ground_Truth/Day10_labels.json`
+
+---
+
+### Day 11 — Thu 21 Aug 2026 — four hard assertions on Day 9's outputs
+
+**Goal:** run four deterministic checks — valid JSON, all fields present,
+non-empty, under a token cap — against all 10 of Day 9's generated test
+cases, producing a 10×4 pass/fail table.
+
+**Build:** `Day11_assertions.py`. Two of the four checks aren't new logic —
+`valid_json` and `fields_present` both read Day 9's existing
+`validation_verdict`/`validation_detail` (computed by `Day5_validate.py`
+during the Day 9 run) rather than re-parsing `raw_response_text` from
+scratch. Re-deriving JSON/field-presence logic in a second place would
+create two validators that could quietly drift apart over time. The two
+genuinely new checks are `non_empty` (Pydantic enforces a field exists and
+has the right type, but an empty string or empty list still satisfies
+`str`/`list` — so blank output was slipping through unnoticed) and
+`under_token_cap` (nothing before today checked generation length at all).
+
+**Token cap:** 583, calculated as 2× the median `output_tokens` across all
+10 Day 9 rows — including `req_07`, despite it failing validation, since it
+still cost tokens to generate and belongs in the "what does normal
+generation cost look like" baseline. This is a length-anomaly guardrail,
+not a hard cost ceiling: it exists to catch a run that unexpectedly
+balloons (rambling, repetition, disproportionate elaboration for a simple
+requirement), not to police every run against a fixed budget. All 10 rows
+pass today (max was 377) — the cap has nothing to catch yet on this small,
+consistent dataset. Revisit once Week 3's expanded 30-requirement set
+(with adversarial cases) gives it something real to flag.
+
+**Result:** 38/40 checks passed. `req_07` fails `fields_present` and
+`non_empty` — consistent with Day 9's `missing_field: priority` verdict and
+Day 10's ground-truth `bad` label on the same row. `non_empty` returns
+`False` for `req_07` via an explicit `parsed_output is None` guard rather
+than falling through an empty loop to a vacuous `True` — a row with no
+parsed output at all has no fields to be non-empty, so "nothing to check,
+therefore pass" would have been the wrong default.
+
+**Checkpoint met:** 10×4 table produced, saved to
+`Day11_Assertion_Results/Day11_results.json`.
+
+**Raw file:** `Day11_assertions.py`, `Day11_Assertion_Results/Day11_results.json`

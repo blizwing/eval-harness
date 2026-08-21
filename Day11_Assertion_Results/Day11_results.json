@@ -1,0 +1,85 @@
+{
+  "token_cap": 583,
+  "results": [
+    {
+      "id": "req_01",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 257
+    },
+    {
+      "id": "req_02",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 282
+    },
+    {
+      "id": "req_03",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 308
+    },
+    {
+      "id": "req_04",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 301
+    },
+    {
+      "id": "req_05",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 278
+    },
+    {
+      "id": "req_06",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 377
+    },
+    {
+      "id": "req_07",
+      "valid_json": true,
+      "fields_present": false,
+      "non_empty": false,
+      "under_token_cap": true,
+      "output_tokens": 304
+    },
+    {
+      "id": "req_08",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 192
+    },
+    {
+      "id": "req_09",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 313
+    },
+    {
+      "id": "req_10",
+      "valid_json": true,
+      "fields_present": true,
+      "non_empty": true,
+      "under_token_cap": true,
+      "output_tokens": 277
+    }
+  ]
+}
