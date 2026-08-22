@@ -1,0 +1,361 @@
+{
+  "generated_at": "2026-08-22T15:43:19.715892+00:00",
+  "source_day9_file": "Day9_Requirements_JSON_Outputs/Day9_outputs.json",
+  "judge_prompt_file": "Day12_Judge_LLM_Data/judge_llm_prompt.txt",
+  "count": 10,
+  "results": [
+    {
+      "id": "req_01",
+      "requirement_text": "A task will be created with a unique task ID for a specific customer with the customer details like their name, phone number, location, service details which will go for a set amount of time.",
+      "generated_test_case": {
+        "title": "Create task with unique ID and customer details",
+        "description": "Verify that a new task is created with a unique task ID and includes the customer's name, phone number, location, and service details, and that the task has a specified duration.",
+        "preconditions": [
+          "The system is available and the user has permission to create tasks.",
+          "A customer record exists with name, phone number, and location."
+        ],
+        "test_steps": [
+          "Initiate the task creation process.",
+          "Enter the customer's name, phone number, location, and service details.",
+          "Set the duration for the task.",
+          "Submit the task creation request.",
+          "Retrieve the created task using the returned task ID."
+        ],
+        "expected_result": "The system creates a task with a unique task ID. The task contains the entered customer details (name, phone number, location, service details) and the specified duration. The task ID is unique and can be used to retrieve the task. Note: The exact format of the task ID and the method of uniqueness are not specified in the requirement, so the test verifies that the ID is unique among existing tasks.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly tests the creation of a task with unique ID and customer details, and provides concrete steps and preconditions.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests the creation of a task with unique ID and customer details, and provides concrete steps and preconditions."
+      },
+      "input_tokens": 526,
+      "output_tokens": 68,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_02",
+      "requirement_text": "A technician with the matching skills will be assigned the task and they have to travel to the job site, complete the formalities, complete the work required to close the job all within the specified time.",
+      "generated_test_case": {
+        "title": "Verify technician assignment and job completion within specified time",
+        "description": "This test case verifies that a technician with the required skills is assigned to a task, travels to the job site, completes formalities, and finishes the work within the specified time frame.",
+        "preconditions": [
+          "A job task exists with required skills and a specified time limit.",
+          "At least one technician with the matching skills is available.",
+          "The system is operational and can assign tasks."
+        ],
+        "test_steps": [
+          "Create a job task with required skills and a specified time limit.",
+          "Trigger the assignment process.",
+          "Verify that a technician with the matching skills is assigned.",
+          "Simulate the technician traveling to the job site.",
+          "Simulate the technician completing the formalities.",
+          "Simulate the technician completing the work required to close the job.",
+          "Check that the job is closed within the specified time."
+        ],
+        "expected_result": "The system assigns a technician with the matching skills, and the job is completed (including travel, formalities, and work) within the specified time. If the requirement is ambiguous regarding the exact time tracking or what constitutes 'specified time', the test should verify that the job is closed within the time limit as defined by the system.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\n  \"field_completeness\": \"pass\",\n  \"requirement_coverage\": \"pass\",\n  \"specificity\": \"fail\",\n  \"verdict\": \"borderline\",\n  \"reasoning\": \"The test case covers the requirement but lacks concrete details for simulating travel and formalities, making steps vague.\"\n}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verdict": "borderline",
+        "reasoning": "The test case covers the requirement but lacks concrete details for simulating travel and formalities, making steps vague."
+      },
+      "input_tokens": 552,
+      "output_tokens": 66,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_03",
+      "requirement_text": "FSM Scheduling needs to assign the created task to a technician for a specific time based on a number of parameters like the distance between the technician and the job site, mode of transport the technician uses to travel, the skillset of the technician required for the task, time required for the task.",
+      "generated_test_case": {
+        "title": "Verify FSM Scheduling assigns task to technician based on parameters",
+        "description": "This test verifies that the FSM Scheduling system correctly assigns a created task to a technician for a specific time, considering distance, transport mode, skillset, and task duration.",
+        "preconditions": [
+          "System is available and user has permission to create tasks",
+          "At least one technician exists with defined skillset, transport mode, and location",
+          "At least one job site location is defined",
+          "Task creation interface is accessible"
+        ],
+        "test_steps": [
+          "Create a new task with required skillset, estimated duration, and job site location",
+          "Submit the task for scheduling",
+          "Observe the system's scheduling output",
+          "Verify that the assigned technician has the required skillset",
+          "Verify that the scheduled time is feasible considering the technician's transport mode and distance to the job site",
+          "Verify that the scheduled time accounts for the task duration"
+        ],
+        "expected_result": "The system assigns the task to a technician who has the required skillset, and the scheduled time is consistent with the technician's travel time (based on distance and transport mode) and the task duration. If no suitable technician is available, the system should indicate that scheduling is not possible. Note: The exact algorithm for balancing parameters is not specified, so the test verifies that all parameters are considered in the assignment.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly tests the scheduling based on the specified parameters, and provides concrete preconditions and steps.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests the scheduling based on the specified parameters, and provides concrete preconditions and steps."
+      },
+      "input_tokens": 597,
+      "output_tokens": 64,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_04",
+      "requirement_text": "The technician will reach the job site, get the customer's approval on the work, do the required work while simultaneously capturing the evidence of the work they do with the FSM mobile app.",
+      "generated_test_case": {
+        "title": "Verify technician captures work evidence via FSM mobile app",
+        "description": "This test case verifies that a technician can reach the job site, obtain customer approval, perform the required work, and simultaneously capture evidence of the work using the FSM mobile app.",
+        "preconditions": [
+          "Technician is logged into the FSM mobile app",
+          "Technician has an assigned job with a customer and required work details",
+          "Technician has reached the job site"
+        ],
+        "test_steps": [
+          "Open the FSM mobile app and navigate to the assigned job",
+          "Confirm arrival at the job site",
+          "Obtain customer's approval on the work to be performed",
+          "Record the customer's approval in the app (e.g., via signature or checkbox)",
+          "Begin performing the required work",
+          "While performing the work, use the FSM mobile app to capture evidence (e.g., take photos, record notes, or log activities)",
+          "Complete the work and ensure all evidence is saved and associated with the job"
+        ],
+        "expected_result": "The technician can successfully reach the job site, obtain and record customer approval, perform the work, and capture evidence simultaneously. All evidence is saved and linked to the job in the FSM mobile app. If any step is ambiguous or missing details, the test should be adjusted based on actual app behavior.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly covers the requirement's actions, and provides concrete steps and preconditions.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly covers the requirement's actions, and provides concrete steps and preconditions."
+      },
+      "input_tokens": 569,
+      "output_tokens": 61,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_05",
+      "requirement_text": "Once the task is completed the technician will get the customer's signature for the work done document and start travelling to the home base.",
+      "generated_test_case": {
+        "title": "Verify technician obtains customer signature and returns to home base after task completion",
+        "description": "This test case verifies that after a technician completes a task, they obtain the customer's signature on the work done document and then begin traveling to the home base.",
+        "preconditions": [
+          "Technician is logged into the system",
+          "A task has been assigned to the technician and is in progress",
+          "The task is completed and ready for customer signature"
+        ],
+        "test_steps": [
+          "Complete the task in the system",
+          "Attempt to obtain the customer's signature on the work done document",
+          "Confirm that the signature is captured successfully",
+          "Initiate the action to start traveling to the home base",
+          "Verify that the system records the technician's status as traveling to home base"
+        ],
+        "expected_result": "The system should allow the technician to capture the customer's signature on the work done document after task completion. Once the signature is obtained, the technician should be able to start traveling to the home base, and the system should update the technician's status accordingly. Note: The requirement does not specify the exact method of signature capture or the system's behavior if the signature is not obtained, so the test assumes a standard digital signature capture process.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly tests the requirement's actions, and provides concrete preconditions and steps.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests the requirement's actions, and provides concrete preconditions and steps."
+      },
+      "input_tokens": 534,
+      "output_tokens": 61,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_06",
+      "requirement_text": "FSM Scheduling needs to reassign the task in the scenario where the originally assigned technician is not able to work on that task, can be due to things like falling sick, being on leave, or getting assigned some other work.",
+      "generated_test_case": {
+        "title": "Verify task reassignment when originally assigned technician is unavailable",
+        "description": "This test verifies that the FSM Scheduling system correctly reassigns a task when the originally assigned technician becomes unavailable due to reasons such as sickness, leave, or being assigned other work. The test ensures that the system identifies the unavailability and reassigns the task to an available technician.",
+        "preconditions": [
+          "There is at least one task in the system that is assigned to a technician.",
+          "There is at least one other technician available to take the task.",
+          "The system has a mechanism to mark a technician as unavailable (e.g., sick, on leave, or assigned other work)."
+        ],
+        "test_steps": [
+          "Log in to the FSM Scheduling system with appropriate permissions.",
+          "Create a task and assign it to a specific technician (Technician A).",
+          "Mark Technician A as unavailable (e.g., set status to 'Sick' or 'On Leave').",
+          "Trigger the scheduling process or wait for the system to detect the unavailability.",
+          "Observe the task assignment status and the technician assigned to the task.",
+          "Verify that the task has been reassigned to an available technician (Technician B)."
+        ],
+        "expected_result": "The system should detect that Technician A is unavailable and automatically reassign the task to an available technician. The task should no longer be assigned to Technician A, and the new assignment should be reflected in the system. If the system does not automatically reassign, the test fails. Note: The exact reassignment logic (e.g., whether it is immediate or requires manual approval) is not specified in the requirement, so the test verifies that reassignment occurs in some form.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly addresses the reassignment scenario, and provides concrete steps and preconditions.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly addresses the reassignment scenario, and provides concrete steps and preconditions."
+      },
+      "input_tokens": 653,
+      "output_tokens": 61,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_07",
+      "requirement_text": "The FSM web application needs to show the entire result of the task, once the technician submits the data from their end on task completion.",
+      "generated_test_case": null,
+      "day9_validation_verdict": "invalid",
+      "judge_raw_response_text": "{\"field_completeness\": \"fail\", \"requirement_coverage\": \"fail\", \"specificity\": \"fail\", \"verdict\": \"bad\", \"reasoning\": \"No test case was produced, so it lacks all required fields and does not address the requirement.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verdict": "bad",
+        "reasoning": "No test case was produced, so it lacks all required fields and does not address the requirement."
+      },
+      "input_tokens": 275,
+      "output_tokens": 57,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_08",
+      "requirement_text": "The evidences should be visible without any error.",
+      "generated_test_case": {
+        "title": "Verify evidences are visible without errors",
+        "description": "This test case verifies that all evidences are displayed to the user without any errors, ensuring the system renders them correctly.",
+        "preconditions": [
+          "The system is accessible and the user is logged in.",
+          "There are evidences available in the system to display."
+        ],
+        "test_steps": [
+          "Navigate to the page or section where evidences are displayed.",
+          "Observe the evidences on the page.",
+          "Check for any error messages or indicators (e.g., error pop-ups, console errors, broken images)."
+        ],
+        "expected_result": "All evidences are visible without any error messages or indicators. The page loads successfully and evidences are rendered correctly. If the requirement is ambiguous regarding the specific type of evidences or the context, the test verifies that no errors occur during display.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly tests visibility without errors, and provides concrete steps and expected results.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests visibility without errors, and provides concrete steps and expected results."
+      },
+      "input_tokens": 431,
+      "output_tokens": 60,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_09",
+      "requirement_text": "The FSM web app should allow login to only the Dispatcher and the Admin user.",
+      "generated_test_case": {
+        "title": "Verify login restricted to Dispatcher and Admin users",
+        "description": "This test verifies that the FSM web application permits login only for users with the roles 'Dispatcher' or 'Admin'. It checks that valid credentials for these roles are accepted, while credentials for any other role are rejected.",
+        "preconditions": [
+          "The FSM web application is deployed and accessible.",
+          "Test user accounts exist for Dispatcher, Admin, and a non-authorized role (e.g., Operator).",
+          "The login page is displayed."
+        ],
+        "test_steps": [
+          "Attempt to log in with valid Dispatcher credentials.",
+          "Verify that login is successful and the user is redirected to the appropriate dashboard.",
+          "Log out.",
+          "Attempt to log in with valid Admin credentials.",
+          "Verify that login is successful and the user is redirected to the appropriate dashboard.",
+          "Log out.",
+          "Attempt to log in with valid credentials for a user with a role other than Dispatcher or Admin (e.g., Operator).",
+          "Verify that login is denied and an appropriate error message is displayed."
+        ],
+        "expected_result": "Login with Dispatcher and Admin credentials succeeds, granting access to the application. Login with credentials for any other role fails with an error message indicating unauthorized access. Note: The exact error message and dashboard redirection may vary based on implementation; the test should confirm that access is granted only to the specified roles.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\n  \"field_completeness\": \"pass\",\n  \"requirement_coverage\": \"pass\",\n  \"specificity\": \"pass\",\n  \"verdict\": \"good\",\n  \"reasoning\": \"The test case includes all required fields, directly tests the login restriction to Dispatcher and Admin roles, and provides concrete steps and preconditions.\"\n}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests the login restriction to Dispatcher and Admin roles, and provides concrete steps and preconditions."
+      },
+      "input_tokens": 561,
+      "output_tokens": 72,
+      "model_name": "deepseek-v4-flash"
+    },
+    {
+      "id": "req_10",
+      "requirement_text": "The FSM mobile app should allow login to only the mobile user (technician).",
+      "generated_test_case": {
+        "title": "Verify mobile app login restricted to technician role",
+        "description": "This test case verifies that the FSM mobile app permits login only for users with the technician role, and denies access to users with other roles or invalid credentials.",
+        "preconditions": [
+          "The FSM mobile app is installed and launched.",
+          "A technician user account exists with valid credentials.",
+          "A non-technician user account (e.g., admin, dispatcher) exists with valid credentials.",
+          "The app is connected to the backend server."
+        ],
+        "test_steps": [
+          "Open the FSM mobile app.",
+          "Enter valid credentials for the technician user.",
+          "Tap the login button.",
+          "Observe the app's response.",
+          "Log out if login is successful.",
+          "Enter valid credentials for the non-technician user.",
+          "Tap the login button.",
+          "Observe the app's response."
+        ],
+        "expected_result": "The technician user should be able to log in successfully and access the app's main interface. The non-technician user should be denied login with an appropriate error message indicating insufficient privileges. If the requirement is ambiguous about the exact behavior for non-technician users, the test should verify that they cannot access the app's main functionality.",
+        "priority": "high"
+      },
+      "day9_validation_verdict": "valid",
+      "judge_raw_response_text": "{\"field_completeness\": \"pass\", \"requirement_coverage\": \"pass\", \"specificity\": \"pass\", \"verdict\": \"good\", \"reasoning\": \"The test case includes all required fields, directly tests the technician-only login requirement, and provides concrete preconditions and steps.\"}",
+      "judge_validation_verdict": "valid",
+      "judge_validation_detail": null,
+      "judge_output": {
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verdict": "good",
+        "reasoning": "The test case includes all required fields, directly tests the technician-only login requirement, and provides concrete preconditions and steps."
+      },
+      "input_tokens": 524,
+      "output_tokens": 62,
+      "model_name": "deepseek-v4-flash"
+    }
+  ]
+}

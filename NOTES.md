@@ -557,3 +557,77 @@ therefore pass" would have been the wrong default.
 `Day11_Assertion_Results/Day11_results.json`.
 
 **Raw file:** `Day11_assertions.py`, `Day11_Assertion_Results/Day11_results.json`
+
+---
+
+### Day 12 — Sat 22 Aug 2026 — `/advanced-learn` Session 2: LLM-as-a-judge
+
+**Goal:** build a model-graded judge, run it on all 10 of Day 9's generated
+test cases, and produce 10 judge verdicts to sit alongside Day 10's human
+ground-truth labels.
+
+**Build:** `Day12_LLM_Judge.py` + `Day12_Judge_LLM_Data/judge_llm_prompt.txt`.
+The judge prompt scores each generated test case against three named,
+independent criteria rather than a single vague "is this good?" question:
+**field completeness** (are required fields present and non-empty),
+**requirement coverage** (does the test case test what the requirement
+actually describes), and **specificity** (are steps and preconditions
+concrete enough to execute). Field completeness and requirement coverage
+are treated as load-bearing — a fail on either forces the verdict to `bad`,
+since a test case missing fields or testing the wrong thing is unusable
+regardless of how well-written it is. Specificity failing alone drops the
+verdict to `borderline` rather than `bad`, since vague steps are a quality
+problem, not a correctness problem — the requirement itself is sometimes
+underspecified, so a certain amount of vagueness in preconditions/steps is
+inherited from the source, not invented by the model. All three passing is
+what produces a `good` verdict. The runner reuses Day 3's
+`call_OpenAI_json_mode` and Day 5's `validate_response` exactly as Day 9
+did, so judge output goes through the same validation path as generation
+output.
+
+**`req_07` handling:** Day 9's `parsed_output` was `None` for this row
+(failed Day 5 validation, missing `priority`). Rather than formatting the
+literal string `None` into the judge prompt — which would read as a
+plausible-if-odd field value — the runner substitutes an explicit marker
+sentence stating no valid output was produced. The judge correctly read
+this as an absence signal and failed all three criteria, landing on `bad`
+with reasoning that named the missing output directly. This is the one row
+with independently known ground truth (Day 10 also labeled it `bad`), and
+the judge matched it for the right reason, not by chance.
+
+**Result:** 8 `good`, 1 `borderline` (`req_02`), 1 `bad` (`req_07`) —
+against Day 10's 7 `good`, 2 `bad`, 1 `borderline`. Two points of note:
+
+- `req_02` — both the judge and Day 10's human label flagged this row as
+  imperfect, but via different diagnostic paths. Day 10 called out
+  requirement-level ambiguity (the requirement bundles two distinct
+  behaviors — skill-matched assignment and travel-to-completion — into one
+  sentence). The judge didn't name that ambiguity directly; it failed
+  `specificity` for vague simulation steps in the generated test case.
+  Different reasoning, same row flagged — worth noting as partial
+  agreement, not full agreement, in Day 14's comparison.
+- `req_01` — the one real disagreement. Day 10 labeled this `bad` because
+  the test case never verifies the *duration is captured in the correct
+  format*, only that a duration step exists. The judge marked it `good`
+  (`specificity: pass`), and on inspection this isn't the judge reasoning
+  poorly — the generated test case does structurally satisfy all three
+  current criteria (fields present, duration step included,
+  concrete-looking steps). The rubric has no criterion asking whether the
+  expected result *actually verifies* the specific behavior the
+  requirement calls out, versus merely touching the general area. This is
+  a rubric gap, not a judge-reasoning failure, and it's the concrete
+  example to carry into Day 14 and Week 3's rubric revision.
+
+**Self-preference bias (flagged, not yet measured):** using the same model
+(DeepSeek) as both generator and judge means the judge may be predisposed
+to rate its own family's output favorably — a documented effect, not a
+theoretical worry. Today's 10-row run is too small and too lopsided (8/10
+good) to confirm or rule this out. Revisit once Week 3 expands to 30
+requirements with adversarial cases, where a skewed judge would have more
+opportunity to be caught out.
+
+**Checkpoint met:** 10 judge verdicts saved, sitting alongside
+`Day10_labels.json`.
+
+**Raw file:** `Day12_LLM_Judge.py`, `Day12_Judge_LLM_Data/judge_llm_prompt.txt`,
+`Day12_Judge_LLM_Data/Day12_judge_llm_verdicts.json`
