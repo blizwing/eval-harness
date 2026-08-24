@@ -639,3 +639,31 @@ opportunity to be caught out.
 Recharging yourself is necessary in order to achieve great things.
 
 ---
+
+## Day 14 — Judge vs. Human Comparison (Mon 24 Aug 2026)
+
+Compared Day 12's judge verdicts against Day 10's human ground truth labels
+across all 10 requirements. Confusion matrix + disagreement log in
+`Day14_comparisions.md`.
+
+**Agreement: 9/10 = 90%.** One disagreement: `req_01` (human: bad, judge: good).
+
+The `req_01` miss traces to a duration-format gap in the generated test case
+that was never flagged. Splitting this into two separate questions mattered:
+was the judge's *verdict* correct, and was the judge's *reasoning process*
+correct. They're not the same thing. Here, the verdict was wrong — the test
+case really is incomplete — but the process wasn't at fault. Given its rubric
+and the artifact it was shown, the judge scored consistently. The gap is in
+what the judge was given to grade against, not in how it graded it. Same
+category of fix Week 3 is already aimed at with the priority-field grounding
+experiment, just for field-completeness/formatting instead.
+
+At n=1 disagreement, too little data to call this a pattern — revisit once
+the dataset expands to 30 in Week 3 (Day 17).
+
+Net effect on trust going into Week 3: not fully trusting the judge yet.
+Internally consistent reasoning still produced a wrong final verdict, and
+that's the more dangerous failure mode — a judge that's confidently wrong
+doesn't announce itself the way a broken one does. Going into the rubric
+rework still owed proof rather than assuming the grounding-criteria fix will
+just work.
