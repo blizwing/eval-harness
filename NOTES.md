@@ -631,3 +631,11 @@ opportunity to be caught out.
 
 **Raw file:** `Day12_LLM_Judge.py`, `Day12_Judge_LLM_Data/judge_llm_prompt.txt`,
 `Day12_Judge_LLM_Data/Day12_judge_llm_verdicts.json`
+
+---
+
+## Day 13 — Buffer/Rest Day (23 Aug 2026)
+
+Recharging yourself is necessary in order to achieve great things.
+
+---
