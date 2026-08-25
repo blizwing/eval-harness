@@ -667,3 +667,19 @@ that's the more dangerous failure mode â€” a judge that's confidently wrong
 doesn't announce itself the way a broken one does. Going into the rubric
 rework still owed proof rather than assuming the grounding-criteria fix will
 just work.
+## Day 15 — Judge v2: Named-Criteria Rubric (Tue 25 Aug 2026)
+
+v1 copied as-is to Day15_Judge_Rubric_V2/judge_v1.txt. v2 adds two criteria
+targeting the req_01 gap from Day 14: verification_fidelity (does the expected
+result check the exact detail/format the requirement names) and pass_fail_clarity
+(does the test case state an unambiguous pass/fail condition). Both added to the
+output JSON; tiering extended - completeness, coverage, and verification_fidelity
+are hard-fail; specificity and pass_fail_clarity are soft-fail (borderline).
+
+An earlier draft of these two criteria asked the judge to grade whether the
+*requirement* was ambiguous, not the test case. Dropped that framing - it's a
+different job (already parked in BACKLOG.md) and wouldn't have caught req_01,
+since that requirement wasn't ambiguous, it was under-tested. Retargeted both
+criteria at the test case's fidelity to the requirement instead.
+
+Not yet run - Day 16 recomputes agreement on all 10 using v2.
