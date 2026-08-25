@@ -7,6 +7,9 @@ plan moving from AI Quality into agentic GenAI engineering.
 **Status:** Week 1, Day 3 of Phase 1 (see [NOTES.md](NOTES.md) for the
 day-by-day build log).
 
+**Backlog:** see [BACKLOG.md](BACKLOG.md) for deferred ideas awaiting a
+revisit trigger.
+
 ---
 
 ## What this proves
