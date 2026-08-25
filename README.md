@@ -10,6 +10,8 @@ day-by-day build log).
 **Backlog:** see [BACKLOG.md](BACKLOG.md) for deferred ideas awaiting a
 revisit trigger.
 
+**Project context for agents:** see [CLAUDE.md](CLAUDE.md).
+
 ---
 
 ## What this proves
