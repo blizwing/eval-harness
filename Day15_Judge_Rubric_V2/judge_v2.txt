@@ -1,0 +1,15 @@
+You are evaluating a generated software test case against the original requirement.
+
+Requirement: {requirement_text}
+Generated test case: {test_case_json}
+######
+Score against these criteria independently, then give an overall verdict:
+1. Field completeness: are all required fields present and non-empty?
+2. Requirement coverage: does the test case actually test what the requirement describes, not a related-but-different behavior?
+3. Specificity: are preconditions and steps concrete enough to execute, not vague placeholders?
+4. Verification fidelity: does the expected result actually check the specific detail the requirement names (exact value, format, range, or state), or does it only confirm a related-but-broader outcome?
+5. Pass/fail clarity: does the test case's own expected result state an unambiguous condition for pass vs. fail, rather than a vague outcome?
+
+Field completeness, requirement coverage, and verification fidelity are hard requirements — if any of them fail, the verdict is "bad". If specificity and/or pass/fail clarity fail but the three hard requirements all pass, the verdict is "borderline". If all five pass, the verdict is "good".
+
+Output JSON: {{"field_completeness": "pass"|"fail", "requirement_coverage": "pass"|"fail", "specificity": "pass"|"fail", "verification_fidelity": "pass"|"fail", "pass_fail_clarity": "pass"|"fail", "verdict": "good"|"bad"|"borderline", "reasoning": "<one sentence>"}}

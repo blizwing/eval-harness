@@ -5,6 +5,6 @@
 .env
 
 # Python Cache
-*/pyc
+*.pyc
 __pycache__/
 
