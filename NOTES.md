@@ -667,7 +667,7 @@ that's the more dangerous failure mode — a judge that's confidently wrong
 doesn't announce itself the way a broken one does. Going into the rubric
 rework still owed proof rather than assuming the grounding-criteria fix will
 just work.
-## Day 15 � Judge v2: Named-Criteria Rubric (Tue 25 Aug 2026)
+## Day 15 � Judge v2: Named-Criteria Rubric (Tue 25 Aug 2026)
 
 v1 copied as-is to Day15_Judge_Rubric_V2/judge_v1.txt. v2 adds two criteria
 targeting the req_01 gap from Day 14: verification_fidelity (does the expected
@@ -683,3 +683,49 @@ since that requirement wasn't ambiguous, it was under-tested. Retargeted both
 criteria at the test case's fidelity to the requirement instead.
 
 Not yet run - Day 16 recomputes agreement on all 10 using v2.
+
+---
+
+## Day 16 — Judge v2 run and agreement recompute (Wed 26 Aug 2026)
+
+**Goal:** run Day 15's v2 rubric (`judge_v2.txt`) against all 10 of Day 9's
+generated test cases and recompute agreement against Day 10's human labels.
+
+**Build:** `Day16_judge_v2_run.py`, same structure as `Day12_LLM_Judge.py`
+(same Day 9 source, same `call_OpenAI_json_mode` + `validate_response`
+pattern), pointed at `Day15_Judge_Rubric_V2/judge_v2.txt` instead of Day 12's
+prompt, with `JudgeVerdictV2` extending the Pydantic model to the two new
+fields (`verification_fidelity`, `pass_fail_clarity`). Verdicts saved to
+`Day16_Judge_V2_Results/Day16_judge_v2_verdicts.json`. Comparison written to
+`Day16_agreement_comparison.md`.
+
+**Result: agreement regressed, 9/10 (90%, Day 14) -> 8/10 (80%).** Two
+disagreements against Day 10's human labels: `req_01` and `req_02`.
+
+- `req_01` — the exact row v2 was built to fix — still disagrees. The judge
+  passed `verification_fidelity` even though the test case's expected
+  result only confirms duration is *present*, never checks its *format*,
+  which is precisely the human label's complaint. The criterion asks the
+  right question in principle; the judge's application of it here still
+  credited presence-of-detail over correctness-of-format.
+- `req_02` — a **new** disagreement. Under v1 the judge scored this
+  `borderline` (failed `specificity`) and agreed with the human label; under
+  v2, `specificity` flipped to `pass` on the same underlying test case and
+  the verdict became `good`. No wording in v2 obviously targets
+  `specificity` itself, so this looks more like the run-to-run judgment
+  instability already documented since Day 4/Day 7 than a real effect of
+  the new criteria — but this was a single uncontrolled run per rubric
+  version, so that can't be confirmed from this data alone.
+
+**Why this matters going forward:** the rubric rework did not deliver the
+fix it targeted, and cost a previously-correct call elsewhere. Before
+concluding v2 is actually worse, need repeated runs per row (not one verdict
+each) or the larger 30-requirement Week 3 set to separate real rubric effect
+from single-run noise — both already planned, not new work.
+
+**Checkpoint met:** both agreement numbers stated — v1 90%, v2 80% —
+computed from a real run, not assumed.
+
+**Raw files:** `Day16_judge_v2_run.py`,
+`Day16_Judge_V2_Results/Day16_judge_v2_verdicts.json`,
+`Day16_agreement_comparison.md`
