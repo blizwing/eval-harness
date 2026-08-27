@@ -63,3 +63,159 @@ requirements:
     text: >
       The FSM mobile app should allow login to only the mobile user
       (technician).
+
+# Day 17 — 25 new requirements (req_11–req_35) to append under the existing
+# `requirements:` list in Day8_Project_Requirements/fsm_requirements.yaml.
+# Covers two new feature areas: Workforce Management Service (Timesheets,
+# Skills, Licenses) and External Systems Integration (EIPS provisioning).
+# Adversarial tags for req_24, req_25, req_33, req_34, req_35 live separately
+# in Day17_adversarial_flags.json — this file stays id/text only, matching
+# Day 8's schema.
+
+  - id: req_11
+    text: >
+      The FSM Mobile App will have a new Timesheets module allowing
+      Technicians to log full-day leave requests for a specific date,
+      subject to approval from the Resource Planner.
+
+  - id: req_12
+    text: >
+      Technicians will be able to log Lunch Breaks and Downtime in the
+      Timesheets module by specifying the required hours or minutes.
+
+  - id: req_13
+    text: >
+      The Timesheets module will respect the Technician's time zone.
+      Although the server runs in UTC, Technicians in different time zones
+      will not experience DST or time zone issues, such as times being
+      shifted one hour ahead or behind.
+
+  - id: req_14
+    text: >
+      The Resource Planner will be able to access the Timesheets module
+      from the FSM Web App and view leave requests submitted by
+      Technicians.
+
+  - id: req_15
+    text: >
+      The Resource Planner will be able to approve or reject leave
+      requests. When rejecting a request, the Resource Planner must
+      provide a reason.
+
+  - id: req_16
+    text: >
+      Once the Resource Planner approves a leave request, the approved
+      leave will be reflected in the Capacity Management section of the
+      FSM Web App.
+
+  - id: req_17
+    text: >
+      Lunch Breaks and Downtime logged by the Technician will also be
+      reflected in Capacity Management with their respective hours or
+      minutes.
+
+  - id: req_18
+    text: >
+      The FSM Workforce module will have a new section called Skills.
+
+  - id: req_19
+    text: >
+      The Resource Planner will be able to add and remove Skills for a
+      particular Technician.
+
+  - id: req_20
+    text: >
+      The FSM Workforce module will have a Licenses section for each
+      Technician, displaying their licenses along with the issue date and
+      expiration date.
+
+  - id: req_21
+    text: >
+      The Resource Planner will be able to add and remove Licenses for a
+      particular Technician.
+
+  - id: req_22
+    text: >
+      The FSM Mobile App will display the licenses of the logged-in
+      Technician on the Profile page.
+
+  - id: req_23
+    text: >
+      The Technician will receive an alert 15 days before a license
+      expires, notifying them that the license is approaching expiration
+      so they can renew it.
+
+  - id: req_24
+    text: >
+      On the FSM Mobile App, when performing certain task types, a
+      Provisioning page will show activate/deactivate/reprovision options
+      and a serial number input box for the technician to enter the
+      device serial number being provisioned.
+
+  - id: req_25
+    text: >
+      For a device swap, the new service will be activated first, then
+      the old service will be deactivated, and then a connection status
+      check will be done to verify the service is working as expected.
+
+  - id: req_26
+    text: >
+      The Technician will be able to send a request through the FSM App
+      on the Task Provision Page to fetch the latest status data from the
+      external service API. The call will be asynchronous.
+
+  - id: req_27
+    text: >
+      After a network upgrade, a speed test performed by the Technician
+      should match the upload and download numbers of the Technician's
+      subscribed plan, allowing for a fluctuation of no more than 5 Mbps.
+
+  - id: req_28
+    text: >
+      The Dispatcher will be able to log into the FSM Web App to trace
+      requests triggered by the Technician via the Mobile App to the
+      External Integration Provisioning System (EIPS), in the Task Side
+      panel under the Provisioning Logs section.
+
+  - id: req_29
+    text: >
+      Since the EIPS is a separate service, all calls made to it will be
+      asynchronous, so the Technician will not be blocked waiting for a
+      response before continuing other work.
+
+  - id: req_30
+    text: >
+      For the EIPS, request and response schemas will be validated for
+      each case: activate, deactivate, and reprovision.
+
+  - id: req_31
+    text: >
+      The Activate request must include an OAuth2 bearer token in the
+      Authorization header and a unique X-Request-Id header for
+      idempotency. The body must contain orderId, action, serviceId, and
+      deviceSerialId.
+
+  - id: req_32
+    text: >
+      The Deactivate request must include an OAuth2 bearer token in the
+      Authorization header and a unique X-Request-Id header for
+      idempotency. The body must contain orderId, action, serviceId, and
+      deviceSerialId.
+
+  - id: req_33
+    text: >
+      The Reprovision request should contain the security headers, and
+      the body should contain orderId, action, serviceId, and
+      deviceSerialId.
+
+  - id: req_34
+    text: >
+      For a device swap, the new service will be activated first, its
+      connection status verified as working, and only then will the old
+      service be deactivated.
+
+  - id: req_35
+    text: >
+      The Task Side panel's Provisioning Logs section should give the
+      Dispatcher a clear and easy-to-follow view of all requests
+      triggered by the Technician to the EIPS.

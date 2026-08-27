@@ -729,3 +729,60 @@ computed from a real run, not assumed.
 **Raw files:** `Day16_judge_v2_run.py`,
 `Day16_Judge_V2_Results/Day16_judge_v2_verdicts.json`,
 `Day16_agreement_comparison.md`
+
+---
+
+## Day 17 — Requirement set expansion to 35, adversarial set introduced (Thu 27 Aug 2026)
+
+**Goal:** expand `fsm_requirements.yaml` from 10 to 30+ requirements,
+including 5+ deliberately adversarial cases (vague / contradictory /
+missing-precondition), per the Week 3 plan.
+
+**Build:** two new feature areas added to source material from — Workforce
+Management Service (Timesheets, Skills, Licenses) and External Systems
+Integration (EIPS: activate/deactivate/reprovision for router, modem,
+internet, TV, and telephone service). Requirements drafted from raw,
+unstructured stakeholder-ask material rather than pre-formed requirement
+statements, then translated into formal requirement text by hand — same
+process as Day 8, not skipped just because the volume went up. `req_11`–
+`req_35` appended to `fsm_requirements.yaml`.
+
+**Result: 35 total requirements (10 existing + 25 new), 5 tagged
+adversarial.**
+
+- `req_24` — missing_precondition: task types that trigger the
+  Provisioning page left undefined. Deliberately kept this way rather
+  than filling in a task-type list that hadn't actually been confirmed.
+- `req_33` — missing_precondition: "security headers" left unspecified,
+  unlike `req_31`/`req_32` which name the exact headers required.
+- `req_25` / `req_34` — contradictory pair: both describe a device-swap
+  ordering (activate-new → deactivate-old → verify, vs. activate-new →
+  verify → deactivate-old) for the same scenario. Sourced from an actual
+  disagreement between Field Technicians and Security in the raw
+  stakeholder notes, not manufactured.
+- `req_35` — vague: "clear and easy-to-follow view" of provisioning
+  logs, no measurable pass/fail condition.
+
+Adversarial tags kept out of `fsm_requirements.yaml` itself and tracked
+in `Day17_adversarial_flags.json` — same split Day 10 used between
+requirements and human labels.
+
+**Why this matters going forward:** the contradictory pair exposed a real
+scope gap, not a manufactured one. Each requirement, read alone, is
+completely unambiguous — the LLM will generate a clean, well-formed test
+case for either one individually. The contradiction only exists when both
+requirements are held next to each other. Day 10-style human labeling and
+Day 12's judge both operate per-requirement; neither has any mechanism to
+catch a cross-requirement contradiction. This category is structurally
+out of reach for Phase 1's architecture as built — it's really P2
+(Ambiguity Chaser) territory, where an agent reasoning over the
+requirement set as a whole is the actual fix. Not treating this as a
+Phase 1 bug to patch; treating it as an honest limitation to state.
+
+**Checkpoint met:** 35 requirements exist (past the 30 floor), 5
+adversarial across all three named categories (2 missing-precondition, 2
+contradictory, 1 vague).
+
+**Raw files:** `fsm_requirements_additions.yaml` (appended to
+`Day8_Project_Requirements/fsm_requirements.yaml`),
+`Day17_adversarial_flags.json`.

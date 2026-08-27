@@ -1,0 +1,29 @@
+{
+  "flagged_at": "2026-08-27T00:00:00.000Z",
+  "source_file": "Day8_Project_Requirements/fsm_requirements.yaml",
+  "note": "Tags for the 5 deliberately adversarial requirements added on Day 17. Kept separate from fsm_requirements.yaml so the requirements file stays id/text only, same split as Day10_labels.json vs Day9's generated outputs.",
+  "flags": {
+    "req_24": {
+      "adversarial_type": "missing_precondition",
+      "reason": "Does not name which task types trigger the Provisioning page ('certain task types' left undefined)."
+    },
+    "req_25": {
+      "adversarial_type": "contradictory",
+      "pair_with": "req_34",
+      "reason": "States activate-new, then deactivate-old, then verify. Contradicts req_34's activate-new, verify, then deactivate-old for the same device-swap scenario. Each requirement is unambiguous read alone; the contradiction only exists across the pair."
+    },
+    "req_33": {
+      "adversarial_type": "missing_precondition",
+      "reason": "'Security headers' left unspecified, unlike req_31/req_32 which name the exact headers required."
+    },
+    "req_34": {
+      "adversarial_type": "contradictory",
+      "pair_with": "req_25",
+      "reason": "States activate-new, verify, then deactivate-old. Contradicts req_25's activate-new, deactivate-old, then verify for the same device-swap scenario. Each requirement is unambiguous read alone; the contradiction only exists across the pair."
+    },
+    "req_35": {
+      "adversarial_type": "vague",
+      "reason": "'Clear and easy-to-follow view' is subjective with no measurable pass/fail condition."
+    }
+  }
+}
