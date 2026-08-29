@@ -786,3 +786,82 @@ contradictory, 1 vague).
 **Raw files:** `fsm_requirements_additions.yaml` (appended to
 `Day8_Project_Requirements/fsm_requirements.yaml`),
 `Day17_adversarial_flags.json`.
+
+---
+
+## Day 18 — Full 35-requirement run: generation, labeling, assertions, judge, agreement (Fri 28 Aug – Sat 29 Aug 2026)
+
+**Goal:** run generation, assertions, and the judge across the full
+requirement set (35, not the roadmap's 30 floor — Day 17 overshot it) and
+recalculate agreement against human ground truth.
+
+**Build:** `Day18_run_outputs.py` extends Day 9's generator to `req_11`–
+`req_35`, carrying over the original 10 generated outputs unchanged
+(regenerating them would introduce fresh non-determinism per Day 2's
+finding, breaking the correspondence with `Day10_labels.json`). 32/35
+valid, 3 invalid — `req_07` (known from Day 10), plus two new: `req_13`,
+`req_26`, all three missing the `priority` field, all three on rows where
+the model wrote a long ambiguity-hedge into `expected_result`.
+
+Manually labeled `req_11`–`req_35` against Day 10's good/bad/borderline
+criteria, merged into `Day18_labels.json`. Two real catches during
+labeling:
+- `req_19`/`req_21` — the model invented a "Resource Planner module"
+  that doesn't exist; the actual module (established in `req_18`/`req_20`)
+  is "FSM Workforce module." Resource Planner is a *role*, not a module —
+  the model conflated the two.
+- A `requirement_ambiguous` flag pattern initially mislabeled on 4/25
+  items (`req_12`, `req_24`, `req_33`, `req_35`) — three of them the
+  Day 17 adversarial cases specifically built to be ambiguous. Caught on
+  review, corrected before locking in the labels.
+
+`Day18_assertions.py` extends Day 11's four checks to all 35 (no API
+call, pure computation). 134/140 passed — the 6 failures are exactly the
+3 invalid rows failing `fields_present` + `non_empty`. The 583-token cap
+from Day 11 still caught nothing, even with 35 rows and 5 adversarial
+cases designed to provoke longer hedged responses (longest: 377 tokens).
+
+`Day18_judge_run.py` extends Day 16's judge v2 to all 35, carrying over
+the existing 10 verdicts unchanged, judging only the 25 new rows.
+
+**Result: agreement 25/35 = 71.4%, down from v2's 80% on the original 10.**
+
+Full disagreement log in `Day18_agreement_comparison.md`. Four grouped
+findings:
+- **The judge never emits `borderline`, on any of the 35 rows.** Traced
+  to the rubric's arithmetic: `specificity` passes on every row that
+  produced output (32/32), so the soft-fail path into `borderline` is
+  nearly unreachable regardless of actual test-case quality. v2 behaves
+  as a binary good/bad classifier despite the three-way rubric.
+- **`verification_fidelity` structurally contradicts the generation
+  prompt's own hedging instruction.** On `req_33` and `req_35` — two of
+  the five adversarial cases — the model hedged honestly on details the
+  requirement never specified (per the generation prompt's explicit
+  rule), and the judge failed `verification_fidelity` for exactly that,
+  reasoning that the expected result didn't name the exact detail. A
+  fabricated-but-confident answer would likely have scored `good`. This
+  is the sharpest finding of the day — the two halves of the harness
+  are pulling against each other on ambiguous requirements.
+- Three disagreements (`req_18`, `req_19`, `req_21`) confirm the
+  single-requirement architecture limits the judge exactly as it limits
+  the generator (same root cause as the Day 17 contradictory-pair
+  finding) — nothing to fix in the rubric, this is P2/P3 territory.
+- Two disagreements (`req_02`, `req_15`) fall in a gap the rubric has no
+  criterion for at all: test-case scope/atomicity (one test case testing
+  more than one behavior).
+
+**Why this matters going forward:** before trusting v2's `bad` verdicts
+on ambiguous requirements, `verification_fidelity` needs a carve-out for
+cases where the requirement itself supplies no exact value to check —
+otherwise the rubric actively penalizes the harness's own intended
+behavior. Also worth deciding whether `specificity`'s pass bar should be
+tightened, since it's not currently doing any discriminating work at all.
+
+**Checkpoint met:** agreement recalculated on all 35 (roadmap asked for
+30 — exceeded, matching Day 17's actual requirement count).
+
+**Raw files:** `Day18_run_outputs.py`, `Day18_Full_Set/Day18_outputs.json`,
+`Day18_Full_Set/Day18_labels.json`, `Day18_assertions.py`,
+`Day18_Assertion_Results/Day18_assertion_results.json`,
+`Day18_judge_run.py`, `Day18_Judge_Results/Day18_judge_verdicts.json`,
+`Day18_agreement_comparison.md`.
