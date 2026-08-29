@@ -4,8 +4,7 @@ An LLM evaluation harness, built from scratch to bring QA rigor to
 non-deterministic AI outputs — the first of a three-project, six-month
 plan moving from AI Quality into agentic GenAI engineering.
 
-**Status:** Week 1, Day 3 of Phase 1 (see [NOTES.md](NOTES.md) for the
-day-by-day build log).
+**Status:** Week 3, Day 19 of Phase 1 (see [NOTES.md](NOTES.md) for the day-by-day build log).
 
 **Backlog:** see [BACKLOG.md](BACKLOG.md) for deferred ideas awaiting a
 revisit trigger.
@@ -41,6 +40,32 @@ Day-by-day scripts (`Day1_first_call.py`, `Day2_temperature.py`,
 `Day3_llm_client.py`, …) are runnable standalone and build on each other —
 `Day3_llm_client.py`'s `LLMClient` wraps Day 1's call functions and is the
 intended import point for later projects.
+
+## Metrics
+
+Judge v2 vs. 35 human-labeled requirements (`Day18_labels.json` vs.
+`Day18_judge_verdicts.json`; full disagreement log in
+`Day18_agreement_comparison.md`).
+
+| Metric | Value | Definition here |
+|---|---|---|
+| Agreement | 25/35 = **71.4%** | judge verdict exactly matches human label (good/bad/borderline, 3-way) |
+| Precision | 3/5 = **60.0%** | of the test cases the judge flagged `bad`, how many had a real human-flagged problem |
+| Recall (strict) | 3/5 = **60.0%** | of test cases the judge should have flagged, catching only the ones humans called outright `bad` |
+| Recall (inclusive) | 3/11 = **27.3%** | same, but counting `borderline` human labels as issues the judge should also have caught |
+
+**Why two recall numbers, not one:** a false positive here is the judge
+calling a genuinely fine test case `bad` (2 cases: `req_33`, `req_35` —
+both honestly-hedged adversarial cases the judge penalized for not
+inventing false certainty). A false negative is the judge missing a real
+problem. Precision is stable at 60% either way, since it only depends on
+whether the judge's own `bad` calls were justified. Recall swings from
+60% to 27% depending entirely on whether `borderline` counts as "should
+have been caught" — because the judge never once outputs `borderline`
+across all 35 rows (see `Day18_agreement_comparison.md`, Finding 0), every
+human `borderline` label is automatically a miss under the inclusive
+framing. The gap between the two numbers **is** the cost of the judge's
+missing middle verdict, made quantitative.
 
 ## Build log
 
