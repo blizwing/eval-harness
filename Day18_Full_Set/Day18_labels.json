@@ -1,0 +1,182 @@
+{
+  "labeled_at": "2026-08-28T00:00:00.000Z",
+  "source_file": "Day18_Full_Set/Day18_outputs.json",
+  "carried_over_from": "Day10_Ground_Truth/Day10_labels.json",
+  "labels": {
+    "req_01": {
+      "label": "bad",
+      "requirement_ambiguous": false,
+      "reason": "The test case is correct and meets the requirements. But it failed to capture the duration input in the expected format."
+    },
+    "req_02": {
+      "label": "borderline",
+      "requirement_ambiguous": true,
+      "reason": "The requirement contains two distinct things, which itself can become two test cases. The Test Steps created are wrong."
+    },
+    "req_03": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_04": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_05": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_06": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_07": {
+      "label": "bad",
+      "requirement_ambiguous": false,
+      "reason": "the priority field is missing for the test case"
+    },
+    "req_08": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_09": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_10": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The requirements are correctly captured and turned into test case."
+    },
+    "req_11": {
+      "label": "borderline",
+      "requirement_ambiguous": false,
+      "reason": "The LLM generated the status 'Pending Approval' whereas it is nowhere mentioned in the requirement."
+    },
+    "req_12": {
+      "label": "good",
+      "requirement_ambiguous": true,
+      "reason": "The LLM correctly flags the input method ambiguity in the requirement."
+    },
+    "req_13": {
+      "label": "bad",
+      "requirement_ambiguous": true,
+      "reason": "Priority field missing (structural). Also: test steps never pick a date near an actual DST transition, so the test can't catch the DST-shift bug the requirement explicitly names -- it only checks generic time zone display on an arbitrary date."
+    },
+    "req_14": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the basic requirement of opening the timesheets module and viewing the logged requests."
+    },
+    "req_15": {
+      "label": "borderline",
+      "requirement_ambiguous": false,
+      "reason": "The test first does a happy path of approving a request and then jumps to the rejecting path, the approval path is unnecessary here."
+    },
+    "req_16": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test captures the steps to be expected while testing the test case."
+    },
+    "req_17": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "Test Case Covers requirement"
+    },
+    "req_18": {
+      "label": "bad",
+      "requirement_ambiguous": false,
+      "reason": "The skills is a critical part of the scheduling feature hence its priority should have been high."
+    },
+    "req_19": {
+      "label": "borderline",
+      "requirement_ambiguous": true,
+      "reason": "There is no Resource Planner Module, it should have been workforce module which was not mentioned in the requirement, and the LLM should have flagged it as ambiguous or incomplete requirement."
+    },
+    "req_20": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_21": {
+      "label": "borderline",
+      "requirement_ambiguous": true,
+      "reason": "There is no Resource Planner Module, it should have been workforce module which was not mentioned in the requirement, and the LLM should have flagged it as ambiguous or incomplete requirement."
+    },
+    "req_22": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_23": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement, and flags the ambiguity for timing"
+    },
+    "req_24": {
+      "label": "good",
+      "requirement_ambiguous": true,
+      "reason": "The test case captures the requirement"
+    },
+    "req_25": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_26": {
+      "label": "bad",
+      "requirement_ambiguous": false,
+      "reason": "priority field was not returned by the LLM."
+    },
+    "req_27": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_28": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_29": {
+      "label": "borderline",
+      "requirement_ambiguous": true,
+      "reason": "The LLM failed to flag that the interface is not mentioned in the requirement."
+    },
+    "req_30": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_31": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_32": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_33": {
+      "label": "good",
+      "requirement_ambiguous": true,
+      "reason": "The test case captures the requirement"
+    },
+    "req_34": {
+      "label": "good",
+      "requirement_ambiguous": false,
+      "reason": "The test case captures the requirement"
+    },
+    "req_35": {
+      "label": "good",
+      "requirement_ambiguous": true,
+      "reason": "The test case captures the requirement"
+    }
+  }
+}

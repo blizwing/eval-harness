@@ -1,0 +1,842 @@
+# Day 18 labeling worksheet  (req_11-req_35, 25 cases)
+
+For each case set LABEL to good / bad / borderline, AMBIGUOUS to yes / no,
+and write one REASON line. schema-invalid cases are marked [SCHEMA: invalid].
+When done, tell Claude and it will fold these into a Day10-style labels.json.
+
+==============================================================================
+## req_11
+
+REQUIREMENT:
+  The FSM Mobile App will have a new Timesheets module allowing Technicians
+  to log full-day leave requests for a specific date, subject to approval
+  from the Resource Planner.
+
+GENERATED TEST CASE:
+  title:       Technician logs full-day leave request in Timesheets module
+  description: Verify that a Technician can log a full-day leave request for a specific date in the new Timesheets module, and that the request is submitted for approval by the Resource Planner.
+  priority:    high
+  preconditions:
+    - Technician is logged into the FSM Mobile App.
+    - Timesheets module is available in the app.
+    - Technician has a valid date to request leave for.
+  test_steps:
+    1. Navigate to the Timesheets module.
+    2. Select the option to create a new leave request.
+    3. Choose the specific date for the leave.
+    4. Select 'Full-day' as the leave duration.
+    5. Submit the leave request.
+  expected_result:
+    The leave request is successfully created and appears in the system with
+    status 'Pending Approval'. The Resource Planner can view and
+    approve/reject the request. If the requirement is ambiguous about the
+    exact submission process or approval workflow, the test should be
+    adjusted accordingly.
+
+  LABEL:   Borderline   
+  AMBIGUOUS:  No
+  REASON:     The LLM generated the status 'Pending Approval' whereas it is nowhere mentioned in the requirement.
+
+==============================================================================
+## req_12
+
+REQUIREMENT:
+  Technicians will be able to log Lunch Breaks and Downtime in the
+  Timesheets module by specifying the required hours or minutes.
+
+GENERATED TEST CASE:
+  title:       Log Lunch Breaks and Downtime in Timesheets
+  description: Verify that a technician can log lunch breaks and downtime in the Timesheets module by specifying the duration in hours or minutes.
+  priority:    high
+  preconditions:
+    - User is logged in as a technician.
+    - Timesheets module is accessible.
+    - There is an active timesheet entry for the current day.
+  test_steps:
+    1. Navigate to the Timesheets module.
+    2. Select the relevant timesheet entry for the current day.
+    3. Locate the option to add a lunch break or downtime.
+    4. Choose the type (Lunch Break or Downtime).
+    5. Enter the duration in hours or minutes (e.g., 1 hour or 30 minutes).
+    6. Save the entry.
+  expected_result:
+    The system accepts the lunch break or downtime entry with the specified
+    duration. The entry is saved and reflected in the timesheet. If the
+    requirement is ambiguous regarding whether the duration is entered as a
+    single value or separate fields for hours and minutes, the system should
+    provide a clear input method. The test should confirm that the entry is
+    recorded correctly and can be viewed or edited later.
+
+  LABEL:      Good
+  AMBIGUOUS:  No
+  REASON:     The LLM correctly flags the input method ambiguity in the requirement.
+
+==============================================================================
+## req_13  [SCHEMA: invalid]
+
+REQUIREMENT:
+  The Timesheets module will respect the Technician's time zone. Although
+  the server runs in UTC, Technicians in different time zones will not
+  experience DST or time zone issues, such as times being shifted one hour
+  ahead or behind.
+
+GENERATED TEST CASE (schema-invalid, raw response):
+  {
+    "title": "Verify Timesheets module respects Technician's time zone",
+    "description": "This test verifies that the Timesheets module correctly displays and records times according to the logged-in Technician's time zone, even though the server operates in UTC. It ensures that no DST or time zone shifts occur, such as times being displayed one hour ahead or behind.",
+    "preconditions": [
+      "A Technician account exists with a non-UTC time zone configured (e.g., America/New_York).",
+      "The server is set to UTC.",
+      "The Technician is logged into the system.",
+      "The system has a feature to set the Technician's time zone."
+    ],
+    "test_steps": [
+      "Log in as the Technician with a known non-UTC time zone.",
+      "Navigate to the Timesheets module.",
+      "Create a new timesheet entry with a specific local time (e.g., 09:00 AM).",
+      "Save the timesheet entry.",
+      "Retrieve the saved timesheet entry and observe the displayed time.",
+      "Compare the displayed time with the expected local time, considering any DST rules for the Technician's time zone."
+    ],
+    "expected_result": "The timesheet entry should display the time exactly as entered in the Technician's local time zone, with no shift due to UTC conversion or DST. If the requirement is ambiguous regarding how the time zone is determined or how DST is handled, note that the test assumes the system uses the Technician's configured time zone and applies standard DST rules. The displayed time should match the local time entered, and no off-by-one-hour errors should occur."
+  }
+
+  LABEL:      Bad
+  AMBIGUOUS:  Yes
+  REASON:     Priority field missing (structural). Also: test steps never pick a date near an actual DST transition, so the test can't catch the DST-shift bug the requirement explicitly names — it only checks generic time zone display on an arbitrary date
+
+==============================================================================
+## req_14
+
+REQUIREMENT:
+  The Resource Planner will be able to access the Timesheets module from the
+  FSM Web App and view leave requests submitted by Technicians.
+
+GENERATED TEST CASE:
+  title:       Access Timesheets Module and View Technician Leave Requests
+  description: Verify that the Resource Planner can navigate to the Timesheets module from the FSM Web App and view leave requests submitted by Technicians.
+  priority:    high
+  preconditions:
+    - Resource Planner user is logged into the FSM Web App with appropriate permissions.
+    - At least one Technician has submitted a leave request in the system.
+  test_steps:
+    1. Log in to the FSM Web App as a Resource Planner.
+    2. Navigate to the Timesheets module from the main menu or dashboard.
+    3. View the list of leave requests submitted by Technicians.
+    4. Verify that the leave requests are displayed with relevant details (e.g., technician name, dates, status).
+  expected_result:
+    The Resource Planner can successfully access the Timesheets module and
+    view a list of leave requests submitted by Technicians. The list should
+    display the submitted leave requests with appropriate details. If the
+    requirement is ambiguous regarding specific fields or permissions, the
+    test verifies that access is granted and leave requests are visible.
+
+  LABEL:      Good
+  AMBIGUOUS:  No
+  REASON:     The test case captures the basic requirement of opening the timesheets module and viewing the logged requests.
+
+==============================================================================
+## req_15
+
+REQUIREMENT:
+  The Resource Planner will be able to approve or reject leave requests.
+  When rejecting a request, the Resource Planner must provide a reason.
+
+GENERATED TEST CASE:
+  title:       Verify Resource Planner can approve or reject leave requests with mandatory rejection reason
+  description: This test case verifies that a Resource Planner can approve or reject leave requests. It also checks that when rejecting a request, a reason must be provided, and the system enforces this requirement.
+  priority:    high
+  preconditions:
+    - A Resource Planner user is logged into the system.
+    - There is at least one pending leave request in the system.
+  test_steps:
+    1. Navigate to the leave requests section.
+    2. Select a pending leave request.
+    3. Attempt to approve the request and confirm.
+    4. Verify the request is approved and status updated.
+    5. Select another pending leave request.
+    6. Attempt to reject the request without providing a reason.
+    7. Verify that the system prevents rejection and prompts for a reason.
+    8. Enter a reason for rejection and confirm.
+    9. Verify the request is rejected and status updated.
+  expected_result:
+    The Resource Planner can approve a leave request successfully. When
+    rejecting without a reason, the system should display an error or
+    validation message indicating that a reason is required, and the
+    rejection should not be processed. After providing a reason, the
+    rejection should be processed successfully. Note: The exact UI behavior
+    for the mandatory reason may vary; the test should confirm that the
+    system enforces the requirement as described.
+
+  LABEL:   borderline   
+  AMBIGUOUS:  no
+  REASON:     The test first does a happy path of approving a request and then jumps to the rejecting path, the approval path is unnecessary here.
+
+==============================================================================
+## req_16
+
+REQUIREMENT:
+  Once the Resource Planner approves a leave request, the approved leave
+  will be reflected in the Capacity Management section of the FSM Web App.
+
+GENERATED TEST CASE:
+  title:       Verify approved leave appears in Capacity Management
+  description: This test verifies that after a Resource Planner approves a leave request, the approved leave is reflected in the Capacity Management section of the FSM Web App.
+  priority:    high
+  preconditions:
+    - A leave request exists in the system with status 'Pending'.
+    - The user performing the test has Resource Planner role with permission to approve leave requests.
+    - The FSM Web App is accessible and the user is logged in.
+  test_steps:
+    1. Log in to the FSM Web App as a Resource Planner.
+    2. Navigate to the Leave Requests section and locate the pending leave request.
+    3. Approve the leave request.
+    4. Navigate to the Capacity Management section.
+    5. Verify that the approved leave is reflected in the capacity view (e.g., reduced availability for the relevant resource and time period).
+  expected_result:
+    The approved leave should appear in the Capacity Management section,
+    showing the resource's reduced availability for the leave period. If the
+    requirement is ambiguous regarding the exact display format or timing,
+    the test should verify that the leave is reflected in some way, and note
+    any ambiguity in the actual result.
+
+  LABEL:     Good 
+  AMBIGUOUS:  No
+  REASON:     The test captures the steps to be expected while testing the test case.
+
+==============================================================================
+## req_17
+
+REQUIREMENT:
+  Lunch Breaks and Downtime logged by the Technician will also be reflected
+  in Capacity Management with their respective hours or minutes.
+
+GENERATED TEST CASE:
+  title:       Verify Lunch Breaks and Downtime Reflected in Capacity Management
+  description: This test case verifies that when a technician logs lunch breaks and downtime, the corresponding hours or minutes are accurately reflected in the Capacity Management module.
+  priority:    high
+  preconditions:
+    - Technician is logged into the system with appropriate permissions to log lunch breaks and downtime.
+    - Capacity Management module is accessible and displays technician capacity data.
+    - There is at least one technician with scheduled work hours.
+  test_steps:
+    1. Navigate to the technician's time logging interface.
+    2. Log a lunch break with a specific duration (e.g., 30 minutes).
+    3. Log a downtime event with a specific duration (e.g., 1 hour).
+    4. Navigate to the Capacity Management module.
+    5. View the capacity data for the technician for the relevant time period.
+    6. Verify that the logged lunch break and downtime durations are reflected in the capacity calculations.
+  expected_result:
+    The Capacity Management module should display the technician's capacity
+    adjusted by the logged lunch break and downtime durations. The hours or
+    minutes for lunch breaks and downtime should be accurately subtracted
+    from the technician's available capacity. If the requirement is
+    ambiguous regarding how the durations are displayed (e.g., in hours or
+    minutes), the system should present them in a consistent and clear
+    format as per its existing conventions.
+
+  LABEL:      Good
+  AMBIGUOUS:  No
+  REASON:     Test Case Covers requirement
+
+==============================================================================
+## req_18
+
+REQUIREMENT:
+  The FSM Workforce module will have a new section called Skills.
+
+GENERATED TEST CASE:
+  title:       Verify Skills section exists in FSM Workforce module
+  description: This test case verifies that the FSM Workforce module includes a new section named 'Skills' as specified in the requirement.
+  priority:    medium
+  preconditions:
+    - User has access to the FSM Workforce module
+    - User is logged in with appropriate permissions
+  test_steps:
+    1. Navigate to the FSM Workforce module
+    2. Observe the sections available in the module
+    3. Check if a section named 'Skills' is present
+  expected_result:
+    A section named 'Skills' is visible in the FSM Workforce module. If the
+    exact location or behavior of the section is not specified, the test
+    verifies only that the section exists and is accessible.
+
+  LABEL:      bad
+  AMBIGUOUS:  no
+  REASON:     The skills is a critical part of the scheduling feature hence its priority should have been high. 
+
+==============================================================================
+## req_19
+
+REQUIREMENT:
+  The Resource Planner will be able to add and remove Skills for a
+  particular Technician.
+
+GENERATED TEST CASE:
+  title:       Add and Remove Skills for a Technician
+  description: Verify that the Resource Planner allows adding and removing skills for a specific technician, and that the changes are reflected in the technician's profile.
+  priority:    high
+  preconditions:
+    - User is logged in with appropriate permissions to access the Resource Planner.
+    - At least one technician exists in the system.
+    - At least one skill is available to add.
+  test_steps:
+    1. Navigate to the Resource Planner module.
+    2. Select a technician from the list.
+    3. Open the technician's profile or details page.
+    4. Locate the 'Skills' section.
+    5. Add a skill by selecting from available skills and confirming.
+    6. Verify the skill appears in the technician's skill list.
+    7. Remove the added skill by selecting it and confirming removal.
+    8. Verify the skill is no longer in the technician's skill list.
+  expected_result:
+    The system successfully adds the selected skill to the technician's
+    profile, displays it in the skills list, and after removal, the skill is
+    no longer present. If the requirement is ambiguous regarding whether
+    skills are predefined or custom, the test assumes a predefined list of
+    skills is available for selection.
+
+  LABEL:      borderline
+  AMBIGUOUS:  yes
+  REASON:     There is no Resource Planner Module, it should have been workforce module which was not mentioned in the requirement, and the LLM should have flagged it as ambiguous or incomplete requirement.
+
+==============================================================================
+## req_20
+
+REQUIREMENT:
+  The FSM Workforce module will have a Licenses section for each Technician,
+  displaying their licenses along with the issue date and expiration date.
+
+GENERATED TEST CASE:
+  title:       Verify Licenses Section Displays Issue and Expiration Dates
+  description: This test verifies that the FSM Workforce module's Licenses section for a Technician correctly displays each license along with its issue date and expiration date.
+  priority:    medium
+  preconditions:
+    - A Technician record exists in the FSM Workforce module.
+    - The Technician has at least one license associated with their record, including issue date and expiration date.
+    - User has access to view the Technician's details.
+  test_steps:
+    1. Log in to the FSM Workforce module.
+    2. Navigate to the Technician's profile or details page.
+    3. Locate the Licenses section.
+    4. Observe the list of licenses displayed.
+    5. For each license, check that the issue date and expiration date are shown.
+  expected_result:
+    The Licenses section displays each license associated with the
+    Technician, and for each license, both the issue date and expiration
+    date are visible. If the requirement is ambiguous regarding the format
+    of dates or whether licenses without dates should be shown, the test
+    should note that the dates are displayed as stored in the system, and
+    any missing dates should be handled according to the system's default
+    behavior.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement
+
+==============================================================================
+## req_21
+
+REQUIREMENT:
+  The Resource Planner will be able to add and remove Licenses for a
+  particular Technician.
+
+GENERATED TEST CASE:
+  title:       Add and Remove Licenses for a Technician
+  description: Verify that the Resource Planner allows adding and removing licenses for a specific technician, and that the changes are reflected correctly.
+  priority:    high
+  preconditions:
+    - User is logged in with appropriate permissions to manage licenses.
+    - At least one technician exists in the system.
+    - At least one license type is available to assign.
+  test_steps:
+    1. Navigate to the Resource Planner module.
+    2. Select a technician from the list.
+    3. Access the license management section for that technician.
+    4. Add a license by selecting an available license type and confirming.
+    5. Verify that the added license appears in the technician's license list.
+    6. Remove the added license by selecting it and confirming removal.
+    7. Verify that the license is no longer listed for the technician.
+  expected_result:
+    The system successfully adds the license to the technician's profile,
+    displays it in the list, and after removal, the license is no longer
+    present. If the requirement is ambiguous regarding whether multiple
+    licenses can be added or if there are restrictions, the test should be
+    adjusted accordingly.
+
+  LABEL:      borderline
+  AMBIGUOUS:  yes
+  REASON:     There is no Resource Planner Module, it should have been workforce module which was not mentioned in the requirement, and the LLM should have flagged it as ambiguous or incomplete requirement.
+
+==============================================================================
+## req_22
+
+REQUIREMENT:
+  The FSM Mobile App will display the licenses of the logged-in Technician
+  on the Profile page.
+
+GENERATED TEST CASE:
+  title:       Display Technician Licenses on Profile Page
+  description: Verify that the FSM Mobile App shows the licenses associated with the logged-in Technician on the Profile page.
+  priority:    high
+  preconditions:
+    - A technician account exists and is logged in.
+    - The technician has at least one license assigned in the system.
+  test_steps:
+    1. Log in to the FSM Mobile App with valid technician credentials.
+    2. Navigate to the Profile page.
+    3. Observe the licenses section on the Profile page.
+  expected_result:
+    The Profile page displays a list of licenses that are associated with
+    the logged-in technician. The licenses should be visible and correctly
+    reflect the technician's license data. If the requirement is ambiguous
+    regarding the format or exact placement of the licenses, the test should
+    verify that the licenses are present and readable, but not assume
+    specific layout details.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement 
+
+==============================================================================
+## req_23
+
+REQUIREMENT:
+  The Technician will receive an alert 15 days before a license expires,
+  notifying them that the license is approaching expiration so they can
+  renew it.
+
+GENERATED TEST CASE:
+  title:       License Expiration Alert 15 Days Before
+  description: Verify that the system sends an alert to the Technician 15 days before a license expires, notifying them that the license is approaching expiration so they can renew it.
+  priority:    high
+  preconditions:
+    - A license exists in the system with an expiration date set to 15 days from the current date.
+    - The Technician user account is active and has permissions to receive license expiration alerts.
+    - The system's notification service is configured and operational.
+  test_steps:
+    1. Set the current system date to 15 days before the license expiration date.
+    2. Trigger the daily job or event that checks for upcoming license expirations.
+    3. Check the Technician's notification inbox or alert center for the alert.
+    4. Open the alert and verify its content includes the license details and the expiration date.
+  expected_result:
+    The Technician receives an alert exactly 15 days before the license
+    expiration date. The alert clearly states that the license is
+    approaching expiration and includes the license identifier and
+    expiration date. If the exact timing is ambiguous (e.g., whether the
+    alert is sent at the start of the day or at a specific time), the test
+    should verify that the alert is sent on the correct day relative to the
+    expiration date.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement, and flags the ambiguity for timing   
+
+==============================================================================
+## req_24
+
+REQUIREMENT:
+  On the FSM Mobile App, when performing certain task types, a Provisioning
+  page will show activate/deactivate/reprovision options and a serial number
+  input box for the technician to enter the device serial number being
+  provisioned.
+
+GENERATED TEST CASE:
+  title:       Verify Provisioning Page Displays Options and Serial Number Input
+  description: This test verifies that when a technician performs certain task types on the FSM Mobile App, the Provisioning page is displayed with activate, deactivate, and reprovision options, along with a serial number input box for entering the device serial number.
+  priority:    high
+  preconditions:
+    - Technician is logged into the FSM Mobile App.
+    - A task of a type that triggers provisioning is available and assigned to the technician.
+  test_steps:
+    1. Open the FSM Mobile App and navigate to the task list.
+    2. Select a task that requires provisioning.
+    3. Observe the Provisioning page that appears.
+    4. Check that the page contains options for activate, deactivate, and reprovision.
+    5. Check that there is an input box labeled for serial number entry.
+    6. Attempt to enter a serial number into the input box.
+  expected_result:
+    The Provisioning page is displayed with activate, deactivate, and
+    reprovision options, and a serial number input box is present and
+    accepts input. Note: The exact task types that trigger provisioning are
+    not specified in the requirement, so the test assumes the selected task
+    is of such a type.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement     
+
+==============================================================================
+## req_25
+
+REQUIREMENT:
+  For a device swap, the new service will be activated first, then the old
+  service will be deactivated, and then a connection status check will be
+  done to verify the service is working as expected.
+
+GENERATED TEST CASE:
+  title:       Device swap activation and deactivation sequence with connection check
+  description: Verifies that during a device swap, the new service is activated before the old service is deactivated, and that a connection status check is performed to confirm the new service is working.
+  priority:    high
+  preconditions:
+    - User has an active service on an old device.
+    - A new device is available for the swap.
+    - The system supports device swap operations.
+  test_steps:
+    1. Initiate the device swap process for the user's account.
+    2. Observe the order of operations: activation of the new service, deactivation of the old service, and connection status check.
+    3. After the process completes, verify that the new service is active and the old service is deactivated.
+    4. Check that the connection status check was performed and its result is recorded.
+  expected_result:
+    The new service is activated before the old service is deactivated.
+    After the swap, the old service is deactivated, and a connection status
+    check is performed to confirm the new service is working. If the
+    requirement is ambiguous regarding the exact timing of the connection
+    check relative to deactivation, the test should verify that the check
+    occurs after activation and before or after deactivation as per the
+    stated sequence, but the requirement explicitly states the order:
+    activate new, deactivate old, then check connection.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement  
+
+==============================================================================
+## req_26  [SCHEMA: invalid]
+
+REQUIREMENT:
+  The Technician will be able to send a request through the FSM App on the
+  Task Provision Page to fetch the latest status data from the external
+  service API. The call will be asynchronous.
+
+GENERATED TEST CASE (schema-invalid, raw response):
+  {
+    "title": "Verify asynchronous status data fetch request from Task Provision Page",
+    "description": "This test verifies that a technician can initiate an asynchronous request from the Task Provision Page in the FSM App to fetch the latest status data from the external service API. The test ensures that the request is sent and the app handles the asynchronous response appropriately.",
+    "preconditions": [
+      "Technician is logged into the FSM App.",
+      "Technician is on the Task Provision Page.",
+      "External service API is available and accessible."
+    ],
+    "test_steps": [
+      "Navigate to the Task Provision Page.",
+      "Locate the control or button to send a request for latest status data.",
+      "Tap/click the control to send the request.",
+      "Observe that the request is sent asynchronously (the UI remains responsive).",
+      "Wait for the response from the external service API.",
+      "Verify that the latest status data is displayed or updated on the page."
+    ],
+    "expected_result": "The request is sent asynchronously without blocking the UI. The app eventually receives the latest status data from the external service API and updates the Task Provision Page accordingly. If the API is unavailable or returns an error, the app should handle it gracefully (e.g., show an error message) without crashing. Note: The exact behavior on error is not specified in the requirement, so this is a best-effort expectation."
+  }
+
+  LABEL:     bad 
+  AMBIGUOUS:  no
+  REASON:     priority field was not returned by the LLM.
+
+==============================================================================
+## req_27
+
+REQUIREMENT:
+  After a network upgrade, a speed test performed by the Technician should
+  match the upload and download numbers of the Technician's subscribed plan,
+  allowing for a fluctuation of no more than 5 Mbps.
+
+GENERATED TEST CASE:
+  title:       Verify Speed Test Matches Subscribed Plan After Network Upgrade
+  description: This test verifies that after a network upgrade, the speed test results for a technician's connection are within 5 Mbps of the subscribed plan's upload and download speeds.
+  priority:    high
+  preconditions:
+    - A technician account with a subscribed plan specifying upload and download speeds.
+    - Network upgrade has been completed for the technician's area.
+    - Speed test tool is available and functioning.
+  test_steps:
+    1. Log in to the technician's account.
+    2. Navigate to the speed test feature.
+    3. Run the speed test.
+    4. Record the download and upload speeds displayed.
+    5. Compare the recorded speeds with the subscribed plan's speeds.
+  expected_result:
+    The download and upload speeds from the speed test should be within 5
+    Mbps of the subscribed plan's speeds. If the requirement is ambiguous
+    (e.g., whether the 5 Mbps tolerance applies to each direction separately
+    or to the sum), the test should be interpreted as each direction being
+    within 5 Mbps of the plan's corresponding speed.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement    
+
+==============================================================================
+## req_28
+
+REQUIREMENT:
+  The Dispatcher will be able to log into the FSM Web App to trace requests
+  triggered by the Technician via the Mobile App to the External Integration
+  Provisioning System (EIPS), in the Task Side panel under the Provisioning
+  Logs section.
+
+GENERATED TEST CASE:
+  title:       Dispatcher Login and Trace Technician Requests in FSM Web App
+  description: Verify that a Dispatcher can log into the FSM Web App and trace requests triggered by a Technician via the Mobile App to the External Integration Provisioning System (EIPS) in the Task Side panel under the Provisioning Logs section.
+  priority:    high
+  preconditions:
+    - Dispatcher account exists with valid credentials
+    - Technician account exists with valid credentials
+    - At least one request has been triggered by the Technician via the Mobile App and processed by EIPS
+    - FSM Web App is accessible
+  test_steps:
+    1. Open the FSM Web App login page
+    2. Enter valid Dispatcher credentials and log in
+    3. Navigate to the Task Side panel
+    4. Locate the Provisioning Logs section
+    5. Select a task that was triggered by the Technician via the Mobile App
+    6. View the Provisioning Logs for that task and verify that the request to EIPS is traceable
+  expected_result:
+    The Dispatcher successfully logs in and can view the Provisioning Logs
+    section in the Task Side panel. The logs for the selected task show the
+    request triggered by the Technician via the Mobile App and its
+    interaction with EIPS. If the requirement is ambiguous regarding the
+    exact format or depth of traceability, the logs should at least indicate
+    the request was sent to EIPS and any response or status if available.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement    
+
+==============================================================================
+## req_29
+
+REQUIREMENT:
+  Since the EIPS is a separate service, all calls made to it will be
+  asynchronous, so the Technician will not be blocked waiting for a response
+  before continuing other work.
+
+GENERATED TEST CASE:
+  title:       Verify asynchronous behavior of EIPS calls
+  description: This test verifies that when the Technician makes calls to the EIPS service, the calls are asynchronous and do not block the Technician from continuing other work while waiting for a response.
+  priority:    high
+  preconditions:
+    - The EIPS service is available and configured as a separate service.
+    - The Technician application is running and connected to the EIPS service.
+    - There is a way to simulate or trigger a call to the EIPS service from the Technician interface.
+  test_steps:
+    1. Initiate a call to the EIPS service from the Technician application.
+    2. Immediately attempt to perform another action in the Technician application (e.g., navigate to a different screen, start another task).
+    3. Observe whether the Technician application remains responsive and allows the other action to proceed without waiting for the EIPS response.
+    4. Wait for the EIPS response to arrive and verify that it is handled appropriately when it does.
+  expected_result:
+    The Technician application should remain responsive and allow the
+    Technician to continue other work immediately after initiating the EIPS
+    call. The call should be processed asynchronously, and the response
+    should be handled without blocking the Technician's workflow. If the
+    requirement is ambiguous regarding the exact mechanism (e.g., callbacks,
+    polling), the test should verify that the Technician is not blocked, but
+    the specific handling of the response may vary.
+
+  LABEL:      borderline
+  AMBIGUOUS:  yes
+  REASON:     The LLM failed to flag that the interface is not mentioned in the requirement.
+
+==============================================================================
+## req_30
+
+REQUIREMENT:
+  For the EIPS, request and response schemas will be validated for each
+  case: activate, deactivate, and reprovision.
+
+GENERATED TEST CASE:
+  title:       Validate request and response schemas for activate, deactivate, and reprovision cases
+  description: This test verifies that for each of the three cases (activate, deactivate, reprovision), the request and response schemas are validated according to the EIPS specification. It ensures that valid requests are accepted and valid responses are returned, and that invalid schemas are rejected with appropriate errors.
+  priority:    high
+  preconditions:
+    - EIPS system is available and configured for schema validation.
+    - Test environment has access to the schema definitions for activate, deactivate, and reprovision cases.
+    - Authentication and authorization are in place to perform these operations.
+  test_steps:
+    1. For the activate case, send a request that conforms to the expected schema.
+    2. Verify that the response conforms to the expected schema.
+    3. For the deactivate case, send a request that conforms to the expected schema.
+    4. Verify that the response conforms to the expected schema.
+    5. For the reprovision case, send a request that conforms to the expected schema.
+    6. Verify that the response conforms to the expected schema.
+    7. For each case, also send a request that violates the schema (e.g., missing required field, wrong data type) and verify that the system rejects it with a schema validation error.
+  expected_result:
+    For each case (activate, deactivate, reprovision), valid requests are
+    accepted and valid responses are returned. Invalid requests are rejected
+    with a schema validation error. Note: The exact error codes or messages
+    are not specified in the requirement, so the test should check for any
+    error indicating schema validation failure.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement    
+
+==============================================================================
+## req_31
+
+REQUIREMENT:
+  The Activate request must include an OAuth2 bearer token in the
+  Authorization header and a unique X-Request-Id header for idempotency. The
+  body must contain orderId, action, serviceId, and deviceSerialId.
+
+GENERATED TEST CASE:
+  title:       Verify Activate request headers and body
+  description: This test verifies that an Activate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header, and a body containing orderId, action, serviceId, and deviceSerialId.
+  priority:    high
+  preconditions:
+    - A valid OAuth2 access token is available.
+    - The system under test is ready to receive Activate requests.
+  test_steps:
+    1. Prepare an Activate request with a valid OAuth2 bearer token in the Authorization header.
+    2. Generate a unique X-Request-Id header value for this request.
+    3. Set the request body to include orderId, action, serviceId, and deviceSerialId.
+    4. Send the Activate request to the appropriate endpoint.
+    5. Observe the response and any logs to confirm the request was processed.
+  expected_result:
+    The request is accepted and processed successfully. The system validates
+    that the Authorization header contains a valid OAuth2 bearer token, the
+    X-Request-Id header is present and unique, and the body contains all
+    required fields. If any of these are missing or invalid, the system
+    should return an appropriate error. Note: The exact success criteria
+    (e.g., HTTP status code) are not specified in the requirement, so the
+    test should verify that the request is not rejected due to missing or
+    invalid headers/body.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement
+
+==============================================================================
+## req_32
+
+REQUIREMENT:
+  The Deactivate request must include an OAuth2 bearer token in the
+  Authorization header and a unique X-Request-Id header for idempotency. The
+  body must contain orderId, action, serviceId, and deviceSerialId.
+
+GENERATED TEST CASE:
+  title:       Verify Deactivate request headers and body
+  description: This test verifies that a Deactivate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header, and a body containing orderId, action, serviceId, and deviceSerialId.
+  priority:    high
+  preconditions:
+    - A valid OAuth2 bearer token is available.
+    - The system is ready to accept Deactivate requests.
+  test_steps:
+    1. Prepare a Deactivate request with an Authorization header containing a valid OAuth2 bearer token.
+    2. Generate a unique X-Request-Id header value.
+    3. Set the request body to include orderId, action, serviceId, and deviceSerialId.
+    4. Send the Deactivate request to the appropriate endpoint.
+    5. Observe the system's response.
+  expected_result:
+    The request is accepted and processed successfully. If any required
+    header or body field is missing or invalid, the system should return an
+    appropriate error. Note: The exact response codes or error messages are
+    not specified in the requirement, so the test should verify that the
+    request is processed without authentication or idempotency errors.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement     
+
+==============================================================================
+## req_33
+
+REQUIREMENT:
+  The Reprovision request should contain the security headers, and the body
+  should contain orderId, action, serviceId, and deviceSerialId.
+
+GENERATED TEST CASE:
+  title:       Verify Reprovision request contains security headers and required body fields
+  description: This test verifies that when a Reprovision request is made, it includes the necessary security headers and that the request body contains the fields orderId, action, serviceId, and deviceSerialId.
+  priority:    high
+  preconditions:
+    - The system is set up to send Reprovision requests.
+    - A valid orderId, serviceId, and deviceSerialId are available for testing.
+  test_steps:
+    1. Initiate a Reprovision request with valid orderId, action, serviceId, and deviceSerialId.
+    2. Capture the outgoing HTTP request.
+    3. Inspect the request headers to verify that security headers are present.
+    4. Inspect the request body to verify that it contains the fields orderId, action, serviceId, and deviceSerialId.
+  expected_result:
+    The Reprovision request includes the required security headers (exact
+    headers not specified in the requirement, so presence of any security
+    headers is expected). The request body contains the fields orderId,
+    action, serviceId, and deviceSerialId with the correct values. If the
+    requirement is ambiguous about which specific security headers are
+    required, the test should note that the presence of security headers is
+    verified but the exact set is not defined.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement    
+
+==============================================================================
+## req_34
+
+REQUIREMENT:
+  For a device swap, the new service will be activated first, its connection
+  status verified as working, and only then will the old service be
+  deactivated.
+
+GENERATED TEST CASE:
+  title:       Device swap activation order verification
+  description: Verify that during a device swap, the new service is activated and its connection status is confirmed as working before the old service is deactivated.
+  priority:    high
+  preconditions:
+    - A device swap request has been initiated
+    - Both old and new services exist and are in a known state
+    - The system has the ability to check connection status
+  test_steps:
+    1. Initiate a device swap request
+    2. Observe the activation of the new service
+    3. Check the connection status of the new service
+    4. Verify that the new service is reported as working
+    5. Check the status of the old service to see if it has been deactivated
+    6. Record the order of events
+  expected_result:
+    The new service is activated first, its connection status is verified as
+    working, and only then is the old service deactivated. If the new
+    service fails to activate or its connection status is not working, the
+    old service should not be deactivated. Note: The exact method of
+    verifying connection status is not specified in the requirement, so the
+    test should use the system's standard verification mechanism.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement     
+
+==============================================================================
+## req_35
+
+REQUIREMENT:
+  The Task Side panel's Provisioning Logs section should give the Dispatcher
+  a clear and easy-to-follow view of all requests triggered by the
+  Technician to the EIPS.
+
+GENERATED TEST CASE:
+  title:       Verify Provisioning Logs Section Displays Requests Clearly
+  description: This test verifies that the Provisioning Logs section in the Task Side panel provides the Dispatcher with a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.
+  priority:    high
+  preconditions:
+    - Dispatcher is logged into the system with appropriate permissions.
+    - At least one Technician has triggered requests to the EIPS.
+    - The Task Side panel is accessible and the Provisioning Logs section is available.
+  test_steps:
+    1. Open the Task Side panel.
+    2. Navigate to the Provisioning Logs section.
+    3. Observe the list of requests displayed.
+    4. Verify that each request includes relevant details such as timestamp, request type, status, and any associated technician or task information.
+    5. Check that the requests are presented in a logical order (e.g., chronological or by status).
+    6. Verify that the section is visually clear, with appropriate labels and formatting to distinguish different fields.
+  expected_result:
+    The Provisioning Logs section displays all requests triggered by the
+    Technician to the EIPS in a clear and easy-to-follow manner. Each
+    request should have sufficient detail to understand what was requested,
+    when, and its current status. If the requirement is ambiguous regarding
+    the exact fields or ordering, the test should note that the display
+    should be intuitive and not require the Dispatcher to guess or cross-
+    reference other systems to understand the logs.
+
+  LABEL:      Good
+  AMBIGUOUS:  no
+  REASON:     The test case captures the requirement    
