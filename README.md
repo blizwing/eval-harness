@@ -41,6 +41,29 @@ Day-by-day scripts (`Day1_first_call.py`, `Day2_temperature.py`,
 `Day3_llm_client.py`'s `LLMClient` wraps Day 1's call functions and is the
 intended import point for later projects.
 
+## CLI Design
+
+Three subcommands, each a thin wrapper around a plain function
+(`run_eval()`, `generate_report()`, `diff_baseline()`) — so a future GUI
+can call the same functions directly, no argparse in the middle.
+
+### `run <requirements_file>`
+Generates test cases for every requirement in the file, scores them, saves results.
+- `--mode assertions|judge|both` — which scorer(s) to run (default: `both`)
+- `--out <path>` — where to save the results JSON (default: `results.json`)
+
+### `report <results_file>`
+Prints a human-readable summary to stdout: pass rate, total cost, mean latency,
+every failure with its reason.
+
+### `diff <results_file> --baseline <baseline_file>`
+Compares a results file against a saved baseline, flags regressions.
+- `--threshold <float>` — pass-rate drop that counts as a regression (default: `0.05`)
+- Non-zero exit code on regression — this is what CI (Week 5) hooks into.
+
+**Input:** requirements file path, always a CLI arg — no config file.
+**Output:** `run` writes JSON to disk; `report`/`diff` print to stdout.
+
 ## Metrics
 
 Judge v2 vs. 35 human-labeled requirements (`Day18_labels.json` vs.
