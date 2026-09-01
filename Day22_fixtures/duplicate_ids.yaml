@@ -1,0 +1,5 @@
+requirements:
+  - id: req_01
+    text: "First requirement text."
+  - id: req_01
+    text: "Second requirement text, different content."

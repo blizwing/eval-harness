@@ -1,0 +1,7 @@
+requirements:
+  - id: req_01
+    text: "The system shall authenticate users before granting access."
+  - id: req_02
+    text: "The system shall log all failed login attempts."
+  - id: req_03
+    text: "The system shall lock an account after 5 consecutive failed attempts."

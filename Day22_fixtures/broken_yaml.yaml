@@ -1,0 +1,5 @@
+requirements:
+  - id: req_01
+    text: "This quote is never closed
+  - id: req_02
+      text: "bad indentation here"

@@ -14,3 +14,8 @@ of a three-project, six-month plan (see README.md).
   or features, so we don't rebuild something already considered and parked.
 - Per-day data artifacts live in `DayN_Description/` subfolders; code files 
   are flat at repo root.
+
+## Known gap: grader-output integrity (flagged 1 Sep 2026)
+Before Day 24 (Scorer) / Day 25 (Reporter): add an assertion that every graded row has a
+non-null, valid-range score — not just assertions on the model's output. Source: external
+LinkedIn feedback, see BACKLOG.md for full context. Do not let this get silently dropped.
