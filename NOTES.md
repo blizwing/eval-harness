@@ -865,3 +865,156 @@ tightened, since it's not currently doing any discriminating work at all.
 `Day18_Assertion_Results/Day18_assertion_results.json`,
 `Day18_judge_run.py`, `Day18_Judge_Results/Day18_judge_verdicts.json`,
 `Day18_agreement_comparison.md`.
+
+---
+
+## Day 21 — CLI Interface Design (Sun 31 Aug 2026)
+
+Designed the harness CLI before writing any code. Worked through it as a
+staged decision loop rather than settling everything at once.
+
+**Round 1 decisions:**
+- Requirements input: file path as a CLI arg, not a config file.
+- Scoring mode: runtime flag `--mode assertions|judge|both`.
+- Command structure: **subcommands**, not a single command with flags —
+  explicitly chosen with a future GUI tool in mind.
+
+**Why subcommands, and why the GUI reasoning mattered more than the
+command-structure choice itself:** the roadmap's own build days are
+distinct verbs, not one action with variations — run generation+scoring
+(Day 23-24), produce a report (Day 25), diff against a saved baseline
+(Day 26), CI/cost-guardrail check (Day 30-31). Cramming that into one
+command means flags that only make sense for some invocations
+(`--baseline` is meaningless unless diffing). The sharper point: command
+structure barely matters for GUI-readiness on its own — what matters is
+whether `run`/`report`/`diff` are real plain Python functions
+(`run_eval()`, `generate_report()`, `diff_baseline()`) that the CLI just
+calls and prints, versus logic buried inside argparse handlers. Done
+right, a future GUI imports those functions directly and never touches
+the CLI at all.
+
+**Final locked CLI shape:**
+```
+eval-harness run <requirements.yaml> --mode assertions|judge|both --out results.json
+eval-harness report results.json
+eval-harness diff results.json --baseline baseline.json --threshold 0.05
+```
+
+`diff` returns a non-zero exit code on regression — this is what Week 5's
+CI (Day 30) hooks into.
+
+Documented as a `## CLI Design` block in README, replacing/extending the
+old `## Running` section.
+
+**Checkpoint met:** README describes a tool that doesn't exist yet, in
+enough detail to build against.
+
+---
+
+## Day 22 — Dataset Loader (Mon 1 Sep 2026)
+
+Built as a pairing day: Claude scaffolded the plumbing (file I/O, YAML
+parsing, `(status, payload)` tuple pattern matching `day5_validate.py`),
+Pratham filled in the judgment calls — field constraints, uniqueness
+rules, and what actually counts as "malformed."
+
+`Day22_loader.py` — YAML → typed Pydantic objects (`Requirement`,
+`RequirementSet`), returning `("not_found" | "invalid_yaml" |
+"invalid_schema" | "valid", payload)` instead of raising, so callers can
+branch on status without try/except at every call site.
+
+**Two real design decisions made and implemented today, not just
+scaffolded:**
+- **Empty `text` field.** First instinct was a custom exception type for
+  this case specifically. Pushed back on that — an empty string is a
+  schema validation failure, same category as a missing field or wrong
+  type, not a new kind of error. Fixed with `Field(min_length=1)` on
+  `Requirement.text` instead, so it flows through the same
+  `ValidationError` → `"invalid_schema"` path as everything else. One
+  error path, not two.
+- **Duplicate requirement IDs.** Pydantic field constraints only
+  validate one field at a time — they can't compare across list items.
+  Needed a model-level validator instead: `check_unique_ids` on
+  `RequirementSet` (`@model_validator(mode="after")`), raising
+  `ValueError` on any duplicate `id`, still caught by the same
+  `except ValidationError` block.
+
+**Two ideas raised and deliberately deferred to `BACKLOG.md`, not
+built today:**
+- Requirement-to-source-doc traceability (does a requirement actually
+  derive from an HLD/spec doc?) — flagged as a semantic-similarity
+  problem needing embeddings or an LLM call, and suspiciously close to
+  P2 (Ambiguity Chaser) scope three weeks early.
+- Typo/grammar validation via a cheaper model — same verdict, overlaps
+  with the existing pre-generation quality-gate backlog item from
+  Days 17-19.
+
+**Fixture set:** started as the natural 4 (one per status branch —
+missing file, broken YAML, missing `requirements:` key, missing `text`
+field), expanded to 6 after deciding to also prove the two new checks
+directly: empty `text: ""`, and duplicate `id`s across two entries.
+All 6 live in `Day22_fixtures/`.
+
+**Checkpoint met:** broken YAML gives a readable error, not a stack
+trace — confirmed across all 6 fixture cases, each landing on a
+distinct, readable status.
+
+**Raw files:** `Day22_loader.py`, `Day22_fixtures/` (6 files).
+
+---
+
+## Day 23 — Runner with Retry/Backoff (Tue 1 Sep 2026)
+
+`Day23_runner.py` — prompts against every case in a requirement set via
+Day 22's typed loader, with retry + exponential backoff (2s/4s/8s, 3
+retries) wrapping the API call specifically. Schema validation
+(`Day5_validate`) is deliberately NOT inside the retry — a malformed
+JSON response is a prompt/schema mismatch, not a transient failure, and
+retrying it just burns calls without fixing anything.
+
+Uses `LLMClient` (Day 3) instead of Day 9/18's bare `call_OpenAI_json_mode`
+call, so latency and per-call cost are captured now rather than bolted
+on later for Day 25's Reporter.
+
+**Silent-default bug caught before it shipped:** first draft called
+`client.call_openai(prompt)` with no explicit temperature, which meant
+it silently inherited `LLMClient`'s default of `temperature=1.0` — while
+every prior run (Day 9, Day 18) used `temperature=0` via
+`call_OpenAI_json_mode`'s own default. Would have made Day 23's results
+non-comparable to the existing baseline for reasons that wouldn't show
+up anywhere except a subtly different pass rate. Fixed two ways:
+`Day23_runner.py` now passes `temperature=0.0` explicitly on every call,
+and `LLMClient`'s own defaults were changed from `1.0` to `0.0` in
+`Day3_llm_client.py`, since an eval-focused client defaulting to the
+*less* deterministic temperature was a landmine for any future caller,
+not just this one.
+
+**A case that exhausts retries does not stop the run** — it's recorded
+with `status="api_error"` and the loop continues. Verified this for
+real, not just by reading the code: added a `DEEPSEEK_OPENAI_BASE_URL`
+env override to `Day1_first_call.py` (defaults preserve normal behavior
+for every existing script), then temporarily pointed it at an
+unreachable host and ran one real requirement through it via a
+standalone, reusable smoke test (`Day23_retry_smoketest.py`). Got a
+genuine `openai.APIConnectionError`, 3 retries with correct 2s/4s/8s
+backoff, final record `status=api_error, attempts=4`, and `LLMClient`'s
+cost/token totals stayed at zero for the failed case — confirmed the
+running-total update in `_wrap` only fires after a successful return,
+so a fully-failed case can't corrupt the cost tracking.
+
+Full 35-case run against `fsm_requirements.yaml` completed clean: 35/35
+`valid`, 0 retries needed, $0.0049 total cost. `priority` still defaults
+to `"high"` on all but 2 of 35 rows (`req_18`, `req_20` → `"medium"`) —
+same finding as Day 9, still unresolved, still on the backlog for the
+planned grounding-criteria experiment. Every response also included
+ambiguity-hedging language in `expected_result`, consistent with the
+generation prompt's hedging instruction — the same behavior that
+clashed with `verification_fidelity` in the Day 18 judge run.
+
+**Checkpoint met:** a 35-case run completes even when some calls fail —
+confirmed against a real broken endpoint, not assumed from code review.
+
+**Raw files:** `Day23_runner.py`, `Day23_retry_smoketest.py`,
+`Day23_Runner_Results/Day23_run_results.json`. `Day1_first_call.py`
+(base URL override) and `Day3_llm_client.py` (temperature default fix)
+both modified — see individual commits for rationale.
