@@ -37,6 +37,12 @@ MODEL = "deepseek-v4-flash"
 PROMPT = "Write a haiku about testing."
 MAX_TOKENS = 1024
 
+# Overridable for testing (e.g. Day 23's retry/backoff smoke test needs to
+# point at an unreachable host on purpose). Defaults preserve normal behavior
+# for every script that doesn't set these.
+OPENAI_BASE_URL = os.getenv("DEEPSEEK_OPENAI_BASE_URL", "https://api.deepseek.com")
+ANTHROPIC_BASE_URL = os.getenv("DEEPSEEK_ANTHROPIC_BASE_URL", "https://api.deepseek.com/anthropic")
+
 
 @dataclass
 class CallResult:
@@ -49,8 +55,8 @@ class CallResult:
     model_name: str
 
 
-clientOpenAI = openai.OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
-clientAnthropic = anthropic.Client(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com/anthropic")
+clientOpenAI = openai.OpenAI(api_key=DEEPSEEK_API_KEY, base_url=OPENAI_BASE_URL)
+clientAnthropic = anthropic.Client(api_key=DEEPSEEK_API_KEY, base_url=ANTHROPIC_BASE_URL)
 
 def callAnthropicSchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> CallResult:
     """Call DeepSeek via the Anthropic-compatible Messages API."""
