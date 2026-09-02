@@ -76,10 +76,10 @@ class LLMClient:
             raw_response=result.raw_response,
         )
 
-    def call_anthropic(self, prompt: str, temperature: float = 1.0) -> MeteredResult:
+    def call_anthropic(self, prompt: str, temperature: float = 0.0) -> MeteredResult:
         return self._wrap(callAnthropicSchemaAPI, prompt, temperature)
 
-    def call_openai(self, prompt: str, temperature: float = 1.0) -> MeteredResult:
+    def call_openai(self, prompt: str, temperature: float = 0.0) -> MeteredResult:
         return self._wrap(callOpenAISchemaAPI, prompt, temperature)
 
     def print_running_total(self) -> None:
