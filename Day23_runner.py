@@ -163,28 +163,31 @@ def run_all(requirements_file: str = REQUIREMENTS_FILE) -> list[CaseResult]:
     return results
 
 
+def serialize_case(r: CaseResult) -> dict:
+    """Flattens a CaseResult into the dict row shape used by
+    Day23_run_results.json (and consumed by Day24_scorer.score_case)."""
+    entry = {
+        "id": r.id,
+        "requirement_text": r.requirement_text,
+        "status": r.status,
+        "attempts": r.attempts,
+        "parsed_output": r.parsed_output,
+        "raw_response_text": r.raw_response_text,
+        "validation_detail": r.validation_detail,
+        "error_message": r.error_message,
+    }
+    if r.metered is not None:
+        entry["input_tokens"] = r.metered.input_tokens
+        entry["output_tokens"] = r.metered.output_tokens
+        entry["latency_ms"] = r.metered.latency_ms
+        entry["cost_usd"] = r.metered.cost_usd
+    return entry
+
+
 def save_results(results: list[CaseResult], source_file: str) -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    serializable = []
-    for r in results:
-        entry = {
-            "id": r.id,
-            "requirement_text": r.requirement_text,
-            "status": r.status,
-            "attempts": r.attempts,
-            "parsed_output": r.parsed_output,
-            "raw_response_text": r.raw_response_text,
-            "validation_detail": r.validation_detail,
-            "error_message": r.error_message,
-        }
-        if r.metered is not None:
-            entry["input_tokens"] = r.metered.input_tokens
-            entry["output_tokens"] = r.metered.output_tokens
-            entry["latency_ms"] = r.metered.latency_ms
-            entry["cost_usd"] = r.metered.cost_usd
-        results_by_status = entry
-        serializable.append(results_by_status)
+    serializable = [serialize_case(r) for r in results]
 
     counts: dict[str, int] = {}
     for r in results:

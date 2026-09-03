@@ -1018,3 +1018,148 @@ confirmed against a real broken endpoint, not assumed from code review.
 `Day23_Runner_Results/Day23_run_results.json`. `Day1_first_call.py`
 (base URL override) and `Day3_llm_client.py` (temperature default fix)
 both modified — see individual commits for rationale.
+
+---
+
+## Day 24 — Scorer (Thu 3 Sep 2026)
+
+Consolidated every scattered Pydantic model (`Requirement`/`RequirementSet`
+from Day 22, `TestCase` from Day 7, `JudgeVerdict` from Day 12, `CaseResult`
+from Day 23 — promoted from a plain `@dataclass` to a `BaseModel`, the
+`metered` field's `repr=False` behavior verified unchanged) into a new
+`schemas.py`. Pure extraction, re-verified against all four consuming
+files: Day 22's fixture suite still returns identical statuses, Day 23's
+runner still saves and loads the same shape.
+
+`Day24_scorer.py` — assertion-scoring and judge-scoring behind one
+interface, dispatched by `score_case(row, mode)` where `mode` is
+`"assertions" | "judge" | "both"`. Two real mismatches surfaced against
+actual Day 23 output rather than the shape originally assumed, both
+caught and fixed before writing the scorer, not discovered after:
+- **Row-key mismatch.** Day 11's four check functions read
+  `row["validation_verdict"]` (Day 9's key); Day 23's rows use
+  `row["status"]` for the same concept. Fixed with a row adapter inside
+  `Day24_scorer.py` (`{**row, "validation_verdict": row["status"]}`)
+  rather than touching Day 11's checks.
+- **`JudgeScore` field mismatch.** The originally specced `JudgeScore`
+  had 3 pass/fail criteria, matching Day 12's `JudgeVerdict` (v1) — but
+  the default judge prompt is `judge_v2.txt` (Day 15/16), whose rubric
+  asks for 5. Validating a v2 response against the 3-field model would
+  have silently dropped `verification_fidelity` and `pass_fail_clarity`
+  from every score with no error raised — exactly the "silent wrong
+  answer, but for the grader" failure mode Cynthia Omovoiye flagged (see
+  below). `JudgeScore` expanded to all 5 fields instead.
+
+Judge-scoring reuses Day 12's pattern via a newly extracted
+`judge_single_case()` (prompt format + call + validate, parameterized by
+verdict model) instead of duplicating it — `run_all()` in
+`Day12_LLM_Judge.py` now calls this too, its own behavior unchanged.
+
+**`ScoreIntegrityError`** — the harness now asserts on its own grader
+output, not just the model's. After scoring, `assertion_result`/
+`judge_result` are checked for presence, correct key sets, and non-blank
+reasoning before a `ScoreResult` is ever returned; any failure raises and
+halts `score_all()` rather than degrading to a per-row status the way
+Day 23 handles `api_error` — an untrustworthy score is a different
+severity than an API hiccup. **This closes the "grader-output integrity"
+backlog item** raised from Cynthia Omovoiye's LinkedIn feedback
+(1 Sep 2026) — see BACKLOG.md.
+
+`api_error` rows (no `parsed_output`, never reached the model) score as
+an automatic fail on both assertions and judge, skipping the judge API
+call entirely — the conservative option, so a row that was never a
+scoring candidate doesn't trip the integrity check or burn a call.
+
+Verified all three modes end-to-end against the real 35-row
+`Day23_run_results.json`: 0 integrity errors, assertions matched the
+known invalid row (`req_13`), judge mode validated cleanly against the
+expanded 5-field schema.
+
+**Borderline-path investigation.** Built
+`Day24_Borderline_Smoketest/borderline_requirements.yaml` — 5
+hand-crafted requirements aimed at each of judge_v2's three verdict
+buckets, to check whether Day 18's "borderline is structurally
+unreachable" finding holds up against deliberately-targeted input, not
+just the real 35-item corpus. Two attempts (`req_b02`, `req_b03`) paired
+a concrete, checkable anchor (an SLA threshold, a cancellation-fee
+window) with a subjective qualifier that has no natural default value; a
+third (`req_b05`) paired a hard state transition with a sufficiency
+condition that has no canonical placeholder value at all. **None landed
+on `borderline` across two full runs (7 judge calls).** `req_b03` even
+flipped from `good` to `bad` between runs at temperature=0 — real judge
+variance — landing on the opposite pole rather than the middle. Sharper
+conclusion than Day 18's: this isn't just the real dataset never
+sampling a borderline case, the judge appears to behave as a near-binary
+classifier regardless of how deliberately the input is engineered.
+
+**Incidental finding, not investigated further:** the first borderline
+smoketest run hung indefinitely on one API call — near-zero CPU, no
+`[retry]` message from Day 23's backoff logic, meaning the underlying
+HTTP client's own timeout hadn't fired at all. Killed and retried; the
+second attempt succeeded immediately. Worth revisiting if hangs recur —
+the OpenAI/Anthropic SDK's default request timeout may be long enough
+that a genuinely dead connection looks indistinguishable from a slow one
+for several minutes.
+
+**Follow-up: model-variant experiment reverses the conclusion above.**
+The two smoketest runs both used `deepseek-v4-flash` with thinking
+disabled — the harness's default — for both generation and judging.
+Re-ran the same 5 requirements through 3 other whole-pipeline configs
+(same model/thinking setting used for *both* generation and judging per
+config, so a shift can't be attributed to one side alone from this data):
+`flash+thinking`, `deepseek-v4-pro`, `deepseek-v4-pro+thinking`.
+**`borderline` was reached once, under `pro+thinking`, on `req_b04`** —
+the requirement deliberately drafted as unambiguously vague specifically
+to force `bad`. Reasoning: "the test case covers the high-level
+requirement and has a clear expected outcome, but its preconditions and
+steps contain vague placeholders like 'involved parties' and
+'appropriate notification,' making execution insufficiently concrete" —
+exactly the specificity soft-fail the rubric describes, hard criteria
+intact. Notably it didn't come from either purpose-built borderline
+candidate (`req_b02`/`req_b03` — both still `good` under `pro+thinking`);
+it came from a stronger, more deliberate model catching real vagueness
+in a case the flash judge had been content to call outright `bad` (under
+plain `pro`) or `good` (under `flash+thinking`).
+
+**Revised conclusion:** `borderline` is not structurally unreachable —
+`deepseek-v4-flash` without thinking just isn't discriminating enough to
+land there. It behaves close to a binary classifier: either credits a
+test case as fully specific, or rejects it outright, with nothing
+in between. This is one sample, not a statistically meaningful
+comparison — see the new BACKLOG.md item on a proper judge-model
+comparison before changing anything in the default pipeline.
+
+`flash+thinking` also surfaced two new failure modes in the same run,
+neither investigated further: `req_b01`'s generation call returned
+non-JSON output entirely (`status=invalid_json` — the first time this
+status has ever actually occurred in this codebase in 24 days of runs,
+and what surfaced the `check_valid_json` crash bug below), and
+`req_b02`'s judge call exhausted its full 4096-token budget on reasoning
+without ever emitting an answer (`stop_reason=length`, empty content).
+
+**Crash bug found and fixed: `Day11_assertions.check_valid_json`.** It
+scans `validation_detail` for a `"json_error"`-tagged tuple to decide
+whether a row's raw response was parseable JSON — but
+`Day5_validate.validate_response` never actually emits that tag anywhere;
+its `invalid_json` status carries a bare list of exception-message
+strings, not `(kind, msg)` tuples. The old logic happened to return the
+right answer on every row seen before today, purely by coincidence (the
+tag it searched for never occurs, so the scan never matched, so it always
+fell through to `True`) — it had simply never been exercised on a real
+`invalid_json` row until `req_b01` produced one just now, at which point
+`for kind, _ in detail` crashed trying to unpack a bare string. Fixed to
+check `validation_verdict != "invalid_json"` directly. Re-ran Day 11's
+original 10-row/40-check baseline afterward — still 38/40, unchanged.
+
+**Checkpoint met:** assertions-only, judge-only, and both run via a
+single `--mode` flag, confirmed against real data in all three
+configurations.
+
+**Raw files:** `schemas.py`, `Day24_scorer.py`,
+`Day24_Borderline_Smoketest/borderline_requirements.yaml`,
+`Day24_borderline_smoketest.py`, `Day24_model_variant_experiment.py`.
+Also modified: `Day22_loader.py`, `Day7_zeroshot_testcase.py`,
+`Day12_LLM_Judge.py`, `Day23_runner.py` (schema imports +
+`serialize_case()` extraction), `Day11_assertions.py` (`check_valid_json`
+fix), `Day1_first_call.py`/`Day4_json_mode.py` (`model`/
+`thinking_enabled`/`max_tokens` made overridable, defaults unchanged).

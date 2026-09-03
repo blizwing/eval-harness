@@ -53,6 +53,41 @@ original finding. See NOTES.md Day 24.
 
 ---
 
+## Judge model upgrade: deepseek-v4-pro + thinking (raised 3 Sep 2026, Day 24)
+
+Idea: switch the default judge model (currently `deepseek-v4-flash`, thinking
+disabled) to `deepseek-v4-pro` with thinking enabled.
+
+Why raised: a one-off model-variant experiment (5 borderline-targeting
+requirements × 3 configs, see NOTES.md Day 24) reached the judge's
+`borderline` verdict once, under `pro+thinking`, on a case that both
+`flash+thinking` and plain `pro` scored at an extreme (`good` and `bad`
+respectively). Suggests flash-without-thinking behaves close to a binary
+good/bad classifier and pro+thinking discriminates real vagueness that
+flash lets through — a live counter to Day 18's "borderline is
+structurally unreachable" finding, but only n=1.
+
+Decision: deferred, not changed in P1.
+- One sample is not evidence a stronger/slower/more expensive model
+  should become the production default — could easily be noise from a
+  single generation+judge draw, and the experiment varied generation and
+  judging together, so the effect can't yet be attributed to the judge
+  specifically rather than the test case it was judging.
+- `pro+thinking` is markedly more expensive per call (hundreds of
+  reasoning tokens vs. tens) and slower (~8-10s vs ~2-3s observed) —
+  a real cost/latency tradeoff against Day 30/31's cost-guardrail goals,
+  not a free upgrade.
+
+**Revisit trigger:** before locking in Day 26's baseline, or if judge
+agreement is ever re-measured (Day 14/16/18-style), re-run judge_v2
+against a proper sample (the full 35-item set, or a larger dedicated
+batch) with `pro+thinking` as the judge only (generation held fixed on
+the current default) to isolate whether the effect is really the judge,
+and check whether the agreement/verdict-distribution shift is large
+enough to justify the added cost and latency.
+
+---
+
 ## 1 Sep 2026
 
 - Requirement traceability check: validate that each requirement in
