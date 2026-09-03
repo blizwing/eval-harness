@@ -1,16 +1,6 @@
-from typing import Literal
-from pydantic import BaseModel
 from Day4_json_mode import call_OpenAI_json_mode
 from Day5_validate import validate_response
-
-
-class TestCase(BaseModel):
-    title: str
-    description: str
-    preconditions: list[str]
-    test_steps: list[str]
-    expected_result: str
-    priority: Literal["low", "medium", "high"]
+from schemas import TestCase
 
 test_cases = {
     "Create secret note successfully": (

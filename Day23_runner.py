@@ -27,7 +27,6 @@ Design notes:
 import json
 import os
 import time
-from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
 import anthropic
@@ -37,6 +36,7 @@ from Day3_llm_client import LLMClient, MeteredResult
 from Day5_validate import validate_response
 from Day7_zeroshot_testcase import TestCase
 from Day22_loader import load_requirements, RequirementSet
+from schemas import CaseResult
 
 REQUIREMENTS_FILE = "Day8_Project_Requirements/fsm_requirements.yaml"
 PROMPT_FILE = "Day7_prompt_file/prompt_testcase_v1.txt"
@@ -68,19 +68,6 @@ RETRYABLE_EXCEPTIONS = (
 )
 
 BAR_WIDTH = 30
-
-
-@dataclass
-class CaseResult:
-    id: str
-    requirement_text: str
-    status: str  # "valid" | "invalid_schema" | "invalid_json" | "api_error"
-    parsed_output: dict | None = None
-    raw_response_text: str | None = None
-    validation_detail: object = None
-    attempts: int = 1
-    metered: MeteredResult | None = field(default=None, repr=False)
-    error_message: str | None = None
 
 
 def print_progress(current: int, total: int, req_id: str, status: str) -> None:

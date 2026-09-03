@@ -8,24 +8,9 @@ on status without a try/except at every call site.
 """
 
 import yaml
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import ValidationError
 
-
-class Requirement(BaseModel):
-    id: str
-    text: str = Field(min_length=1)
-
-
-class RequirementSet(BaseModel):
-    requirements: list[Requirement]
-
-    @model_validator(mode="after")
-    def check_unique_ids(self):
-        ids = [r.id for r in self.requirements]
-        dupes = {i for i in ids if ids.count(i) > 1}
-        if dupes:
-            raise ValueError(f"Duplicate requirement id(s): {sorted(dupes)}")
-        return self
+from schemas import RequirementSet
 
 
 def load_requirements(path: str) -> tuple[str, object]:

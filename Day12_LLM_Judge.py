@@ -14,12 +14,12 @@ explicit marker string instead of silently formatting None into the prompt.
 import json
 import os
 from datetime import datetime, timezone
-from typing import Literal
 
 from pydantic import BaseModel
 
 from Day4_json_mode import call_OpenAI_json_mode
 from Day5_validate import validate_response
+from schemas import JudgeVerdict
 
 DAY9_OUTPUTS_FILE = "Day9_Requirements_JSON_Outputs/Day9_outputs.json"
 JUDGE_PROMPT_FILE = "Day12_Judge_LLM_Data/judge_llm_prompt.txt"
@@ -29,14 +29,6 @@ OUTPUT_FILE = os.path.join(OUTPUT_DIR, "Day12_judge_llm_verdicts.json")
 BAR_WIDTH = 30
 
 NO_OUTPUT_MARKER = "NO VALID OUTPUT WAS PRODUCED (validation_verdict != 'valid')"
-
-
-class JudgeVerdict(BaseModel):
-    field_completeness: Literal["pass", "fail"]
-    requirement_coverage: Literal["pass", "fail"]
-    specificity: Literal["pass", "fail"]
-    verdict: Literal["good", "bad", "borderline"]
-    reasoning: str
 
 
 def print_progress(current: int, total: int, req_id: str, verdict: str) -> None:
