@@ -2,12 +2,18 @@ import json
 
 from Day1_first_call import CallResult, clientOpenAI, MODEL, MAX_TOKENS
 
-def call_OpenAI_json_mode(prompt:str, temperature:float=0) -> CallResult:
+def call_OpenAI_json_mode(
+    prompt: str,
+    temperature: float = 0,
+    model: str = MODEL,
+    thinking_enabled: bool = False,
+    max_tokens: int = MAX_TOKENS,
+) -> CallResult:
     response = clientOpenAI.chat.completions.create(
-        model=MODEL,
+        model=model,
         messages=[{"role": "user", "content": prompt}],
-        extra_body={"thinking": {"type": "disabled"}},
-        max_tokens=MAX_TOKENS,
+        extra_body={"thinking": {"type": "enabled" if thinking_enabled else "disabled"}},
+        max_tokens=max_tokens,
         temperature=temperature,
         stream=False,
         response_format={

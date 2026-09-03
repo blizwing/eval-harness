@@ -78,12 +78,18 @@ def callAnthropicSchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> Ca
         model_name=response.model
     )
 
-def callOpenAISchemaAPI(prompt: str = PROMPT, temperature: float = 1.0) -> CallResult:
+def callOpenAISchemaAPI(
+    prompt: str = PROMPT,
+    temperature: float = 1.0,
+    model: str = MODEL,
+    thinking_enabled: bool = False,
+    max_tokens: int = MAX_TOKENS,
+) -> CallResult:
     response = clientOpenAI.chat.completions.create(
-        model=MODEL,
+        model=model,
         messages=[{"role": "user", "content": prompt}],
-        extra_body={"thinking": {"type": "disabled"}},
-        max_tokens=MAX_TOKENS,
+        extra_body={"thinking": {"type": "enabled" if thinking_enabled else "disabled"}},
+        max_tokens=max_tokens,
         temperature=temperature,
         stream=False
     )

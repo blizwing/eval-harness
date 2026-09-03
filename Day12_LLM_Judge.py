@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 
 from pydantic import BaseModel
 
+from Day1_first_call import MODEL, MAX_TOKENS
 from Day4_json_mode import call_OpenAI_json_mode
 from Day5_validate import validate_response
 from schemas import JudgeVerdict
@@ -60,6 +61,34 @@ def format_test_case(entry: dict) -> str:
     return json.dumps(entry["parsed_output"], indent=2, ensure_ascii=False)
 
 
+def judge_single_case(
+    requirement_text: str,
+    test_case_str: str,
+    prompt_template: str,
+    verdict_model: type[BaseModel] = JudgeVerdict,
+    model: str = MODEL,
+    thinking_enabled: bool = False,
+    max_tokens: int = MAX_TOKENS,
+):
+    """Formats the judge prompt for one (requirement, test case) pair, calls
+    the model, and validates the response against verdict_model. Extracted
+    so callers other than run_all() (e.g. Day 24's scorer, which judges
+    Day 23's rows rather than Day 9's file) can judge a single case without
+    going through run_all()'s Day-9-shaped loop. model/thinking_enabled/
+    max_tokens default to run_all()'s existing behavior (deepseek-v4-flash,
+    thinking disabled) — added for the Day 24 model-variant experiment,
+    which needs to swap these per call."""
+    prompt = prompt_template.format(
+        requirement_text=requirement_text,
+        test_case_json=test_case_str,
+    )
+    call_result = call_OpenAI_json_mode(
+        prompt, model=model, thinking_enabled=thinking_enabled, max_tokens=max_tokens
+    )
+    judge_status, judge_detail = validate_response(call_result.text, verdict_model)
+    return call_result, judge_status, judge_detail
+
+
 def run_all() -> list[dict]:
     day9_results = load_day9_outputs(DAY9_OUTPUTS_FILE)
     prompt_template = load_prompt_template(JUDGE_PROMPT_FILE)
@@ -71,12 +100,9 @@ def run_all() -> list[dict]:
         req_text = entry["requirement_text"]
         test_case_str = format_test_case(entry)
 
-        prompt = prompt_template.format(
-            requirement_text=req_text,
-            test_case_json=test_case_str,
+        call_result, judge_status, judge_detail = judge_single_case(
+            req_text, test_case_str, prompt_template, JudgeVerdict
         )
-        call_result = call_OpenAI_json_mode(prompt)
-        judge_status, judge_detail = validate_response(call_result.text, JudgeVerdict)
 
         if judge_status == "valid":
             assert isinstance(judge_detail, JudgeVerdict)
