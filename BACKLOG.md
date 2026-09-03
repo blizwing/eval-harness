@@ -44,6 +44,13 @@ gate forward into P1 — otherwise it stays fully in P2 scope.
 - Framing: this strengthens the existing roadmap, not scope creep. Also a stronger interview
   anecdote combined with the unreachable-borderline-path finding.
 
+**Resolved 3 Sep 2026 (Day 24):** `Day24_scorer.py` raises `ScoreIntegrityError` if a
+graded row's `assertion_result`/`judge_result` comes back missing, incomplete, or with
+blank reasoning — fails loud instead of returning a partial `ScoreResult`. Also ran a
+follow-up smoke test targeting the borderline path directly (5 hand-crafted requirements,
+2 full runs) — still unreachable even under deliberate adversarial input, sharpening the
+original finding. See NOTES.md Day 24.
+
 ---
 
 ## 1 Sep 2026

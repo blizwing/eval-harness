@@ -68,3 +68,31 @@ class CaseResult(BaseModel):
     attempts: int = 1
     metered: MeteredResult | None = Field(default=None, repr=False)
     error_message: str | None = None
+
+
+# --- Day 24: scorer ---
+
+class AssertionScore(BaseModel):
+    checks: dict[str, bool]  # valid_json, fields_present, non_empty, under_token_cap
+    passed: bool             # True only if all checks passed
+
+
+class JudgeScore(BaseModel):
+    """Matches judge_v2.txt's 5-criterion rubric (Day 15/16), not Day 12's
+    3-criterion JudgeVerdict — using judge_v2.txt as the default judge
+    prompt while validating against a 3-field model would silently drop
+    verification_fidelity and pass_fail_clarity from every score."""
+    verdict: Literal["good", "bad", "borderline"]
+    field_completeness: Literal["pass", "fail"]
+    requirement_coverage: Literal["pass", "fail"]
+    specificity: Literal["pass", "fail"]
+    verification_fidelity: Literal["pass", "fail"]
+    pass_fail_clarity: Literal["pass", "fail"]
+    reasoning: str
+
+
+class ScoreResult(BaseModel):
+    case_id: str
+    mode: Literal["assertions", "judge", "both"]
+    assertion_result: AssertionScore | None = None
+    judge_result: JudgeScore | None = None

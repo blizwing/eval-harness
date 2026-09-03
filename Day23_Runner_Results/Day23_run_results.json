@@ -1,0 +1,1148 @@
+{
+  "generated_at": "2026-09-03T04:50:30.812056+00:00",
+  "source_requirements_file": "Day8_Project_Requirements/fsm_requirements.yaml",
+  "prompt_file": "Day7_prompt_file/prompt_testcase_v1.txt",
+  "count": 35,
+  "status_counts": {
+    "valid": 34,
+    "invalid": 1
+  },
+  "results": [
+    {
+      "id": "req_01",
+      "requirement_text": "A task will be created with a unique task ID for a specific customer with the customer details like their name, phone number, location, service details which will go for a set amount of time.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify task creation with unique ID and customer details",
+        "description": "This test verifies that when a task is created for a specific customer, the system assigns a unique task ID and correctly stores the customer's name, phone number, location, service details, and the task duration.",
+        "preconditions": [
+          "The system is available and the user has permission to create tasks.",
+          "A customer record exists with valid name, phone number, and location.",
+          "Service details are defined in the system."
+        ],
+        "test_steps": [
+          "Navigate to the task creation interface.",
+          "Select the specific customer from the customer list.",
+          "Enter the service details (e.g., service type, description).",
+          "Enter the duration for which the task will run (e.g., 2 hours).",
+          "Submit the task creation form.",
+          "Retrieve the task details using the generated task ID."
+        ],
+        "expected_result": "The system creates a task with a unique task ID. The task details include the customer's name, phone number, location, service details, and the specified duration. The task ID is unique and not previously assigned. If the requirement is ambiguous regarding the format of the task ID or the exact fields for service details, the test should still confirm that all provided customer details are stored and retrievable.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify task creation with unique ID and customer details\",\n  \"description\": \"This test verifies that when a task is created for a specific customer, the system assigns a unique task ID and correctly stores the customer's name, phone number, location, service details, and the task duration.\",\n  \"preconditions\": [\n    \"The system is available and the user has permission to create tasks.\",\n    \"A customer record exists with valid name, phone number, and location.\",\n    \"Service details are defined in the system.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the task creation interface.\",\n    \"Select the specific customer from the customer list.\",\n    \"Enter the service details (e.g., service type, description).\",\n    \"Enter the duration for which the task will run (e.g., 2 hours).\",\n    \"Submit the task creation form.\",\n    \"Retrieve the task details using the generated task ID.\"\n  ],\n  \"expected_result\": \"The system creates a task with a unique task ID. The task details include the customer's name, phone number, location, service details, and the specified duration. The task ID is unique and not previously assigned. If the requirement is ambiguous regarding the format of the task ID or the exact fields for service details, the test should still confirm that all provided customer details are stored and retrievable.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 297,
+      "output_tokens": 292,
+      "latency_ms": 3913.569100004679,
+      "cost_usd": 0.00012334
+    },
+    {
+      "id": "req_02",
+      "requirement_text": "A technician with the matching skills will be assigned the task and they have to travel to the job site, complete the formalities, complete the work required to close the job all within the specified time.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify technician assignment and job completion within specified time",
+        "description": "This test case verifies that when a job is created, a technician with matching skills is assigned, and the entire process from travel to job site, completing formalities, and completing the work to close the job is finished within the specified time frame.",
+        "preconditions": [
+          "A job exists with required skills and a specified completion time.",
+          "At least one technician with the matching skills is available.",
+          "The system is operational and accessible."
+        ],
+        "test_steps": [
+          "Create a job with required skills and a specified time limit.",
+          "Trigger the job assignment process.",
+          "Verify that a technician with the matching skills is assigned to the job.",
+          "Simulate the technician traveling to the job site.",
+          "Simulate the technician completing the formalities at the job site.",
+          "Simulate the technician performing the work required to close the job.",
+          "Record the time taken from assignment to job closure.",
+          "Compare the recorded time against the specified time limit."
+        ],
+        "expected_result": "The system assigns a technician with the matching skills, and the job is completed (including travel, formalities, and work) within the specified time. If the requirement is ambiguous regarding whether the time limit includes travel or only work, the test should verify that the total elapsed time from assignment to closure does not exceed the specified time, but note that the exact interpretation of 'specified time' may need clarification.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify technician assignment and job completion within specified time\",\n  \"description\": \"This test case verifies that when a job is created, a technician with matching skills is assigned, and the entire process from travel to job site, completing formalities, and completing the work to close the job is finished within the specified time frame.\",\n  \"preconditions\": [\n    \"A job exists with required skills and a specified completion time.\",\n    \"At least one technician with the matching skills is available.\",\n    \"The system is operational and accessible.\"\n  ],\n  \"test_steps\": [\n    \"Create a job with required skills and a specified time limit.\",\n    \"Trigger the job assignment process.\",\n    \"Verify that a technician with the matching skills is assigned to the job.\",\n    \"Simulate the technician traveling to the job site.\",\n    \"Simulate the technician completing the formalities at the job site.\",\n    \"Simulate the technician performing the work required to close the job.\",\n    \"Record the time taken from assignment to job closure.\",\n    \"Compare the recorded time against the specified time limit.\"\n  ],\n  \"expected_result\": \"The system assigns a technician with the matching skills, and the job is completed (including travel, formalities, and work) within the specified time. If the requirement is ambiguous regarding whether the time limit includes travel or only work, the test should verify that the total elapsed time from assignment to closure does not exceed the specified time, but note that the exact interpretation of 'specified time' may need clarification.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 298,
+      "output_tokens": 324,
+      "latency_ms": 2380.0819999960368,
+      "cost_usd": 0.00013244
+    },
+    {
+      "id": "req_03",
+      "requirement_text": "FSM Scheduling needs to assign the created task to a technician for a specific time based on a number of parameters like the distance between the technician and the job site, mode of transport the technician uses to travel, the skillset of the technician required for the task, time required for the task.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify FSM Scheduling Assigns Task to Technician Based on Parameters",
+        "description": "This test verifies that the FSM Scheduling system correctly assigns a newly created task to a technician for a specific time, considering the distance between the technician and the job site, the technician's mode of transport, the required skillset, and the estimated task duration. The test ensures that the scheduling algorithm selects the most appropriate technician and time slot based on these parameters.",
+        "preconditions": [
+          "The system has at least two technicians available for assignment.",
+          "Each technician has a defined location, mode of transport, and skillset in the system.",
+          "The system has a job site location and a task with required skillset and estimated duration.",
+          "The scheduling module is active and can access technician availability and travel time calculations."
+        ],
+        "test_steps": [
+          "Create a new task with a required skillset, estimated duration, and job site location.",
+          "Trigger the FSM scheduling process for the created task.",
+          "Observe the system's selection of a technician and the proposed time slot.",
+          "Verify that the selected technician has the required skillset for the task.",
+          "Verify that the proposed time slot accounts for the technician's travel time from their current location to the job site, based on their mode of transport.",
+          "Verify that the proposed time slot is within the technician's available working hours and does not overlap with other assigned tasks.",
+          "Verify that the proposed time slot is sufficient to complete the task within the estimated duration."
+        ],
+        "expected_result": "The system assigns the task to a technician who meets all the specified criteria: has the required skillset, can reach the job site within a reasonable time considering their mode of transport, and has availability for the task duration. The assigned time should be specific and feasible. If multiple technicians meet the criteria, the system should select the one that optimizes the scheduling (e.g., earliest start time or shortest travel distance). Note: The requirement does not specify the exact optimization algorithm or weighting of parameters, so the test should verify that all parameters are considered, but the exact selection logic may need clarification.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify FSM Scheduling Assigns Task to Technician Based on Parameters\",\n  \"description\": \"This test verifies that the FSM Scheduling system correctly assigns a newly created task to a technician for a specific time, considering the distance between the technician and the job site, the technician's mode of transport, the required skillset, and the estimated task duration. The test ensures that the scheduling algorithm selects the most appropriate technician and time slot based on these parameters.\",\n  \"preconditions\": [\n    \"The system has at least two technicians available for assignment.\",\n    \"Each technician has a defined location, mode of transport, and skillset in the system.\",\n    \"The system has a job site location and a task with required skillset and estimated duration.\",\n    \"The scheduling module is active and can access technician availability and travel time calculations.\"\n  ],\n  \"test_steps\": [\n    \"Create a new task with a required skillset, estimated duration, and job site location.\",\n    \"Trigger the FSM scheduling process for the created task.\",\n    \"Observe the system's selection of a technician and the proposed time slot.\",\n    \"Verify that the selected technician has the required skillset for the task.\",\n    \"Verify that the proposed time slot accounts for the technician's travel time from their current location to the job site, based on their mode of transport.\",\n    \"Verify that the proposed time slot is within the technician's available working hours and does not overlap with other assigned tasks.\",\n    \"Verify that the proposed time slot is sufficient to complete the task within the estimated duration.\"\n  ],\n  \"expected_result\": \"The system assigns the task to a technician who meets all the specified criteria: has the required skillset, can reach the job site within a reasonable time considering their mode of transport, and has availability for the task duration. The assigned time should be specific and feasible. If multiple technicians meet the criteria, the system should select the one that optimizes the scheduling (e.g., earliest start time or shortest travel distance). Note: The requirement does not specify the exact optimization algorithm or weighting of parameters, so the test should verify that all parameters are considered, but the exact selection logic may need clarification.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 317,
+      "output_tokens": 458,
+      "latency_ms": 3590.346100005263,
+      "cost_usd": 0.00017262
+    },
+    {
+      "id": "req_04",
+      "requirement_text": "The technician will reach the job site, get the customer's approval on the work, do the required work while simultaneously capturing the evidence of the work they do with the FSM mobile app.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify technician captures work evidence via FSM mobile app during job execution",
+        "description": "This test verifies that when a technician is on-site and has obtained customer approval, they can perform the required work while simultaneously using the FSM mobile app to capture evidence (e.g., photos, notes, signatures) of the work being done. The test ensures the app supports evidence capture during the active job without blocking or interrupting the work process.",
+        "preconditions": [
+          "Technician is logged into the FSM mobile app with an assigned job that is in 'On Site' or 'In Progress' status.",
+          "Technician has reached the job site and obtained customer approval on the work (approval recorded in the app or manually confirmed).",
+          "The mobile device has sufficient storage and camera access enabled for the FSM app.",
+          "The job details are visible in the app with an option to start or continue work."
+        ],
+        "test_steps": [
+          "Open the FSM mobile app and navigate to the assigned job.",
+          "Confirm that the job status is 'On Site' or 'In Progress' and that customer approval is recorded.",
+          "Start the work as per the job instructions.",
+          "While performing the work, tap the 'Capture Evidence' or equivalent button in the app.",
+          "Take at least one photo of the work area or performed action.",
+          "Add a brief note or annotation to the captured evidence if the app supports it.",
+          "Save the evidence and verify it is attached to the job record.",
+          "Continue performing additional work steps and capture at least one more piece of evidence (e.g., another photo or a signature) to confirm simultaneous capture is possible.",
+          "Complete the work and submit the job in the app."
+        ],
+        "expected_result": "The app allows the technician to capture evidence (photos, notes, etc.) at any point during the work without requiring the work to be paused or the job to be closed. All captured evidence is successfully saved and associated with the correct job. The technician can continue working and capture multiple evidence items sequentially. The job can be completed and submitted with all evidence intact. If the requirement is ambiguous about the exact type of evidence or the method of capturing it (e.g., whether it must be real-time or can be uploaded later), the test should be adjusted to match the actual app behavior, but the core expectation is that evidence capture is integrated into the work flow.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify technician captures work evidence via FSM mobile app during job execution\",\n  \"description\": \"This test verifies that when a technician is on-site and has obtained customer approval, they can perform the required work while simultaneously using the FSM mobile app to capture evidence (e.g., photos, notes, signatures) of the work being done. The test ensures the app supports evidence capture during the active job without blocking or interrupting the work process.\",\n  \"preconditions\": [\n    \"Technician is logged into the FSM mobile app with an assigned job that is in 'On Site' or 'In Progress' status.\",\n    \"Technician has reached the job site and obtained customer approval on the work (approval recorded in the app or manually confirmed).\",\n    \"The mobile device has sufficient storage and camera access enabled for the FSM app.\",\n    \"The job details are visible in the app with an option to start or continue work.\"\n  ],\n  \"test_steps\": [\n    \"Open the FSM mobile app and navigate to the assigned job.\",\n    \"Confirm that the job status is 'On Site' or 'In Progress' and that customer approval is recorded.\",\n    \"Start the work as per the job instructions.\",\n    \"While performing the work, tap the 'Capture Evidence' or equivalent button in the app.\",\n    \"Take at least one photo of the work area or performed action.\",\n    \"Add a brief note or annotation to the captured evidence if the app supports it.\",\n    \"Save the evidence and verify it is attached to the job record.\",\n    \"Continue performing additional work steps and capture at least one more piece of evidence (e.g., another photo or a signature) to confirm simultaneous capture is possible.\",\n    \"Complete the work and submit the job in the app.\"\n  ],\n  \"expected_result\": \"The app allows the technician to capture evidence (photos, notes, etc.) at any point during the work without requiring the work to be paused or the job to be closed. All captured evidence is successfully saved and associated with the correct job. The technician can continue working and capture multiple evidence items sequentially. The job can be completed and submitted with all evidence intact. If the requirement is ambiguous about the exact type of evidence or the method of capturing it (e.g., whether it must be real-time or can be uploaded later), the test should be adjusted to match the actual app behavior, but the core expectation is that evidence capture is integrated into the work flow.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 296,
+      "output_tokens": 517,
+      "latency_ms": 4131.051800002751,
+      "cost_usd": 0.00018620000000000003
+    },
+    {
+      "id": "req_05",
+      "requirement_text": "Once the task is completed the technician will get the customer's signature for the work done document and start travelling to the home base.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify technician obtains customer signature and returns to home base after task completion",
+        "description": "This test case verifies that after a technician completes a task, the system correctly guides the technician to obtain the customer's signature on the work done document and then initiates the process of travelling back to the home base. The test checks that the signature capture step is presented and that the system transitions to the return-to-base state after signature is captured.",
+        "preconditions": [
+          "Technician is logged into the mobile application",
+          "A task is assigned to the technician and is in 'In Progress' or 'On Site' status",
+          "The task location is not the same as the home base",
+          "The work done document is available for the task"
+        ],
+        "test_steps": [
+          "Open the task details in the mobile application",
+          "Mark the task as 'Completed' or perform the action that indicates the physical work is done",
+          "Observe the system's prompt or screen for capturing the customer's signature on the work done document",
+          "Capture the customer's signature on the work done document (e.g., via touch or stylus)",
+          "Confirm or submit the signature",
+          "Observe the system's next action or screen after signature submission"
+        ],
+        "expected_result": "After the task is marked completed, the system should present a signature capture interface for the work done document. Once the signature is captured and confirmed, the system should transition to a state indicating the technician is travelling to the home base (e.g., show navigation or update task status to 'Returning to Base'). If the requirement is ambiguous about whether the signature is mandatory or whether the system automatically starts navigation, the test should verify that the technician is at least prompted to start travelling to the home base after signature capture.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify technician obtains customer signature and returns to home base after task completion\",\n  \"description\": \"This test case verifies that after a technician completes a task, the system correctly guides the technician to obtain the customer's signature on the work done document and then initiates the process of travelling back to the home base. The test checks that the signature capture step is presented and that the system transitions to the return-to-base state after signature is captured.\",\n  \"preconditions\": [\n    \"Technician is logged into the mobile application\",\n    \"A task is assigned to the technician and is in 'In Progress' or 'On Site' status\",\n    \"The task location is not the same as the home base\",\n    \"The work done document is available for the task\"\n  ],\n  \"test_steps\": [\n    \"Open the task details in the mobile application\",\n    \"Mark the task as 'Completed' or perform the action that indicates the physical work is done\",\n    \"Observe the system's prompt or screen for capturing the customer's signature on the work done document\",\n    \"Capture the customer's signature on the work done document (e.g., via touch or stylus)\",\n    \"Confirm or submit the signature\",\n    \"Observe the system's next action or screen after signature submission\"\n  ],\n  \"expected_result\": \"After the task is marked completed, the system should present a signature capture interface for the work done document. Once the signature is captured and confirmed, the system should transition to a state indicating the technician is travelling to the home base (e.g., show navigation or update task status to 'Returning to Base'). If the requirement is ambiguous about whether the signature is mandatory or whether the system automatically starts navigation, the test should verify that the technician is at least prompted to start travelling to the home base after signature capture.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 284,
+      "output_tokens": 387,
+      "latency_ms": 3022.537299999385,
+      "cost_usd": 0.00014812
+    },
+    {
+      "id": "req_06",
+      "requirement_text": "FSM Scheduling needs to reassign the task in the scenario where the originally assigned technician is not able to work on that task, can be due to things like falling sick, being on leave, or getting assigned some other work.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify FSM Scheduling reassigns task when original technician is unavailable",
+        "description": "This test verifies that the FSM Scheduling system automatically reassigns a task to another available technician when the originally assigned technician becomes unable to work on it, due to reasons such as sickness, leave, or conflicting assignments.",
+        "preconditions": [
+          "At least two technicians exist in the system with appropriate skills for the task",
+          "A task is created and assigned to an initial technician",
+          "The system has a pool of available technicians who can take over the task",
+          "The task is in a state that allows reassignment (e.g., not yet started or in progress but not completed)"
+        ],
+        "test_steps": [
+          "Create a task and assign it to Technician A",
+          "Simulate an unavailability event for Technician A (e.g., mark as sick, on leave, or assign another conflicting task)",
+          "Trigger the FSM scheduling process or wait for the system to detect the unavailability",
+          "Observe the system's reassignment action",
+          "Check the task's assigned technician after the reassignment"
+        ],
+        "expected_result": "The system should reassign the task to another available technician (e.g., Technician B) who meets the task requirements. The task status should reflect the new assignment, and the original technician should no longer be associated with the task. If the requirement is ambiguous about whether reassignment is automatic or requires manual approval, or about what happens if no alternative technician is available, the test should be adjusted accordingly; however, the core expectation is that the task is not left unassigned when the original technician becomes unavailable.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify FSM Scheduling reassigns task when original technician is unavailable\",\n  \"description\": \"This test verifies that the FSM Scheduling system automatically reassigns a task to another available technician when the originally assigned technician becomes unable to work on it, due to reasons such as sickness, leave, or conflicting assignments.\",\n  \"preconditions\": [\n    \"At least two technicians exist in the system with appropriate skills for the task\",\n    \"A task is created and assigned to an initial technician\",\n    \"The system has a pool of available technicians who can take over the task\",\n    \"The task is in a state that allows reassignment (e.g., not yet started or in progress but not completed)\"\n  ],\n  \"test_steps\": [\n    \"Create a task and assign it to Technician A\",\n    \"Simulate an unavailability event for Technician A (e.g., mark as sick, on leave, or assign another conflicting task)\",\n    \"Trigger the FSM scheduling process or wait for the system to detect the unavailability\",\n    \"Observe the system's reassignment action\",\n    \"Check the task's assigned technician after the reassignment\"\n  ],\n  \"expected_result\": \"The system should reassign the task to another available technician (e.g., Technician B) who meets the task requirements. The task status should reflect the new assignment, and the original technician should no longer be associated with the task. If the requirement is ambiguous about whether reassignment is automatic or requires manual approval, or about what happens if no alternative technician is available, the test should be adjusted accordingly; however, the core expectation is that the task is not left unassigned when the original technician becomes unavailable.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 304,
+      "output_tokens": 359,
+      "latency_ms": 2854.031800001394,
+      "cost_usd": 0.00014308000000000002
+    },
+    {
+      "id": "req_07",
+      "requirement_text": "The FSM web application needs to show the entire result of the task, once the technician submits the data from their end on task completion.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify display of complete task result after technician submission",
+        "description": "This test verifies that when a technician submits data upon completing a task in the FSM web application, the entire result of the task is displayed to the user. The test ensures that all submitted data is visible and correctly rendered on the screen.",
+        "preconditions": [
+          "A task exists in the FSM web application and is in a state where the technician can submit completion data.",
+          "The technician has access to the task and has entered all required data for task completion.",
+          "The user viewing the result has appropriate permissions to view the task result."
+        ],
+        "test_steps": [
+          "Log in as a technician and navigate to the task that is ready for completion.",
+          "Enter all required data for the task completion, including any notes, measurements, or attachments as applicable.",
+          "Submit the task completion data from the technician's end.",
+          "Log in as a user (or switch to the user view) and navigate to the same task.",
+          "Observe the displayed result of the task.",
+          "Verify that the entire result is shown, including all data submitted by the technician."
+        ],
+        "expected_result": "The entire result of the task, as submitted by the technician, is displayed completely and accurately to the user. All fields, notes, and attachments (if any) are visible without truncation or omission. If the requirement is ambiguous regarding what constitutes 'entire result' or how the result is presented (e.g., in a summary view or detailed view), the test should be adjusted to match the actual specification, but the core expectation is that no part of the submitted data is missing from the display.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify display of complete task result after technician submission\",\n  \"description\": \"This test verifies that when a technician submits data upon completing a task in the FSM web application, the entire result of the task is displayed to the user. The test ensures that all submitted data is visible and correctly rendered on the screen.\",\n  \"preconditions\": [\n    \"A task exists in the FSM web application and is in a state where the technician can submit completion data.\",\n    \"The technician has access to the task and has entered all required data for task completion.\",\n    \"The user viewing the result has appropriate permissions to view the task result.\"\n  ],\n  \"test_steps\": [\n    \"Log in as a technician and navigate to the task that is ready for completion.\",\n    \"Enter all required data for the task completion, including any notes, measurements, or attachments as applicable.\",\n    \"Submit the task completion data from the technician's end.\",\n    \"Log in as a user (or switch to the user view) and navigate to the same task.\",\n    \"Observe the displayed result of the task.\",\n    \"Verify that the entire result is shown, including all data submitted by the technician.\"\n  ],\n  \"expected_result\": \"The entire result of the task, as submitted by the technician, is displayed completely and accurately to the user. All fields, notes, and attachments (if any) are visible without truncation or omission. If the requirement is ambiguous regarding what constitutes 'entire result' or how the result is presented (e.g., in a summary view or detailed view), the test should be adjusted to match the actual specification, but the core expectation is that no part of the submitted data is missing from the display.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 286,
+      "output_tokens": 365,
+      "latency_ms": 3217.7596999972593,
+      "cost_usd": 0.00014224000000000002
+    },
+    {
+      "id": "req_08",
+      "requirement_text": "The evidences should be visible without any error.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify evidences are displayed without errors",
+        "description": "This test verifies that when a user accesses the evidences section, all evidence items are rendered correctly and no error messages or system errors are displayed on the page.",
+        "preconditions": [
+          "The system is running and the user is authenticated.",
+          "At least one evidence record exists in the system.",
+          "The user has permission to view evidences."
+        ],
+        "test_steps": [
+          "Navigate to the evidences page or section.",
+          "Wait for the page to load completely.",
+          "Observe the displayed evidences for any error indicators (e.g., error messages, broken icons, blank areas).",
+          "If any evidence has associated files or images, click on them to ensure they open or display correctly.",
+          "Check the browser console for any JavaScript errors or failed network requests."
+        ],
+        "expected_result": "All evidence items are displayed without any error messages, broken elements, or console errors. If the requirement is ambiguous regarding the specific type of evidences (e.g., documents, images, videos) or the environment (e.g., web, mobile), the test should be adapted accordingly, but the core expectation remains that evidences are visible without any error.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify evidences are displayed without errors\",\n  \"description\": \"This test verifies that when a user accesses the evidences section, all evidence items are rendered correctly and no error messages or system errors are displayed on the page.\",\n  \"preconditions\": [\n    \"The system is running and the user is authenticated.\",\n    \"At least one evidence record exists in the system.\",\n    \"The user has permission to view evidences.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the evidences page or section.\",\n    \"Wait for the page to load completely.\",\n    \"Observe the displayed evidences for any error indicators (e.g., error messages, broken icons, blank areas).\",\n    \"If any evidence has associated files or images, click on them to ensure they open or display correctly.\",\n    \"Check the browser console for any JavaScript errors or failed network requests.\"\n  ],\n  \"expected_result\": \"All evidence items are displayed without any error messages, broken elements, or console errors. If the requirement is ambiguous regarding the specific type of evidences (e.g., documents, images, videos) or the environment (e.g., web, mobile), the test should be adapted accordingly, but the core expectation remains that evidences are visible without any error.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 267,
+      "output_tokens": 266,
+      "latency_ms": 2322.231099999044,
+      "cost_usd": 0.00011186
+    },
+    {
+      "id": "req_09",
+      "requirement_text": "The FSM web app should allow login to only the Dispatcher and the Admin user.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify login restricted to Dispatcher and Admin users",
+        "description": "This test verifies that the FSM web application's login functionality permits access only for the Dispatcher and Admin user roles, while rejecting all other user types or credentials.",
+        "preconditions": [
+          "The FSM web app is deployed and accessible.",
+          "Test accounts exist for Dispatcher, Admin, and at least one non-authorized user (e.g., regular user or viewer).",
+          "The login page is displayed."
+        ],
+        "test_steps": [
+          "Navigate to the FSM web app login page.",
+          "Enter valid credentials for the Dispatcher user and submit the login form.",
+          "Verify that the Dispatcher user is successfully logged in and can access the main application.",
+          "Log out of the Dispatcher session.",
+          "Enter valid credentials for the Admin user and submit the login form.",
+          "Verify that the Admin user is successfully logged in and can access the main application.",
+          "Log out of the Admin session.",
+          "Enter valid credentials for a non-authorized user (e.g., a regular user) and submit the login form.",
+          "Observe the system response."
+        ],
+        "expected_result": "The Dispatcher and Admin users are able to log in successfully and access the application. The non-authorized user is denied access with an appropriate error message (e.g., 'Invalid credentials' or 'Access denied'). If the requirement does not specify the exact behavior for non-authorized users, the test should note that the system must not allow login for any user other than Dispatcher and Admin, but the exact error message or redirect behavior may vary.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify login restricted to Dispatcher and Admin users\",\n  \"description\": \"This test verifies that the FSM web application's login functionality permits access only for the Dispatcher and Admin user roles, while rejecting all other user types or credentials.\",\n  \"preconditions\": [\n    \"The FSM web app is deployed and accessible.\",\n    \"Test accounts exist for Dispatcher, Admin, and at least one non-authorized user (e.g., regular user or viewer).\",\n    \"The login page is displayed.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the FSM web app login page.\",\n    \"Enter valid credentials for the Dispatcher user and submit the login form.\",\n    \"Verify that the Dispatcher user is successfully logged in and can access the main application.\",\n    \"Log out of the Dispatcher session.\",\n    \"Enter valid credentials for the Admin user and submit the login form.\",\n    \"Verify that the Admin user is successfully logged in and can access the main application.\",\n    \"Log out of the Admin session.\",\n    \"Enter valid credentials for a non-authorized user (e.g., a regular user) and submit the login form.\",\n    \"Observe the system response.\"\n  ],\n  \"expected_result\": \"The Dispatcher and Admin users are able to log in successfully and access the application. The non-authorized user is denied access with an appropriate error message (e.g., 'Invalid credentials' or 'Access denied'). If the requirement does not specify the exact behavior for non-authorized users, the test should note that the system must not allow login for any user other than Dispatcher and Admin, but the exact error message or redirect behavior may vary.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 276,
+      "output_tokens": 357,
+      "latency_ms": 2584.755799995037,
+      "cost_usd": 0.0001386
+    },
+    {
+      "id": "req_10",
+      "requirement_text": "The FSM mobile app should allow login to only the mobile user (technician).",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify FSM mobile app restricts login to technician role only",
+        "description": "This test case verifies that the FSM mobile app permits login exclusively for users with the 'technician' role, and denies access to users with other roles (e.g., admin, dispatcher, customer) or invalid credentials.",
+        "preconditions": [
+          "The FSM mobile app is installed and launched on a compatible device.",
+          "A test environment is available with at least one technician user account and at least one non-technician user account (e.g., admin) with valid credentials.",
+          "The app is connected to the backend server that enforces role-based access control."
+        ],
+        "test_steps": [
+          "Open the FSM mobile app on the device.",
+          "On the login screen, enter valid credentials for a technician user (e.g., username and password).",
+          "Tap the 'Login' button.",
+          "Observe whether the app grants access and navigates to the main technician dashboard.",
+          "Log out from the technician session.",
+          "On the login screen, enter valid credentials for a non-technician user (e.g., admin).",
+          "Tap the 'Login' button.",
+          "Observe the system's response (e.g., error message, access denied, or redirection)."
+        ],
+        "expected_result": "The technician user is successfully logged in and granted access to the app's main interface. The non-technician user is denied login; the app displays an appropriate error message indicating that the account is not authorized for mobile access. If the requirement is ambiguous about whether non-technician users should see a specific error or be redirected, the test should note that the exact behavior is not specified and should be clarified.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify FSM mobile app restricts login to technician role only\",\n  \"description\": \"This test case verifies that the FSM mobile app permits login exclusively for users with the 'technician' role, and denies access to users with other roles (e.g., admin, dispatcher, customer) or invalid credentials.\",\n  \"preconditions\": [\n    \"The FSM mobile app is installed and launched on a compatible device.\",\n    \"A test environment is available with at least one technician user account and at least one non-technician user account (e.g., admin) with valid credentials.\",\n    \"The app is connected to the backend server that enforces role-based access control.\"\n  ],\n  \"test_steps\": [\n    \"Open the FSM mobile app on the device.\",\n    \"On the login screen, enter valid credentials for a technician user (e.g., username and password).\",\n    \"Tap the 'Login' button.\",\n    \"Observe whether the app grants access and navigates to the main technician dashboard.\",\n    \"Log out from the technician session.\",\n    \"On the login screen, enter valid credentials for a non-technician user (e.g., admin).\",\n    \"Tap the 'Login' button.\",\n    \"Observe the system's response (e.g., error message, access denied, or redirection).\"\n  ],\n  \"expected_result\": \"The technician user is successfully logged in and granted access to the app's main interface. The non-technician user is denied login; the app displays an appropriate error message indicating that the account is not authorized for mobile access. If the requirement is ambiguous about whether non-technician users should see a specific error or be redirected, the test should note that the exact behavior is not specified and should be clarified.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 275,
+      "output_tokens": 374,
+      "latency_ms": 2742.1870000034687,
+      "cost_usd": 0.00014322
+    },
+    {
+      "id": "req_11",
+      "requirement_text": "The FSM Mobile App will have a new Timesheets module allowing Technicians to log full-day leave requests for a specific date, subject to approval from the Resource Planner.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Technician logs full-day leave request in Timesheets module",
+        "description": "Verifies that a Technician can create a full-day leave request for a specific date in the new Timesheets module, and that the request is submitted for approval by the Resource Planner.",
+        "preconditions": [
+          "Technician user is logged into the FSM Mobile App",
+          "Timesheets module is available in the app navigation",
+          "Resource Planner user exists and is active",
+          "The selected date is a valid working day and not in the past (unless past dates are allowed by business rules)"
+        ],
+        "test_steps": [
+          "Open the FSM Mobile App and log in as a Technician",
+          "Navigate to the Timesheets module",
+          "Select the option to create a new leave request",
+          "Choose 'Full-day' as the leave type",
+          "Select a specific date for the leave",
+          "Submit the leave request",
+          "Confirm the submission"
+        ],
+        "expected_result": "The system successfully creates the full-day leave request for the specified date and displays a confirmation message. The request status should be 'Pending Approval' or similar, indicating it has been submitted to the Resource Planner for approval. If the requirement is ambiguous regarding whether the request is immediately visible to the Resource Planner or if any additional confirmation step is needed, the test should be adjusted accordingly; however, the core behavior is that the request is logged and routed for approval.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Technician logs full-day leave request in Timesheets module\",\n  \"description\": \"Verifies that a Technician can create a full-day leave request for a specific date in the new Timesheets module, and that the request is submitted for approval by the Resource Planner.\",\n  \"preconditions\": [\n    \"Technician user is logged into the FSM Mobile App\",\n    \"Timesheets module is available in the app navigation\",\n    \"Resource Planner user exists and is active\",\n    \"The selected date is a valid working day and not in the past (unless past dates are allowed by business rules)\"\n  ],\n  \"test_steps\": [\n    \"Open the FSM Mobile App and log in as a Technician\",\n    \"Navigate to the Timesheets module\",\n    \"Select the option to create a new leave request\",\n    \"Choose 'Full-day' as the leave type\",\n    \"Select a specific date for the leave\",\n    \"Submit the leave request\",\n    \"Confirm the submission\"\n  ],\n  \"expected_result\": \"The system successfully creates the full-day leave request for the specified date and displays a confirmation message. The request status should be 'Pending Approval' or similar, indicating it has been submitted to the Resource Planner for approval. If the requirement is ambiguous regarding whether the request is immediately visible to the Resource Planner or if any additional confirmation step is needed, the test should be adjusted accordingly; however, the core behavior is that the request is logged and routed for approval.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 292,
+      "output_tokens": 313,
+      "latency_ms": 2382.064799996442,
+      "cost_usd": 0.00012852000000000002
+    },
+    {
+      "id": "req_12",
+      "requirement_text": "Technicians will be able to log Lunch Breaks and Downtime in the Timesheets module by specifying the required hours or minutes.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Log Lunch Break and Downtime in Timesheets",
+        "description": "Verifies that a technician can log Lunch Breaks and Downtime entries in the Timesheets module by specifying the duration in hours or minutes.",
+        "preconditions": [
+          "User is logged in as a technician with access to the Timesheets module.",
+          "Timesheets module is available and displays the current timesheet or a selectable date."
+        ],
+        "test_steps": [
+          "Navigate to the Timesheets module.",
+          "Select the date or timesheet entry where the Lunch Break or Downtime should be logged.",
+          "Locate the option to add a new entry or log time.",
+          "Choose the entry type as 'Lunch Break' or 'Downtime'.",
+          "Enter the duration in hours or minutes (e.g., 1 hour or 30 minutes).",
+          "Save or submit the entry."
+        ],
+        "expected_result": "The system successfully logs the Lunch Break or Downtime entry with the specified duration. The entry appears in the timesheet with the correct type and duration. If the requirement is ambiguous regarding whether hours and minutes can be entered separately or combined, the system should handle the input as specified in the UI, but this test assumes the user can specify either hours or minutes as stated.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Log Lunch Break and Downtime in Timesheets\",\n  \"description\": \"Verifies that a technician can log Lunch Breaks and Downtime entries in the Timesheets module by specifying the duration in hours or minutes.\",\n  \"preconditions\": [\n    \"User is logged in as a technician with access to the Timesheets module.\",\n    \"Timesheets module is available and displays the current timesheet or a selectable date.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the Timesheets module.\",\n    \"Select the date or timesheet entry where the Lunch Break or Downtime should be logged.\",\n    \"Locate the option to add a new entry or log time.\",\n    \"Choose the entry type as 'Lunch Break' or 'Downtime'.\",\n    \"Enter the duration in hours or minutes (e.g., 1 hour or 30 minutes).\",\n    \"Save or submit the entry.\"\n  ],\n  \"expected_result\": \"The system successfully logs the Lunch Break or Downtime entry with the specified duration. The entry appears in the timesheet with the correct type and duration. If the requirement is ambiguous regarding whether hours and minutes can be entered separately or combined, the system should handle the input as specified in the UI, but this test assumes the user can specify either hours or minutes as stated.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 285,
+      "output_tokens": 287,
+      "latency_ms": 2183.906600002956,
+      "cost_usd": 0.00012025999999999999
+    },
+    {
+      "id": "req_13",
+      "requirement_text": "The Timesheets module will respect the Technician's time zone. Although the server runs in UTC, Technicians in different time zones will not experience DST or time zone issues, such as times being shifted one hour ahead or behind.",
+      "status": "invalid",
+      "attempts": 1,
+      "parsed_output": null,
+      "raw_response_text": "{\n  \"title\": \"Verify Timesheets module respects Technician's time zone\",\n  \"description\": \"This test verifies that the Timesheets module displays and records times according to the logged-in Technician's time zone, not the server's UTC time zone. It checks that no DST or time zone shifts occur, such as times being displayed one hour ahead or behind.\",\n  \"preconditions\": [\n    \"A Technician account exists with a configured time zone that is not UTC (e.g., America/New_York).\",\n    \"The server is set to UTC.\",\n    \"The Technician is logged into the Timesheets module.\",\n    \"The system date/time is known and controlled for testing (e.g., during a DST transition period if possible).\"\n  ],\n  \"test_steps\": [\n    \"Log in as the Technician with a non-UTC time zone.\",\n    \"Navigate to the Timesheets module.\",\n    \"Create a new timesheet entry with a specific local time (e.g., 09:00 AM) and save it.\",\n    \"Retrieve the saved timesheet entry and observe the displayed time.\",\n    \"Compare the displayed time with the expected local time in the Technician's time zone, accounting for any DST rules.\",\n    \"Repeat the above steps for a time that falls during a DST transition (if applicable) to ensure no shift occurs.\"\n  ],\n  \"expected_result\": \"The timesheet entry should display and store the time exactly as entered by the Technician in their local time zone, with no conversion to UTC or any offset applied. The displayed time should match the Technician's local time, and there should be no one-hour shift due to DST or time zone differences. If the requirement is ambiguous regarding whether times are stored in UTC internally or displayed in local time, the test should verify that the user-facing times are correct in the Technician's time zone, but the internal storage format is not specified and may vary.\"\n}",
+      "validation_detail": [
+        [
+          "missing_field",
+          "Missing required field(s): ['priority']"
+        ]
+      ],
+      "error_message": null,
+      "input_tokens": 304,
+      "output_tokens": 398,
+      "latency_ms": 3130.579399999988,
+      "cost_usd": 0.00015400000000000003
+    },
+    {
+      "id": "req_14",
+      "requirement_text": "The Resource Planner will be able to access the Timesheets module from the FSM Web App and view leave requests submitted by Technicians.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Access Timesheets Module and View Technician Leave Requests",
+        "description": "Verifies that a user with appropriate permissions can navigate from the FSM Web App to the Timesheets module and successfully view leave requests submitted by Technicians.",
+        "preconditions": [
+          "User is logged into the FSM Web App with a role that has access to the Resource Planner and Timesheets modules.",
+          "At least one Technician has submitted a leave request that is visible in the system.",
+          "The Timesheets module is available in the navigation menu of the FSM Web App."
+        ],
+        "test_steps": [
+          "Log in to the FSM Web App as a user with Resource Planner access.",
+          "Navigate to the Resource Planner module from the main dashboard or navigation menu.",
+          "Locate and click on the Timesheets module link or icon within the Resource Planner interface.",
+          "Wait for the Timesheets module to load.",
+          "Look for a section or tab labeled 'Leave Requests' or similar.",
+          "Open the leave requests list or view.",
+          "Verify that the leave requests submitted by Technicians are displayed."
+        ],
+        "expected_result": "The Timesheets module opens successfully from the Resource Planner, and a list of leave requests submitted by Technicians is displayed. If the requirement is ambiguous regarding which specific leave requests are shown (e.g., all technicians, only those assigned to the planner), the test should be adjusted based on the actual system behavior. The key is that the user can access the module and view the leave requests without errors.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Access Timesheets Module and View Technician Leave Requests\",\n  \"description\": \"Verifies that a user with appropriate permissions can navigate from the FSM Web App to the Timesheets module and successfully view leave requests submitted by Technicians.\",\n  \"preconditions\": [\n    \"User is logged into the FSM Web App with a role that has access to the Resource Planner and Timesheets modules.\",\n    \"At least one Technician has submitted a leave request that is visible in the system.\",\n    \"The Timesheets module is available in the navigation menu of the FSM Web App.\"\n  ],\n  \"test_steps\": [\n    \"Log in to the FSM Web App as a user with Resource Planner access.\",\n    \"Navigate to the Resource Planner module from the main dashboard or navigation menu.\",\n    \"Locate and click on the Timesheets module link or icon within the Resource Planner interface.\",\n    \"Wait for the Timesheets module to load.\",\n    \"Look for a section or tab labeled 'Leave Requests' or similar.\",\n    \"Open the leave requests list or view.\",\n    \"Verify that the leave requests submitted by Technicians are displayed.\"\n  ],\n  \"expected_result\": \"The Timesheets module opens successfully from the Resource Planner, and a list of leave requests submitted by Technicians is displayed. If the requirement is ambiguous regarding which specific leave requests are shown (e.g., all technicians, only those assigned to the planner), the test should be adjusted based on the actual system behavior. The key is that the user can access the module and view the leave requests without errors.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 285,
+      "output_tokens": 331,
+      "latency_ms": 2517.0578000033856,
+      "cost_usd": 0.00013258
+    },
+    {
+      "id": "req_15",
+      "requirement_text": "The Resource Planner will be able to approve or reject leave requests. When rejecting a request, the Resource Planner must provide a reason.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Resource Planner can approve or reject leave requests with mandatory rejection reason",
+        "description": "This test verifies that a Resource Planner user can approve or reject a leave request submitted by an employee. It also checks that when rejecting a request, the system enforces the requirement to provide a reason before the rejection is finalized.",
+        "preconditions": [
+          "A Resource Planner user account exists and is logged in.",
+          "At least one leave request is in a pending state and visible to the Resource Planner.",
+          "The leave request is not already approved or rejected."
+        ],
+        "test_steps": [
+          "Navigate to the Resource Planner's leave request management screen.",
+          "Select a pending leave request from the list.",
+          "Attempt to reject the request without entering a reason.",
+          "Observe the system's response (e.g., validation error or disabled reject button).",
+          "Enter a reason for rejection in the provided text field.",
+          "Confirm the rejection action.",
+          "Verify the request status is updated to 'Rejected' and the reason is stored/displayed.",
+          "Repeat with a different pending request and attempt to approve it without any additional input.",
+          "Confirm the approval action.",
+          "Verify the request status is updated to 'Approved'."
+        ],
+        "expected_result": "The system should prevent rejection without a reason, showing a clear validation message or disabling the reject action until a reason is provided. After providing a reason, the rejection should succeed and the request status should change to 'Rejected'. Approval should succeed without requiring a reason, and the status should change to 'Approved'. If the requirement is ambiguous about whether the reason must be visible to the employee or stored in the system, the test should note that the reason is captured but its visibility is not specified.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Resource Planner can approve or reject leave requests with mandatory rejection reason\",\n  \"description\": \"This test verifies that a Resource Planner user can approve or reject a leave request submitted by an employee. It also checks that when rejecting a request, the system enforces the requirement to provide a reason before the rejection is finalized.\",\n  \"preconditions\": [\n    \"A Resource Planner user account exists and is logged in.\",\n    \"At least one leave request is in a pending state and visible to the Resource Planner.\",\n    \"The leave request is not already approved or rejected.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the Resource Planner's leave request management screen.\",\n    \"Select a pending leave request from the list.\",\n    \"Attempt to reject the request without entering a reason.\",\n    \"Observe the system's response (e.g., validation error or disabled reject button).\",\n    \"Enter a reason for rejection in the provided text field.\",\n    \"Confirm the rejection action.\",\n    \"Verify the request status is updated to 'Rejected' and the reason is stored/displayed.\",\n    \"Repeat with a different pending request and attempt to approve it without any additional input.\",\n    \"Confirm the approval action.\",\n    \"Verify the request status is updated to 'Approved'.\"\n  ],\n  \"expected_result\": \"The system should prevent rejection without a reason, showing a clear validation message or disabling the reject action until a reason is provided. After providing a reason, the rejection should succeed and the request status should change to 'Rejected'. Approval should succeed without requiring a reason, and the status should change to 'Approved'. If the requirement is ambiguous about whether the reason must be visible to the employee or stored in the system, the test should note that the reason is captured but its visibility is not specified.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 284,
+      "output_tokens": 383,
+      "latency_ms": 3359.2554999995627,
+      "cost_usd": 0.00014700000000000002
+    },
+    {
+      "id": "req_16",
+      "requirement_text": "Once the Resource Planner approves a leave request, the approved leave will be reflected in the Capacity Management section of the FSM Web App.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify approved leave appears in Capacity Management",
+        "description": "This test verifies that after a Resource Planner approves a leave request, the approved leave is reflected in the Capacity Management section of the FSM Web App. It checks that the leave is visible and correctly impacts capacity data.",
+        "preconditions": [
+          "User is logged in as a Resource Planner with permission to approve leave requests.",
+          "There is at least one pending leave request in the system.",
+          "The Capacity Management section is accessible and displays current capacity data.",
+          "The leave request is for a resource that is included in the Capacity Management view."
+        ],
+        "test_steps": [
+          "Navigate to the Leave Requests section.",
+          "Select a pending leave request.",
+          "Approve the leave request.",
+          "Navigate to the Capacity Management section.",
+          "Locate the resource associated with the approved leave.",
+          "Verify that the approved leave is reflected in the capacity data (e.g., reduced availability or marked as on leave)."
+        ],
+        "expected_result": "The approved leave should be visible in the Capacity Management section for the relevant resource, and the capacity data should reflect the leave (e.g., reduced available hours or a leave indicator). If the exact representation is not specified, the test should confirm that the leave is present and impacts capacity in a reasonable manner. Note: The requirement does not specify the exact format or level of detail, so the verification should focus on the presence and logical impact of the approved leave.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify approved leave appears in Capacity Management\",\n  \"description\": \"This test verifies that after a Resource Planner approves a leave request, the approved leave is reflected in the Capacity Management section of the FSM Web App. It checks that the leave is visible and correctly impacts capacity data.\",\n  \"preconditions\": [\n    \"User is logged in as a Resource Planner with permission to approve leave requests.\",\n    \"There is at least one pending leave request in the system.\",\n    \"The Capacity Management section is accessible and displays current capacity data.\",\n    \"The leave request is for a resource that is included in the Capacity Management view.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the Leave Requests section.\",\n    \"Select a pending leave request.\",\n    \"Approve the leave request.\",\n    \"Navigate to the Capacity Management section.\",\n    \"Locate the resource associated with the approved leave.\",\n    \"Verify that the approved leave is reflected in the capacity data (e.g., reduced availability or marked as on leave).\"\n  ],\n  \"expected_result\": \"The approved leave should be visible in the Capacity Management section for the relevant resource, and the capacity data should reflect the leave (e.g., reduced available hours or a leave indicator). If the exact representation is not specified, the test should confirm that the leave is present and impacts capacity in a reasonable manner. Note: The requirement does not specify the exact format or level of detail, so the verification should focus on the presence and logical impact of the approved leave.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 285,
+      "output_tokens": 321,
+      "latency_ms": 2459.9528000035207,
+      "cost_usd": 0.00012978000000000002
+    },
+    {
+      "id": "req_17",
+      "requirement_text": "Lunch Breaks and Downtime logged by the Technician will also be reflected in Capacity Management with their respective hours or minutes.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify lunch breaks and downtime logged by technician appear in Capacity Management",
+        "description": "This test verifies that when a technician logs a lunch break or downtime event, the corresponding duration (in hours or minutes) is accurately reflected in the Capacity Management module. The test ensures that the logged time is visible and correctly attributed to the technician's capacity records.",
+        "preconditions": [
+          "A technician user account exists and is logged in.",
+          "The Capacity Management module is accessible and displays technician capacity data.",
+          "The system allows logging of lunch breaks and downtime events."
+        ],
+        "test_steps": [
+          "Log in as the technician.",
+          "Navigate to the time logging or activity logging interface.",
+          "Log a lunch break with a specific duration (e.g., 30 minutes).",
+          "Log a downtime event with a specific duration (e.g., 1 hour).",
+          "Navigate to the Capacity Management module.",
+          "Locate the technician's capacity record or view.",
+          "Check whether the logged lunch break and downtime durations are displayed with their respective hours or minutes."
+        ],
+        "expected_result": "The Capacity Management module should display the logged lunch break and downtime durations for the technician, showing the correct values in hours or minutes as logged. If the requirement is ambiguous regarding whether the display should be aggregated or separate, the test should verify that the durations are present and correctly reflect the logged times. No exact formatting is specified, so the display may show '30 min' or '0.5 hours' for the lunch break and '1 hour' for downtime, but the values must match the logged durations.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify lunch breaks and downtime logged by technician appear in Capacity Management\",\n  \"description\": \"This test verifies that when a technician logs a lunch break or downtime event, the corresponding duration (in hours or minutes) is accurately reflected in the Capacity Management module. The test ensures that the logged time is visible and correctly attributed to the technician's capacity records.\",\n  \"preconditions\": [\n    \"A technician user account exists and is logged in.\",\n    \"The Capacity Management module is accessible and displays technician capacity data.\",\n    \"The system allows logging of lunch breaks and downtime events.\"\n  ],\n  \"test_steps\": [\n    \"Log in as the technician.\",\n    \"Navigate to the time logging or activity logging interface.\",\n    \"Log a lunch break with a specific duration (e.g., 30 minutes).\",\n    \"Log a downtime event with a specific duration (e.g., 1 hour).\",\n    \"Navigate to the Capacity Management module.\",\n    \"Locate the technician's capacity record or view.\",\n    \"Check whether the logged lunch break and downtime durations are displayed with their respective hours or minutes.\"\n  ],\n  \"expected_result\": \"The Capacity Management module should display the logged lunch break and downtime durations for the technician, showing the correct values in hours or minutes as logged. If the requirement is ambiguous regarding whether the display should be aggregated or separate, the test should verify that the durations are present and correctly reflect the logged times. No exact formatting is specified, so the display may show '30 min' or '0.5 hours' for the lunch break and '1 hour' for downtime, but the values must match the logged durations.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 284,
+      "output_tokens": 348,
+      "latency_ms": 2887.4056999993627,
+      "cost_usd": 0.00013720000000000003
+    },
+    {
+      "id": "req_18",
+      "requirement_text": "The FSM Workforce module will have a new section called Skills.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Skills section is present in FSM Workforce module",
+        "description": "This test case verifies that the FSM Workforce module includes a new section named 'Skills' as specified in the requirement. The test checks that the section is visible and accessible in the module's interface.",
+        "preconditions": [
+          "User has access to the FSM Workforce module",
+          "The system has been updated with the new Skills section"
+        ],
+        "test_steps": [
+          "Log in to the application with valid credentials",
+          "Navigate to the FSM Workforce module",
+          "Observe the available sections in the module",
+          "Look for a section labeled 'Skills'"
+        ],
+        "expected_result": "A section labeled 'Skills' is present and visible in the FSM Workforce module. If the exact location or behavior of the section is not specified, this test only confirms its existence; further details about its content or functionality are not covered by this requirement.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Skills section is present in FSM Workforce module\",\n  \"description\": \"This test case verifies that the FSM Workforce module includes a new section named 'Skills' as specified in the requirement. The test checks that the section is visible and accessible in the module's interface.\",\n  \"preconditions\": [\n    \"User has access to the FSM Workforce module\",\n    \"The system has been updated with the new Skills section\"\n  ],\n  \"test_steps\": [\n    \"Log in to the application with valid credentials\",\n    \"Navigate to the FSM Workforce module\",\n    \"Observe the available sections in the module\",\n    \"Look for a section labeled 'Skills'\"\n  ],\n  \"expected_result\": \"A section labeled 'Skills' is present and visible in the FSM Workforce module. If the exact location or behavior of the section is not specified, this test only confirms its existence; further details about its content or functionality are not covered by this requirement.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 271,
+      "output_tokens": 213,
+      "latency_ms": 1852.9890999998315,
+      "cost_usd": 9.758e-05
+    },
+    {
+      "id": "req_19",
+      "requirement_text": "The Resource Planner will be able to add and remove Skills for a particular Technician.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Add and Remove Skills for a Technician",
+        "description": "Verifies that the Resource Planner can successfully add a skill to a technician's profile and subsequently remove it, ensuring the skill list updates correctly.",
+        "preconditions": [
+          "A technician record exists in the system.",
+          "The user has access to the Resource Planner with permissions to edit technician skills.",
+          "At least one skill is available in the skill catalog to add."
+        ],
+        "test_steps": [
+          "Navigate to the Resource Planner and select the target technician.",
+          "Open the technician's skill management interface.",
+          "Add a skill from the available list to the technician's skill set.",
+          "Save the changes and confirm the skill appears in the technician's skill list.",
+          "Remove the same skill from the technician's skill set.",
+          "Save the changes and confirm the skill is no longer in the technician's skill list."
+        ],
+        "expected_result": "The skill is successfully added to the technician's profile and appears in the skill list after saving. After removal, the skill is successfully removed and no longer appears in the skill list. If the requirement is ambiguous regarding whether removal is permanent or reversible, the test assumes a straightforward removal without undo; if the system provides an undo option, that behavior is not covered by this test.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Add and Remove Skills for a Technician\",\n  \"description\": \"Verifies that the Resource Planner can successfully add a skill to a technician's profile and subsequently remove it, ensuring the skill list updates correctly.\",\n  \"preconditions\": [\n    \"A technician record exists in the system.\",\n    \"The user has access to the Resource Planner with permissions to edit technician skills.\",\n    \"At least one skill is available in the skill catalog to add.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the Resource Planner and select the target technician.\",\n    \"Open the technician's skill management interface.\",\n    \"Add a skill from the available list to the technician's skill set.\",\n    \"Save the changes and confirm the skill appears in the technician's skill list.\",\n    \"Remove the same skill from the technician's skill set.\",\n    \"Save the changes and confirm the skill is no longer in the technician's skill list.\"\n  ],\n  \"expected_result\": \"The skill is successfully added to the technician's profile and appears in the skill list after saving. After removal, the skill is successfully removed and no longer appears in the skill list. If the requirement is ambiguous regarding whether removal is permanent or reversible, the test assumes a straightforward removal without undo; if the system provides an undo option, that behavior is not covered by this test.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 274,
+      "output_tokens": 283,
+      "latency_ms": 2573.0468000037945,
+      "cost_usd": 0.00011760000000000001
+    },
+    {
+      "id": "req_20",
+      "requirement_text": "The FSM Workforce module will have a Licenses section for each Technician, displaying their licenses along with the issue date and expiration date.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Technician Licenses Section Displays Issue and Expiration Dates",
+        "description": "This test verifies that the FSM Workforce module's Licenses section for each Technician correctly displays all associated licenses along with their issue date and expiration date. It ensures the section is present and the data is accurately shown.",
+        "preconditions": [
+          "A Technician record exists in the FSM Workforce module.",
+          "The Technician has at least one license with issue date and expiration date recorded in the system.",
+          "User has access to view the Technician's details in the FSM Workforce module."
+        ],
+        "test_steps": [
+          "Log in to the FSM Workforce module with appropriate credentials.",
+          "Navigate to the Technician list or search for the specific Technician.",
+          "Open the Technician's detail view.",
+          "Locate the Licenses section on the Technician's detail page.",
+          "Verify that the Licenses section is displayed.",
+          "For each license listed, verify that the license name/type is shown.",
+          "For each license, verify that the issue date is displayed.",
+          "For each license, verify that the expiration date is displayed."
+        ],
+        "expected_result": "The Licenses section is present for the Technician and displays each license with its issue date and expiration date. If the requirement is ambiguous regarding the format of dates or whether expired licenses should be highlighted or filtered, the test will note that the dates are displayed as stored in the system, but the exact format or any special handling of expired licenses is not specified and thus not verified.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Technician Licenses Section Displays Issue and Expiration Dates\",\n  \"description\": \"This test verifies that the FSM Workforce module's Licenses section for each Technician correctly displays all associated licenses along with their issue date and expiration date. It ensures the section is present and the data is accurately shown.\",\n  \"preconditions\": [\n    \"A Technician record exists in the FSM Workforce module.\",\n    \"The Technician has at least one license with issue date and expiration date recorded in the system.\",\n    \"User has access to view the Technician's details in the FSM Workforce module.\"\n  ],\n  \"test_steps\": [\n    \"Log in to the FSM Workforce module with appropriate credentials.\",\n    \"Navigate to the Technician list or search for the specific Technician.\",\n    \"Open the Technician's detail view.\",\n    \"Locate the Licenses section on the Technician's detail page.\",\n    \"Verify that the Licenses section is displayed.\",\n    \"For each license listed, verify that the license name/type is shown.\",\n    \"For each license, verify that the issue date is displayed.\",\n    \"For each license, verify that the expiration date is displayed.\"\n  ],\n  \"expected_result\": \"The Licenses section is present for the Technician and displays each license with its issue date and expiration date. If the requirement is ambiguous regarding the format of dates or whether expired licenses should be highlighted or filtered, the test will note that the dates are displayed as stored in the system, but the exact format or any special handling of expired licenses is not specified and thus not verified.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 285,
+      "output_tokens": 333,
+      "latency_ms": 3063.390499999514,
+      "cost_usd": 0.00013314000000000002
+    },
+    {
+      "id": "req_21",
+      "requirement_text": "The Resource Planner will be able to add and remove Licenses for a particular Technician.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Add and remove licenses for a technician",
+        "description": "Verifies that the Resource Planner allows adding a license to a technician's profile and subsequently removing it, ensuring the license list updates correctly.",
+        "preconditions": [
+          "A technician record exists in the Resource Planner.",
+          "At least one license type is available in the system to assign.",
+          "User has appropriate permissions to modify technician licenses."
+        ],
+        "test_steps": [
+          "Navigate to the technician's profile page in the Resource Planner.",
+          "Locate the 'Licenses' section on the profile.",
+          "Click the 'Add License' button.",
+          "Select a license from the available list and confirm the addition.",
+          "Verify that the selected license appears in the technician's license list.",
+          "Click the 'Remove' option next to the added license.",
+          "Confirm the removal when prompted.",
+          "Verify that the license is no longer present in the technician's license list."
+        ],
+        "expected_result": "The license is successfully added to the technician's profile and appears in the license list. After removal, the license is successfully removed and no longer appears in the list. If the requirement is ambiguous regarding whether multiple licenses can be added or if removal is permanent, the test assumes single license add/remove and that removal is permanent until re-added.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Add and remove licenses for a technician\",\n  \"description\": \"Verifies that the Resource Planner allows adding a license to a technician's profile and subsequently removing it, ensuring the license list updates correctly.\",\n  \"preconditions\": [\n    \"A technician record exists in the Resource Planner.\",\n    \"At least one license type is available in the system to assign.\",\n    \"User has appropriate permissions to modify technician licenses.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the technician's profile page in the Resource Planner.\",\n    \"Locate the 'Licenses' section on the profile.\",\n    \"Click the 'Add License' button.\",\n    \"Select a license from the available list and confirm the addition.\",\n    \"Verify that the selected license appears in the technician's license list.\",\n    \"Click the 'Remove' option next to the added license.\",\n    \"Confirm the removal when prompted.\",\n    \"Verify that the license is no longer present in the technician's license list.\"\n  ],\n  \"expected_result\": \"The license is successfully added to the technician's profile and appears in the license list. After removal, the license is successfully removed and no longer appears in the list. If the requirement is ambiguous regarding whether multiple licenses can be added or if removal is permanent, the test assumes single license add/remove and that removal is permanent until re-added.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 275,
+      "output_tokens": 288,
+      "latency_ms": 2299.5013000036124,
+      "cost_usd": 0.00011914000000000003
+    },
+    {
+      "id": "req_22",
+      "requirement_text": "The FSM Mobile App will display the licenses of the logged-in Technician on the Profile page.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Technician Licenses Displayed on Profile Page",
+        "description": "This test case verifies that when a technician is logged into the FSM Mobile App, the Profile page displays the licenses associated with that technician's account. The test ensures that the licenses are visible and correctly reflect the logged-in user's data.",
+        "preconditions": [
+          "A technician account with at least one license assigned exists in the system.",
+          "The technician is logged into the FSM Mobile App.",
+          "The Profile page is accessible from the app's navigation."
+        ],
+        "test_steps": [
+          "Launch the FSM Mobile App and log in with valid technician credentials.",
+          "Navigate to the Profile page (e.g., via the profile icon or menu).",
+          "Observe the section of the Profile page that is designated for displaying licenses.",
+          "Verify that the licenses associated with the logged-in technician are shown.",
+          "If multiple licenses exist, confirm that all are listed or displayed as per the app's design."
+        ],
+        "expected_result": "The Profile page displays the licenses of the logged-in technician. The licenses shown should match the data associated with the technician's account. If the requirement is ambiguous regarding the exact format or location of the license display, the test should still confirm that license information is present and identifiable on the Profile page.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Technician Licenses Displayed on Profile Page\",\n  \"description\": \"This test case verifies that when a technician is logged into the FSM Mobile App, the Profile page displays the licenses associated with that technician's account. The test ensures that the licenses are visible and correctly reflect the logged-in user's data.\",\n  \"preconditions\": [\n    \"A technician account with at least one license assigned exists in the system.\",\n    \"The technician is logged into the FSM Mobile App.\",\n    \"The Profile page is accessible from the app's navigation.\"\n  ],\n  \"test_steps\": [\n    \"Launch the FSM Mobile App and log in with valid technician credentials.\",\n    \"Navigate to the Profile page (e.g., via the profile icon or menu).\",\n    \"Observe the section of the Profile page that is designated for displaying licenses.\",\n    \"Verify that the licenses associated with the logged-in technician are shown.\",\n    \"If multiple licenses exist, confirm that all are listed or displayed as per the app's design.\"\n  ],\n  \"expected_result\": \"The Profile page displays the licenses of the logged-in technician. The licenses shown should match the data associated with the technician's account. If the requirement is ambiguous regarding the exact format or location of the license display, the test should still confirm that license information is present and identifiable on the Profile page.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 277,
+      "output_tokens": 290,
+      "latency_ms": 2481.7389999952866,
+      "cost_usd": 0.00011998000000000001
+    },
+    {
+      "id": "req_23",
+      "requirement_text": "The Technician will receive an alert 15 days before a license expires, notifying them that the license is approaching expiration so they can renew it.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify technician receives license expiration alert 15 days before expiry",
+        "description": "This test verifies that the system sends an alert to the technician exactly 15 days before a license is set to expire, notifying them that the license is approaching expiration so they can take renewal action.",
+        "preconditions": [
+          "A license record exists in the system with a known expiration date.",
+          "The technician associated with the license has a valid user account and notification preferences enabled.",
+          "The system's notification service is operational.",
+          "The current date is set to exactly 15 days before the license expiration date."
+        ],
+        "test_steps": [
+          "Log in as an administrator or test user with access to the license management system.",
+          "Create or ensure a license exists with an expiration date that is 15 days from today's date.",
+          "Verify that the technician associated with the license is correctly assigned and has notification permissions.",
+          "Trigger the daily notification job or wait for the system to process the scheduled alert (if not automatic, manually run the job).",
+          "Check the technician's notification inbox or alert center for the alert.",
+          "Open the alert and verify its content includes the license name/ID and the expiration date, and clearly states that the license is approaching expiration."
+        ],
+        "expected_result": "The technician receives an alert exactly 15 days before the license expiration date. The alert clearly notifies them that the license is approaching expiration and includes sufficient details (e.g., license identifier and expiration date) to enable renewal. If the system's scheduling behavior is ambiguous (e.g., whether the alert is sent at the start or end of the 15th day, or whether it is sent only once or repeatedly), this test will confirm the actual behavior, but the requirement does not specify these details, so the exact timing within that day and repeat frequency are not asserted.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify technician receives license expiration alert 15 days before expiry\",\n  \"description\": \"This test verifies that the system sends an alert to the technician exactly 15 days before a license is set to expire, notifying them that the license is approaching expiration so they can take renewal action.\",\n  \"preconditions\": [\n    \"A license record exists in the system with a known expiration date.\",\n    \"The technician associated with the license has a valid user account and notification preferences enabled.\",\n    \"The system's notification service is operational.\",\n    \"The current date is set to exactly 15 days before the license expiration date.\"\n  ],\n  \"test_steps\": [\n    \"Log in as an administrator or test user with access to the license management system.\",\n    \"Create or ensure a license exists with an expiration date that is 15 days from today's date.\",\n    \"Verify that the technician associated with the license is correctly assigned and has notification permissions.\",\n    \"Trigger the daily notification job or wait for the system to process the scheduled alert (if not automatic, manually run the job).\",\n    \"Check the technician's notification inbox or alert center for the alert.\",\n    \"Open the alert and verify its content includes the license name/ID and the expiration date, and clearly states that the license is approaching expiration.\"\n  ],\n  \"expected_result\": \"The technician receives an alert exactly 15 days before the license expiration date. The alert clearly notifies them that the license is approaching expiration and includes sufficient details (e.g., license identifier and expiration date) to enable renewal. If the system's scheduling behavior is ambiguous (e.g., whether the alert is sent at the start or end of the 15th day, or whether it is sent only once or repeatedly), this test will confirm the actual behavior, but the requirement does not specify these details, so the exact timing within that day and repeat frequency are not asserted.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 287,
+      "output_tokens": 402,
+      "latency_ms": 3720.3814999957103,
+      "cost_usd": 0.00015274
+    },
+    {
+      "id": "req_24",
+      "requirement_text": "On the FSM Mobile App, when performing certain task types, a Provisioning page will show activate/deactivate/reprovision options and a serial number input box for the technician to enter the device serial number being provisioned.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Provisioning Page Displays Options and Serial Number Input for Certain Task Types",
+        "description": "This test verifies that when a technician performs a task type that requires provisioning on the FSM Mobile App, the Provisioning page is displayed with activate, deactivate, and reprovision options, along with an input box for entering the device serial number.",
+        "preconditions": [
+          "Technician is logged into the FSM Mobile App.",
+          "At least one task type that requires provisioning is available in the technician's work queue.",
+          "The technician has an active network connection and the app is synchronized with the backend."
+        ],
+        "test_steps": [
+          "Open the FSM Mobile App and navigate to the work queue.",
+          "Select a task that is of a type that requires provisioning.",
+          "Start the task and proceed to the step where provisioning is required.",
+          "Observe the Provisioning page that appears.",
+          "Check that the page displays the options: Activate, Deactivate, and Reprovision.",
+          "Check that there is an input box labeled for entering the device serial number.",
+          "Attempt to enter a serial number into the input box and verify that text can be entered."
+        ],
+        "expected_result": "The Provisioning page appears for the selected task type and displays the Activate, Deactivate, and Reprovision options, along with a serial number input box. The technician can enter a serial number into the input box. Note: The requirement does not specify the exact layout, labels, or behavior of these elements beyond their presence, so any reasonable UI representation that includes these elements should be considered acceptable.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Provisioning Page Displays Options and Serial Number Input for Certain Task Types\",\n  \"description\": \"This test verifies that when a technician performs a task type that requires provisioning on the FSM Mobile App, the Provisioning page is displayed with activate, deactivate, and reprovision options, along with an input box for entering the device serial number.\",\n  \"preconditions\": [\n    \"Technician is logged into the FSM Mobile App.\",\n    \"At least one task type that requires provisioning is available in the technician's work queue.\",\n    \"The technician has an active network connection and the app is synchronized with the backend.\"\n  ],\n  \"test_steps\": [\n    \"Open the FSM Mobile App and navigate to the work queue.\",\n    \"Select a task that is of a type that requires provisioning.\",\n    \"Start the task and proceed to the step where provisioning is required.\",\n    \"Observe the Provisioning page that appears.\",\n    \"Check that the page displays the options: Activate, Deactivate, and Reprovision.\",\n    \"Check that there is an input box labeled for entering the device serial number.\",\n    \"Attempt to enter a serial number into the input box and verify that text can be entered.\"\n  ],\n  \"expected_result\": \"The Provisioning page appears for the selected task type and displays the Activate, Deactivate, and Reprovision options, along with a serial number input box. The technician can enter a serial number into the input box. Note: The requirement does not specify the exact layout, labels, or behavior of these elements beyond their presence, so any reasonable UI representation that includes these elements should be considered acceptable.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 303,
+      "output_tokens": 351,
+      "latency_ms": 3071.389500000805,
+      "cost_usd": 0.0001407
+    },
+    {
+      "id": "req_25",
+      "requirement_text": "For a device swap, the new service will be activated first, then the old service will be deactivated, and then a connection status check will be done to verify the service is working as expected.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Device swap activation and deactivation order verification",
+        "description": "This test verifies that during a device swap, the system activates the new service before deactivating the old service, and then performs a connection status check to confirm the new service is operational.",
+        "preconditions": [
+          "A user account with an active service on an old device exists.",
+          "A new device is available and compatible with the service.",
+          "The system is in a state where a device swap can be initiated."
+        ],
+        "test_steps": [
+          "Initiate the device swap process for the user's account.",
+          "Monitor the system logs or service states to record the order of activation and deactivation events.",
+          "Verify that the new service is activated before the old service is deactivated.",
+          "After the old service is deactivated, wait for the connection status check to complete.",
+          "Check the final service status and any connection status report."
+        ],
+        "expected_result": "The system should activate the new service first, then deactivate the old service, and finally perform a connection status check. The connection status check should confirm that the new service is working as expected. If the requirement is ambiguous regarding what constitutes 'working as expected' (e.g., specific signal strength or data throughput thresholds), the test should verify that the connection status check returns a positive result without error, but the exact criteria may need clarification.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Device swap activation and deactivation order verification\",\n  \"description\": \"This test verifies that during a device swap, the system activates the new service before deactivating the old service, and then performs a connection status check to confirm the new service is operational.\",\n  \"preconditions\": [\n    \"A user account with an active service on an old device exists.\",\n    \"A new device is available and compatible with the service.\",\n    \"The system is in a state where a device swap can be initiated.\"\n  ],\n  \"test_steps\": [\n    \"Initiate the device swap process for the user's account.\",\n    \"Monitor the system logs or service states to record the order of activation and deactivation events.\",\n    \"Verify that the new service is activated before the old service is deactivated.\",\n    \"After the old service is deactivated, wait for the connection status check to complete.\",\n    \"Check the final service status and any connection status report.\"\n  ],\n  \"expected_result\": \"The system should activate the new service first, then deactivate the old service, and finally perform a connection status check. The connection status check should confirm that the new service is working as expected. If the requirement is ambiguous regarding what constitutes 'working as expected' (e.g., specific signal strength or data throughput thresholds), the test should verify that the connection status check returns a positive result without error, but the exact criteria may need clarification.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 298,
+      "output_tokens": 305,
+      "latency_ms": 2376.0275000022375,
+      "cost_usd": 0.00012712
+    },
+    {
+      "id": "req_26",
+      "requirement_text": "The Technician will be able to send a request through the FSM App on the Task Provision Page to fetch the latest status data from the external service API. The call will be asynchronous.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Technician can send asynchronous request to fetch latest status data from external service API on Task Provision Page",
+        "description": "This test case verifies that a Technician using the FSM App on the Task Provision Page can initiate a request to fetch the latest status data from the external service API. The request is asynchronous, meaning the UI should not block while waiting for the response, and the status data should be updated once the response is received.",
+        "preconditions": [
+          "Technician is logged into the FSM App with valid credentials.",
+          "Technician has access to the Task Provision Page.",
+          "External service API is available and reachable.",
+          "There is at least one task provision record displayed on the page."
+        ],
+        "test_steps": [
+          "Navigate to the Task Provision Page in the FSM App.",
+          "Locate the control or button labeled 'Fetch Latest Status' or similar, intended to send the request.",
+          "Tap/click the 'Fetch Latest Status' button.",
+          "Observe the UI immediately after initiating the request to confirm it remains responsive (e.g., no loading spinner that blocks interaction, or if a spinner appears, it does not prevent navigation or other actions).",
+          "Wait for the asynchronous response to complete.",
+          "Check that the status data displayed on the Task Provision Page has been updated to reflect the latest data from the external service API."
+        ],
+        "expected_result": "The system successfully sends an asynchronous request to the external service API when the Technician triggers the action on the Task Provision Page. The UI remains responsive during the request. Upon completion, the status data on the page is updated with the latest information from the API. If the response is delayed or fails, the system should handle it gracefully (e.g., show an error message) without crashing. Note: The requirement does not specify exact UI behavior during the async call (e.g., loading indicators) or error handling specifics, so these aspects are assumed to be standard and should be verified as part of this test.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Technician can send asynchronous request to fetch latest status data from external service API on Task Provision Page\",\n  \"description\": \"This test case verifies that a Technician using the FSM App on the Task Provision Page can initiate a request to fetch the latest status data from the external service API. The request is asynchronous, meaning the UI should not block while waiting for the response, and the status data should be updated once the response is received.\",\n  \"preconditions\": [\n    \"Technician is logged into the FSM App with valid credentials.\",\n    \"Technician has access to the Task Provision Page.\",\n    \"External service API is available and reachable.\",\n    \"There is at least one task provision record displayed on the page.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the Task Provision Page in the FSM App.\",\n    \"Locate the control or button labeled 'Fetch Latest Status' or similar, intended to send the request.\",\n    \"Tap/click the 'Fetch Latest Status' button.\",\n    \"Observe the UI immediately after initiating the request to confirm it remains responsive (e.g., no loading spinner that blocks interaction, or if a spinner appears, it does not prevent navigation or other actions).\",\n    \"Wait for the asynchronous response to complete.\",\n    \"Check that the status data displayed on the Task Provision Page has been updated to reflect the latest data from the external service API.\"\n  ],\n  \"expected_result\": \"The system successfully sends an asynchronous request to the external service API when the Technician triggers the action on the Task Provision Page. The UI remains responsive during the request. Upon completion, the status data on the page is updated with the latest information from the API. If the response is delayed or fails, the system should handle it gracefully (e.g., show an error message) without crashing. Note: The requirement does not specify exact UI behavior during the async call (e.g., loading indicators) or error handling specifics, so these aspects are assumed to be standard and should be verified as part of this test.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 295,
+      "output_tokens": 430,
+      "latency_ms": 3270.380499998282,
+      "cost_usd": 0.00016170000000000003
+    },
+    {
+      "id": "req_27",
+      "requirement_text": "After a network upgrade, a speed test performed by the Technician should match the upload and download numbers of the Technician's subscribed plan, allowing for a fluctuation of no more than 5 Mbps.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify speed test results match subscribed plan after network upgrade",
+        "description": "This test verifies that after a network upgrade, when a Technician performs a speed test, the measured upload and download speeds are within 5 Mbps of the speeds specified in the Technician's subscribed plan. The test ensures the upgrade has been effective and the network performance aligns with the plan's promised speeds within the allowed tolerance.",
+        "preconditions": [
+          "The network upgrade has been completed and is active.",
+          "The Technician has an active subscribed plan with defined upload and download speeds.",
+          "The Technician has access to a speed test tool or application.",
+          "The network is in a stable state with no known outages or maintenance activities."
+        ],
+        "test_steps": [
+          "Log in to the system as the Technician.",
+          "Retrieve the Technician's subscribed plan details, noting the promised upload and download speeds.",
+          "Connect the Technician's device to the network (e.g., via Ethernet or Wi-Fi as appropriate).",
+          "Perform a speed test using the designated speed test tool.",
+          "Record the measured upload and download speeds from the speed test results.",
+          "Compare the measured upload speed to the subscribed upload speed, calculating the absolute difference.",
+          "Compare the measured download speed to the subscribed download speed, calculating the absolute difference.",
+          "Determine if both differences are less than or equal to 5 Mbps."
+        ],
+        "expected_result": "The measured upload and download speeds should each be within 5 Mbps (inclusive) of the corresponding speeds in the Technician's subscribed plan. If the requirement is ambiguous regarding whether the tolerance applies to both upload and download independently or to the combined difference, the test should be interpreted as each speed being within 5 Mbps of its respective plan value. The test passes if both differences are ≤ 5 Mbps; otherwise, it fails.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify speed test results match subscribed plan after network upgrade\",\n  \"description\": \"This test verifies that after a network upgrade, when a Technician performs a speed test, the measured upload and download speeds are within 5 Mbps of the speeds specified in the Technician's subscribed plan. The test ensures the upgrade has been effective and the network performance aligns with the plan's promised speeds within the allowed tolerance.\",\n  \"preconditions\": [\n    \"The network upgrade has been completed and is active.\",\n    \"The Technician has an active subscribed plan with defined upload and download speeds.\",\n    \"The Technician has access to a speed test tool or application.\",\n    \"The network is in a stable state with no known outages or maintenance activities.\"\n  ],\n  \"test_steps\": [\n    \"Log in to the system as the Technician.\",\n    \"Retrieve the Technician's subscribed plan details, noting the promised upload and download speeds.\",\n    \"Connect the Technician's device to the network (e.g., via Ethernet or Wi-Fi as appropriate).\",\n    \"Perform a speed test using the designated speed test tool.\",\n    \"Record the measured upload and download speeds from the speed test results.\",\n    \"Compare the measured upload speed to the subscribed upload speed, calculating the absolute difference.\",\n    \"Compare the measured download speed to the subscribed download speed, calculating the absolute difference.\",\n    \"Determine if both differences are less than or equal to 5 Mbps.\"\n  ],\n  \"expected_result\": \"The measured upload and download speeds should each be within 5 Mbps (inclusive) of the corresponding speeds in the Technician's subscribed plan. If the requirement is ambiguous regarding whether the tolerance applies to both upload and download independently or to the combined difference, the test should be interpreted as each speed being within 5 Mbps of its respective plan value. The test passes if both differences are ≤ 5 Mbps; otherwise, it fails.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 296,
+      "output_tokens": 395,
+      "latency_ms": 3412.163499997405,
+      "cost_usd": 0.00015204000000000001
+    },
+    {
+      "id": "req_28",
+      "requirement_text": "The Dispatcher will be able to log into the FSM Web App to trace requests triggered by the Technician via the Mobile App to the External Integration Provisioning System (EIPS), in the Task Side panel under the Provisioning Logs section.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Dispatcher login and trace technician-triggered requests in Provisioning Logs",
+        "description": "Verify that a Dispatcher can log into the FSM Web App and, in the Task Side panel under the Provisioning Logs section, trace requests that were triggered by a Technician via the Mobile App to the External Integration Provisioning System (EIPS). This test ensures the Dispatcher has the necessary access and visibility to view the provisioning logs for a task, confirming that requests initiated by the Technician are logged and traceable.",
+        "preconditions": [
+          "A Technician user account exists and is active.",
+          "A Dispatcher user account exists and is active.",
+          "The FSM Web App is accessible and the Dispatcher has valid login credentials.",
+          "At least one task exists in the system that has been processed by the Technician via the Mobile App, triggering a request to EIPS.",
+          "The Technician has triggered at least one request to EIPS for the task via the Mobile App, and the request has been logged in the system."
+        ],
+        "test_steps": [
+          "Open the FSM Web App and log in using valid Dispatcher credentials.",
+          "Navigate to the task list or search for the specific task that was processed by the Technician via the Mobile App.",
+          "Open the task to view its details.",
+          "Locate the Task Side panel on the task detail page.",
+          "Find and expand the 'Provisioning Logs' section within the Task Side panel.",
+          "Review the list of provisioning logs displayed in the section.",
+          "Verify that the logs include the request(s) triggered by the Technician via the Mobile App to EIPS, with relevant details such as timestamp, request type, and status if available."
+        ],
+        "expected_result": "The Dispatcher successfully logs into the FSM Web App and can access the Task Side panel for the specified task. Under the 'Provisioning Logs' section, the Dispatcher can view the logs of requests that were triggered by the Technician via the Mobile App to EIPS. The logs should be visible and traceable, allowing the Dispatcher to identify the requests. If the exact format or content of the logs is not specified, the test verifies that at least the requests are present and identifiable. Note: If the system does not provide a direct mapping between the Technician's action and the EIPS request, or if the logs are not visible to the Dispatcher, the test would fail, indicating a potential access or logging issue.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Dispatcher login and trace technician-triggered requests in Provisioning Logs\",\n  \"description\": \"Verify that a Dispatcher can log into the FSM Web App and, in the Task Side panel under the Provisioning Logs section, trace requests that were triggered by a Technician via the Mobile App to the External Integration Provisioning System (EIPS). This test ensures the Dispatcher has the necessary access and visibility to view the provisioning logs for a task, confirming that requests initiated by the Technician are logged and traceable.\",\n  \"preconditions\": [\n    \"A Technician user account exists and is active.\",\n    \"A Dispatcher user account exists and is active.\",\n    \"The FSM Web App is accessible and the Dispatcher has valid login credentials.\",\n    \"At least one task exists in the system that has been processed by the Technician via the Mobile App, triggering a request to EIPS.\",\n    \"The Technician has triggered at least one request to EIPS for the task via the Mobile App, and the request has been logged in the system.\"\n  ],\n  \"test_steps\": [\n    \"Open the FSM Web App and log in using valid Dispatcher credentials.\",\n    \"Navigate to the task list or search for the specific task that was processed by the Technician via the Mobile App.\",\n    \"Open the task to view its details.\",\n    \"Locate the Task Side panel on the task detail page.\",\n    \"Find and expand the 'Provisioning Logs' section within the Task Side panel.\",\n    \"Review the list of provisioning logs displayed in the section.\",\n    \"Verify that the logs include the request(s) triggered by the Technician via the Mobile App to EIPS, with relevant details such as timestamp, request type, and status if available.\"\n  ],\n  \"expected_result\": \"The Dispatcher successfully logs into the FSM Web App and can access the Task Side panel for the specified task. Under the 'Provisioning Logs' section, the Dispatcher can view the logs of requests that were triggered by the Technician via the Mobile App to EIPS. The logs should be visible and traceable, allowing the Dispatcher to identify the requests. If the exact format or content of the logs is not specified, the test verifies that at least the requests are present and identifiable. Note: If the system does not provide a direct mapping between the Technician's action and the EIPS request, or if the logs are not visible to the Dispatcher, the test would fail, indicating a potential access or logging issue.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 307,
+      "output_tokens": 529,
+      "latency_ms": 3983.7542999957805,
+      "cost_usd": 0.0001911
+    },
+    {
+      "id": "req_29",
+      "requirement_text": "Since the EIPS is a separate service, all calls made to it will be asynchronous, so the Technician will not be blocked waiting for a response before continuing other work.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify asynchronous non-blocking behavior of EIPS calls",
+        "description": "This test verifies that when the Technician application makes a call to the EIPS (External Information Processing Service), the call is asynchronous and does not block the Technician's workflow. The Technician should be able to continue performing other tasks without waiting for the EIPS response.",
+        "preconditions": [
+          "The Technician application is running and the user is logged in.",
+          "The EIPS service is available and configured as a separate service.",
+          "There is at least one operation in the Technician application that triggers an EIPS call (e.g., submitting a request for processing).",
+          "The system is set up to allow monitoring of UI responsiveness and task progress."
+        ],
+        "test_steps": [
+          "Initiate an EIPS call by performing an action that triggers it (e.g., clicking 'Submit to EIPS').",
+          "Immediately after initiating the call, attempt to perform another unrelated task in the Technician application (e.g., open a new record, navigate to a different screen, or start editing a field).",
+          "Observe whether the application remains responsive and allows the second task to be performed without delay or a loading spinner that blocks interaction.",
+          "If possible, monitor the network or system logs to confirm that the EIPS call is still in progress (i.e., no response has been received yet) while the second task is being executed.",
+          "Continue working on other tasks until the EIPS response is eventually received (if applicable) and verify that the application handles the response without disrupting the user's current work."
+        ],
+        "expected_result": "The Technician application remains fully responsive immediately after initiating the EIPS call. The user can continue other work without being blocked or waiting for the EIPS response. The application does not show a modal blocking dialog or freeze. If the requirement is ambiguous about how the response is handled (e.g., whether it appears as a notification or updates a background process), the test should still confirm that the UI is non-blocking; any specific response-handling behavior is not defined and should be verified separately.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify asynchronous non-blocking behavior of EIPS calls\",\n  \"description\": \"This test verifies that when the Technician application makes a call to the EIPS (External Information Processing Service), the call is asynchronous and does not block the Technician's workflow. The Technician should be able to continue performing other tasks without waiting for the EIPS response.\",\n  \"preconditions\": [\n    \"The Technician application is running and the user is logged in.\",\n    \"The EIPS service is available and configured as a separate service.\",\n    \"There is at least one operation in the Technician application that triggers an EIPS call (e.g., submitting a request for processing).\",\n    \"The system is set up to allow monitoring of UI responsiveness and task progress.\"\n  ],\n  \"test_steps\": [\n    \"Initiate an EIPS call by performing an action that triggers it (e.g., clicking 'Submit to EIPS').\",\n    \"Immediately after initiating the call, attempt to perform another unrelated task in the Technician application (e.g., open a new record, navigate to a different screen, or start editing a field).\",\n    \"Observe whether the application remains responsive and allows the second task to be performed without delay or a loading spinner that blocks interaction.\",\n    \"If possible, monitor the network or system logs to confirm that the EIPS call is still in progress (i.e., no response has been received yet) while the second task is being executed.\",\n    \"Continue working on other tasks until the EIPS response is eventually received (if applicable) and verify that the application handles the response without disrupting the user's current work.\"\n  ],\n  \"expected_result\": \"The Technician application remains fully responsive immediately after initiating the EIPS call. The user can continue other work without being blocked or waiting for the EIPS response. The application does not show a modal blocking dialog or freeze. If the requirement is ambiguous about how the response is handled (e.g., whether it appears as a notification or updates a background process), the test should still confirm that the UI is non-blocking; any specific response-handling behavior is not defined and should be verified separately.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 292,
+      "output_tokens": 450,
+      "latency_ms": 3980.378699998255,
+      "cost_usd": 0.00016688
+    },
+    {
+      "id": "req_30",
+      "requirement_text": "For the EIPS, request and response schemas will be validated for each case: activate, deactivate, and reprovision.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Validate request and response schemas for activate, deactivate, and reprovision cases",
+        "description": "This test verifies that for each of the three EIPS cases (activate, deactivate, and reprovision), the system validates both the incoming request schema and the outgoing response schema against the defined schemas. The test ensures that schema validation is enforced for every case and that any schema mismatch is properly handled.",
+        "preconditions": [
+          "The EIPS system is deployed and accessible.",
+          "The schemas for activate, deactivate, and reprovision requests and responses are defined and available to the validation component.",
+          "Test environment has valid credentials and permissions to trigger EIPS operations."
+        ],
+        "test_steps": [
+          "Prepare a valid request payload for the 'activate' case that conforms to the defined request schema.",
+          "Send the 'activate' request to the EIPS endpoint.",
+          "Capture the response and validate that the response conforms to the defined response schema for 'activate'.",
+          "Repeat steps 1-3 for the 'deactivate' case with a valid deactivate request payload.",
+          "Repeat steps 1-3 for the 'reprovision' case with a valid reprovision request payload.",
+          "For each case, also send a request that intentionally violates the request schema (e.g., missing required field or wrong data type) and verify that the system rejects it with a schema validation error.",
+          "For each case, if a response is received that does not conform to the response schema (simulated or observed), verify that the system logs or handles the validation failure appropriately."
+        ],
+        "expected_result": "For each of the three cases (activate, deactivate, reprovision), the system accepts valid requests and returns responses that conform to the respective response schemas. Invalid requests are rejected with a clear schema validation error. If any response fails schema validation, the system should flag it as an error. Note: The requirement does not specify the exact error handling behavior or the format of validation errors, so the test assumes standard validation failure handling (e.g., HTTP 400 with error details) but this should be confirmed against the actual implementation.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Validate request and response schemas for activate, deactivate, and reprovision cases\",\n  \"description\": \"This test verifies that for each of the three EIPS cases (activate, deactivate, and reprovision), the system validates both the incoming request schema and the outgoing response schema against the defined schemas. The test ensures that schema validation is enforced for every case and that any schema mismatch is properly handled.\",\n  \"preconditions\": [\n    \"The EIPS system is deployed and accessible.\",\n    \"The schemas for activate, deactivate, and reprovision requests and responses are defined and available to the validation component.\",\n    \"Test environment has valid credentials and permissions to trigger EIPS operations.\"\n  ],\n  \"test_steps\": [\n    \"Prepare a valid request payload for the 'activate' case that conforms to the defined request schema.\",\n    \"Send the 'activate' request to the EIPS endpoint.\",\n    \"Capture the response and validate that the response conforms to the defined response schema for 'activate'.\",\n    \"Repeat steps 1-3 for the 'deactivate' case with a valid deactivate request payload.\",\n    \"Repeat steps 1-3 for the 'reprovision' case with a valid reprovision request payload.\",\n    \"For each case, also send a request that intentionally violates the request schema (e.g., missing required field or wrong data type) and verify that the system rejects it with a schema validation error.\",\n    \"For each case, if a response is received that does not conform to the response schema (simulated or observed), verify that the system logs or handles the validation failure appropriately.\"\n  ],\n  \"expected_result\": \"For each of the three cases (activate, deactivate, reprovision), the system accepts valid requests and returns responses that conform to the respective response schemas. Invalid requests are rejected with a clear schema validation error. If any response fails schema validation, the system should flag it as an error. Note: The requirement does not specify the exact error handling behavior or the format of validation errors, so the test assumes standard validation failure handling (e.g., HTTP 400 with error details) but this should be confirmed against the actual implementation.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 284,
+      "output_tokens": 463,
+      "latency_ms": 3844.9030999981915,
+      "cost_usd": 0.00016940000000000002
+    },
+    {
+      "id": "req_31",
+      "requirement_text": "The Activate request must include an OAuth2 bearer token in the Authorization header and a unique X-Request-Id header for idempotency. The body must contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Activate request headers and body fields",
+        "description": "This test verifies that an Activate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header for idempotency, and a body containing orderId, action, serviceId, and deviceSerialId.",
+        "preconditions": [
+          "A valid OAuth2 access token is available for authentication.",
+          "The system under test is accessible and the Activate endpoint is known.",
+          "A valid orderId, action, serviceId, and deviceSerialId are available for the request."
+        ],
+        "test_steps": [
+          "Prepare an Activate request with the required headers: Authorization: Bearer <valid_token> and X-Request-Id: <unique_value>.",
+          "Set the request body to include orderId, action, serviceId, and deviceSerialId with valid values.",
+          "Send the Activate request to the endpoint.",
+          "Observe the response and verify that the request is accepted (e.g., HTTP 200/201) and no error related to missing or invalid headers/body is returned.",
+          "Repeat the request with the same X-Request-Id and same body to verify idempotency (optional if requirement implies idempotency)."
+        ],
+        "expected_result": "The system accepts the request and processes it successfully. If the requirement is ambiguous regarding the exact response format or status codes, the test should confirm that the request is not rejected due to missing or malformed headers/body. The presence of the OAuth2 token and unique X-Request-Id should be validated, and the body fields must be present and correctly parsed.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Activate request headers and body fields\",\n  \"description\": \"This test verifies that an Activate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header for idempotency, and a body containing orderId, action, serviceId, and deviceSerialId.\",\n  \"preconditions\": [\n    \"A valid OAuth2 access token is available for authentication.\",\n    \"The system under test is accessible and the Activate endpoint is known.\",\n    \"A valid orderId, action, serviceId, and deviceSerialId are available for the request.\"\n  ],\n  \"test_steps\": [\n    \"Prepare an Activate request with the required headers: Authorization: Bearer <valid_token> and X-Request-Id: <unique_value>.\",\n    \"Set the request body to include orderId, action, serviceId, and deviceSerialId with valid values.\",\n    \"Send the Activate request to the endpoint.\",\n    \"Observe the response and verify that the request is accepted (e.g., HTTP 200/201) and no error related to missing or invalid headers/body is returned.\",\n    \"Repeat the request with the same X-Request-Id and same body to verify idempotency (optional if requirement implies idempotency).\"\n  ],\n  \"expected_result\": \"The system accepts the request and processes it successfully. If the requirement is ambiguous regarding the exact response format or status codes, the test should confirm that the request is not rejected due to missing or malformed headers/body. The presence of the OAuth2 token and unique X-Request-Id should be validated, and the body fields must be present and correctly parsed.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 306,
+      "output_tokens": 367,
+      "latency_ms": 3066.0863000011886,
+      "cost_usd": 0.00014560000000000002
+    },
+    {
+      "id": "req_32",
+      "requirement_text": "The Deactivate request must include an OAuth2 bearer token in the Authorization header and a unique X-Request-Id header for idempotency. The body must contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Deactivate request headers and body",
+        "description": "This test verifies that a Deactivate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header for idempotency, and a body containing orderId, action, serviceId, and deviceSerialId.",
+        "preconditions": [
+          "A valid OAuth2 access token is available for authentication.",
+          "The system under test is accessible and the Deactivate endpoint is known.",
+          "A valid orderId, serviceId, and deviceSerialId exist for testing."
+        ],
+        "test_steps": [
+          "Prepare a Deactivate request with an Authorization header set to 'Bearer <valid_access_token>'.",
+          "Generate a unique X-Request-Id value (e.g., a UUID) and include it in the request headers.",
+          "Set the request body to include the fields: orderId, action (set to 'deactivate'), serviceId, and deviceSerialId with valid test values.",
+          "Send the Deactivate request to the endpoint.",
+          "Observe the response and any logs or server-side validation messages."
+        ],
+        "expected_result": "The request should be accepted and processed successfully (e.g., HTTP 200 or 202). If the system rejects the request due to missing or invalid headers/body, the response should clearly indicate the missing or invalid fields. Note: The requirement does not specify the exact success response code or error format, so the test should focus on verifying that the request is not rejected for missing required headers or body fields. If the system behaves unexpectedly, it may indicate ambiguity in the requirement regarding expected response codes or error handling.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Deactivate request headers and body\",\n  \"description\": \"This test verifies that a Deactivate request includes the required OAuth2 bearer token in the Authorization header, a unique X-Request-Id header for idempotency, and a body containing orderId, action, serviceId, and deviceSerialId.\",\n  \"preconditions\": [\n    \"A valid OAuth2 access token is available for authentication.\",\n    \"The system under test is accessible and the Deactivate endpoint is known.\",\n    \"A valid orderId, serviceId, and deviceSerialId exist for testing.\"\n  ],\n  \"test_steps\": [\n    \"Prepare a Deactivate request with an Authorization header set to 'Bearer <valid_access_token>'.\",\n    \"Generate a unique X-Request-Id value (e.g., a UUID) and include it in the request headers.\",\n    \"Set the request body to include the fields: orderId, action (set to 'deactivate'), serviceId, and deviceSerialId with valid test values.\",\n    \"Send the Deactivate request to the endpoint.\",\n    \"Observe the response and any logs or server-side validation messages.\"\n  ],\n  \"expected_result\": \"The request should be accepted and processed successfully (e.g., HTTP 200 or 202). If the system rejects the request due to missing or invalid headers/body, the response should clearly indicate the missing or invalid fields. Note: The requirement does not specify the exact success response code or error format, so the test should focus on verifying that the request is not rejected for missing required headers or body fields. If the system behaves unexpectedly, it may indicate ambiguity in the requirement regarding expected response codes or error handling.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 306,
+      "output_tokens": 361,
+      "latency_ms": 2924.0007999978843,
+      "cost_usd": 0.00014392000000000002
+    },
+    {
+      "id": "req_33",
+      "requirement_text": "The Reprovision request should contain the security headers, and the body should contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Reprovision request includes security headers and required body fields",
+        "description": "This test verifies that when a Reprovision request is made, the request includes the necessary security headers and that the request body contains the fields orderId, action, serviceId, and deviceSerialId. The test will intercept or inspect the outgoing request to confirm compliance with the requirement.",
+        "preconditions": [
+          "A system or client capable of sending a Reprovision request is available.",
+          "Valid credentials or tokens for security headers are available.",
+          "A valid orderId, action, serviceId, and deviceSerialId are known for the test."
+        ],
+        "test_steps": [
+          "Initiate a Reprovision request using the appropriate API endpoint or client.",
+          "Capture or inspect the outgoing HTTP request headers.",
+          "Verify that the required security headers are present in the request headers.",
+          "Capture or inspect the request body.",
+          "Parse the request body and check for the presence of the fields: orderId, action, serviceId, and deviceSerialId.",
+          "Validate that each of these fields has a non-null and non-empty value."
+        ],
+        "expected_result": "The Reprovision request should include the security headers as defined by the system's security policy (exact header names are not specified in the requirement, so the test should check for the presence of any security headers that are typically required, such as Authorization or custom headers; if the requirement is ambiguous, note that the exact header names are not defined). The request body should contain the fields orderId, action, serviceId, and deviceSerialId, each with valid values. If any of these fields are missing or empty, the test fails.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Reprovision request includes security headers and required body fields\",\n  \"description\": \"This test verifies that when a Reprovision request is made, the request includes the necessary security headers and that the request body contains the fields orderId, action, serviceId, and deviceSerialId. The test will intercept or inspect the outgoing request to confirm compliance with the requirement.\",\n  \"preconditions\": [\n    \"A system or client capable of sending a Reprovision request is available.\",\n    \"Valid credentials or tokens for security headers are available.\",\n    \"A valid orderId, action, serviceId, and deviceSerialId are known for the test.\"\n  ],\n  \"test_steps\": [\n    \"Initiate a Reprovision request using the appropriate API endpoint or client.\",\n    \"Capture or inspect the outgoing HTTP request headers.\",\n    \"Verify that the required security headers are present in the request headers.\",\n    \"Capture or inspect the request body.\",\n    \"Parse the request body and check for the presence of the fields: orderId, action, serviceId, and deviceSerialId.\",\n    \"Validate that each of these fields has a non-null and non-empty value.\"\n  ],\n  \"expected_result\": \"The Reprovision request should include the security headers as defined by the system's security policy (exact header names are not specified in the requirement, so the test should check for the presence of any security headers that are typically required, such as Authorization or custom headers; if the requirement is ambiguous, note that the exact header names are not defined). The request body should contain the fields orderId, action, serviceId, and deviceSerialId, each with valid values. If any of these fields are missing or empty, the test fails.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 286,
+      "output_tokens": 366,
+      "latency_ms": 2945.0582999998005,
+      "cost_usd": 0.00014252
+    },
+    {
+      "id": "req_34",
+      "requirement_text": "For a device swap, the new service will be activated first, its connection status verified as working, and only then will the old service be deactivated.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Device swap activates new service before deactivating old service",
+        "description": "Verifies that during a device swap, the new service is activated and its connection status is confirmed as working before the old service is deactivated. This ensures no service interruption and that the swap follows the correct order.",
+        "preconditions": [
+          "A user has an active service on an old device.",
+          "A new device is available and ready for activation.",
+          "The system has the capability to activate a service on the new device and check its connection status.",
+          "The old service is currently active and connected."
+        ],
+        "test_steps": [
+          "Initiate the device swap process for the user's account.",
+          "Observe the system's actions: it should first attempt to activate the new service on the new device.",
+          "After activation, the system should verify the connection status of the new service (e.g., by checking network connectivity or sending a test signal).",
+          "Only after the new service's connection status is confirmed as working, proceed to deactivate the old service.",
+          "Check the final state of both services: new service active and connected, old service deactivated."
+        ],
+        "expected_result": "The new service is activated and its connection status is verified as working before the old service is deactivated. The swap completes without any period where both services are inactive. If the new service fails to activate or its connection status cannot be verified as working, the old service should remain active and the swap should not proceed. Note: The requirement does not specify what constitutes 'working' connection status or how to handle partial failures, so the exact verification method and failure handling are not defined here.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Device swap activates new service before deactivating old service\",\n  \"description\": \"Verifies that during a device swap, the new service is activated and its connection status is confirmed as working before the old service is deactivated. This ensures no service interruption and that the swap follows the correct order.\",\n  \"preconditions\": [\n    \"A user has an active service on an old device.\",\n    \"A new device is available and ready for activation.\",\n    \"The system has the capability to activate a service on the new device and check its connection status.\",\n    \"The old service is currently active and connected.\"\n  ],\n  \"test_steps\": [\n    \"Initiate the device swap process for the user's account.\",\n    \"Observe the system's actions: it should first attempt to activate the new service on the new device.\",\n    \"After activation, the system should verify the connection status of the new service (e.g., by checking network connectivity or sending a test signal).\",\n    \"Only after the new service's connection status is confirmed as working, proceed to deactivate the old service.\",\n    \"Check the final state of both services: new service active and connected, old service deactivated.\"\n  ],\n  \"expected_result\": \"The new service is activated and its connection status is verified as working before the old service is deactivated. The swap completes without any period where both services are inactive. If the new service fails to activate or its connection status cannot be verified as working, the old service should remain active and the swap should not proceed. Note: The requirement does not specify what constitutes 'working' connection status or how to handle partial failures, so the exact verification method and failure handling are not defined here.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 289,
+      "output_tokens": 363,
+      "latency_ms": 2916.9341000015265,
+      "cost_usd": 0.0001421
+    },
+    {
+      "id": "req_35",
+      "requirement_text": "The Task Side panel's Provisioning Logs section should give the Dispatcher a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Dispatcher can view all Technician-triggered EIPS requests in Task Side panel Provisioning Logs",
+        "description": "This test verifies that the Provisioning Logs section in the Task Side panel provides the Dispatcher with a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS. The test checks that the logs are visible, complete, and presented in a user-friendly manner.",
+        "preconditions": [
+          "Dispatcher is logged into the system with appropriate permissions to view Task Side panel.",
+          "At least one task exists that has associated provisioning requests triggered by a Technician to the EIPS.",
+          "The Task Side panel is accessible and the Provisioning Logs section is available for the selected task."
+        ],
+        "test_steps": [
+          "Open the Task Side panel for a task that has provisioning requests triggered by a Technician.",
+          "Navigate to the Provisioning Logs section within the Task Side panel.",
+          "Verify that the Provisioning Logs section is visible and clearly labeled.",
+          "Review the list of logs displayed in the Provisioning Logs section.",
+          "Check that each log entry corresponds to a request triggered by the Technician to the EIPS.",
+          "Verify that the logs are presented in a clear and easy-to-follow format (e.g., chronological order, readable timestamps, status indicators).",
+          "If there are multiple logs, confirm that all requests are listed without omission."
+        ],
+        "expected_result": "The Provisioning Logs section displays all requests triggered by the Technician to the EIPS for the selected task. The logs are presented in a clear and easy-to-follow manner, with each entry showing relevant details such as timestamp, request type, and status. The Dispatcher can easily scan and understand the sequence of provisioning requests. If the requirement implies a specific format or level of detail, the logs should match that expectation; otherwise, the test verifies general clarity and completeness.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Dispatcher can view all Technician-triggered EIPS requests in Task Side panel Provisioning Logs\",\n  \"description\": \"This test verifies that the Provisioning Logs section in the Task Side panel provides the Dispatcher with a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS. The test checks that the logs are visible, complete, and presented in a user-friendly manner.\",\n  \"preconditions\": [\n    \"Dispatcher is logged into the system with appropriate permissions to view Task Side panel.\",\n    \"At least one task exists that has associated provisioning requests triggered by a Technician to the EIPS.\",\n    \"The Task Side panel is accessible and the Provisioning Logs section is available for the selected task.\"\n  ],\n  \"test_steps\": [\n    \"Open the Task Side panel for a task that has provisioning requests triggered by a Technician.\",\n    \"Navigate to the Provisioning Logs section within the Task Side panel.\",\n    \"Verify that the Provisioning Logs section is visible and clearly labeled.\",\n    \"Review the list of logs displayed in the Provisioning Logs section.\",\n    \"Check that each log entry corresponds to a request triggered by the Technician to the EIPS.\",\n    \"Verify that the logs are presented in a clear and easy-to-follow format (e.g., chronological order, readable timestamps, status indicators).\",\n    \"If there are multiple logs, confirm that all requests are listed without omission.\"\n  ],\n  \"expected_result\": \"The Provisioning Logs section displays all requests triggered by the Technician to the EIPS for the selected task. The logs are presented in a clear and easy-to-follow manner, with each entry showing relevant details such as timestamp, request type, and status. The Dispatcher can easily scan and understand the sequence of provisioning requests. If the requirement implies a specific format or level of detail, the logs should match that expectation; otherwise, the test verifies general clarity and completeness.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 293,
+      "output_tokens": 417,
+      "latency_ms": 3165.116999996826,
+      "cost_usd": 0.00015778000000000002
+    }
+  ]
+}
