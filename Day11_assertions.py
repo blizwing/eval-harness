@@ -48,12 +48,19 @@ def check_valid_json(row: dict) -> bool:
     """Reuses Day 9's validation_verdict rather than re-parsing raw_response_text.
     A verdict of 'invalid' due to malformed JSON would fail here; a verdict
     of 'invalid' due to a missing field (req_07's case) still means the JSON
-    itself parsed fine, so this check passes independently of check 2."""
-    if row["validation_verdict"] == "valid":
-        return True
-    detail = row.get("validation_detail") or []
-    # validation_detail entries look like ["missing_field", "..."] or ["json_error", "..."]
-    return not any(kind == "json_error" for kind, _ in detail)
+    itself parsed fine, so this check passes independently of check 2.
+
+    Checks validation_verdict directly rather than scanning validation_detail:
+    Day5_validate.validate_response never actually tags a failure
+    "json_error" — its invalid_json status carries a bare list of
+    exception-message strings, not the (kind, msg) tuples the invalid
+    (schema-mismatch) status uses. The old detail-scanning logic matched
+    every prior "valid"/"invalid" row correctly by coincidence (the tag it
+    searched for never occurs, so it never fired), but crashed on a real
+    invalid_json row, whose detail list doesn't unpack as (kind, msg) at
+    all. Found via Day 24's model-variant experiment — the first run to
+    actually produce a malformed (non-JSON) response."""
+    return row["validation_verdict"] != "invalid_json"
 
 
 def check_fields_present(row: dict) -> bool:
