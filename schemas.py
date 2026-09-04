@@ -96,3 +96,51 @@ class ScoreResult(BaseModel):
     mode: Literal["assertions", "judge", "both"]
     assertion_result: AssertionScore | None = None
     judge_result: JudgeScore | None = None
+
+
+# --- Day 25: reporter ---
+
+class PassRates(BaseModel):
+    """A metric is the literal string "not run" (never a number, never
+    blank) when the underlying scoring mode was never used across the
+    joined cases, per Day 25's spec — assertion and judge pass rates are
+    never combined into one number."""
+    assertion_pass_rate: float | Literal["not run"]
+    judge_pass_rate: float | Literal["not run"]
+
+
+class CostReport(BaseModel):
+    total_cost_usd: float
+    cost_by_day23_status: dict[str, float]
+    cost_by_assertion_outcome: dict[str, float] | Literal["not run"]
+    cost_by_judge_outcome: dict[str, float] | Literal["not run"]
+
+
+class LatencyReport(BaseModel):
+    mean_latency_all_ms: float
+    mean_latency_valid_only_ms: float
+
+
+class AssertionFailure(BaseModel):
+    case_id: str
+    failed_checks: dict[str, bool]  # only the checks that were False
+
+
+class JudgeFailure(BaseModel):
+    case_id: str
+    verdict: Literal["borderline", "bad"]
+    reasoning: str
+
+
+class FailureReport(BaseModel):
+    assertion_failures: list[AssertionFailure]
+    judge_failures: list[JudgeFailure]
+    failed_both: list[str]  # case_ids present in both lists above
+
+
+class Report(BaseModel):
+    joined_count: int
+    pass_rates: PassRates
+    cost: CostReport
+    latency: LatencyReport
+    failures: FailureReport

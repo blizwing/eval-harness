@@ -1,0 +1,778 @@
+{
+  "generated_at": "2026-09-04T07:27:02.901745+00:00",
+  "source_results_file": "Day23_Runner_Results/Day23_run_results.json",
+  "mode": "both",
+  "count": 35,
+  "results": [
+    {
+      "case_id": "req_01",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests task creation with unique ID and customer details, provides concrete steps and preconditions, verifies the specific details mentioned in the requirement, and clearly states the expected outcome for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_02",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the assignment and completion within time, provides concrete steps, checks the specific time constraint, and clearly states pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_03",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the scheduling based on specified parameters, provides concrete preconditions and steps, and clearly defines expected outcomes that verify each parameter is considered."
+      }
+    },
+    {
+      "case_id": "req_04",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the requirement of capturing evidence during work, provides concrete steps and preconditions, and its expected result clearly defines pass/fail conditions for evidence capture and job completion."
+      }
+    },
+    {
+      "case_id": "req_05",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the signature capture and return-to-base transition, provides concrete steps and preconditions, and clearly defines expected outcomes for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_06",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the reassignment behavior described, provides concrete preconditions and steps, checks the specific outcome of reassignment to another technician, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_07",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the requirement of displaying the entire task result after technician submission, provides concrete steps and preconditions, and clearly states that the expected result is complete and accurate display without omission, making pass/fail unambiguous."
+      }
+    },
+    {
+      "case_id": "req_08",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests visibility without errors, provides concrete steps, checks for errors specifically, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_09",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the login restriction for Dispatcher and Admin, provides concrete steps and preconditions, and clearly states expected outcomes for both authorized and unauthorized users."
+      }
+    },
+    {
+      "case_id": "req_10",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the role-based login restriction, provides concrete steps and preconditions, and clearly defines expected outcomes for both technician and non-technician users."
+      }
+    },
+    {
+      "case_id": "req_11",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the described behavior, provides concrete steps and preconditions, and clearly states the expected outcome with a pass/fail condition."
+      }
+    },
+    {
+      "case_id": "req_12",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the ability to log Lunch Breaks and Downtime with specified hours or minutes, provides concrete steps, and clearly states expected outcomes for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_13",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": true
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_14",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the ability to access Timesheets and view leave requests, provides concrete steps and preconditions, and clearly states the expected outcome for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_15",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests approval and rejection with mandatory reason, provides concrete steps and preconditions, verifies the specific rejection reason requirement, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_16",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the approval reflection in Capacity Management, provides concrete steps and preconditions, and clearly states expected outcomes with a note on reasonable verification."
+      }
+    },
+    {
+      "case_id": "req_17",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the reflection of logged lunch breaks and downtime in Capacity Management with concrete steps and expected results that verify the exact durations are displayed, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_18",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly verifies the presence of the Skills section, provides concrete steps, and clearly states the expected result as the section being present."
+      }
+    },
+    {
+      "case_id": "req_19",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests adding and removing skills, provides concrete steps and preconditions, and clearly states expected outcomes for both add and remove operations."
+      }
+    },
+    {
+      "case_id": "req_20",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the display of licenses with issue and expiration dates, provides concrete steps and preconditions, and clearly states expected results with a note on ambiguity."
+      }
+    },
+    {
+      "case_id": "req_21",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests adding and removing licenses, provides concrete steps and preconditions, verifies the specific state changes, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_22",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the display of technician licenses on the Profile page, provides concrete steps and preconditions, and clearly states that the licenses must match the technician's account data, ensuring unambiguous pass/fail criteria."
+      }
+    },
+    {
+      "case_id": "req_23",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the 15-day alert requirement with concrete preconditions and steps, and its expected result clearly defines pass/fail criteria."
+      }
+    },
+    {
+      "case_id": "req_24",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the presence of the specified options and serial input, provides concrete steps, and clearly states expected results."
+      }
+    },
+    {
+      "case_id": "req_25",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the activation-deactivation-order and connection check, provides concrete steps and preconditions, and clearly states the expected order and positive connection check outcome."
+      }
+    },
+    {
+      "case_id": "req_26",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the asynchronous request behavior, provides concrete steps and preconditions, verifies the specific outcome of data update, and clearly states pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_27",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the requirement's tolerance of 5 Mbps for both upload and download speeds, provides concrete steps and preconditions, and clearly defines pass/fail criteria."
+      }
+    },
+    {
+      "case_id": "req_28",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the Dispatcher's ability to trace technician-triggered requests in the Provisioning Logs, provides concrete preconditions and steps, checks for the presence of the specific logs, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_29",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the asynchronous non-blocking behavior, provides concrete steps and preconditions, and clearly defines pass/fail criteria based on UI responsiveness."
+      }
+    },
+    {
+      "case_id": "req_30",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests schema validation for each case, provides concrete steps and preconditions, checks the specific schema conformance, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_31",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the specified headers and body fields, provides concrete steps and preconditions, and clearly states expected outcomes for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_32",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the specified headers and body, provides concrete steps and preconditions, and clearly states expected outcomes for pass/fail."
+      }
+    },
+    {
+      "case_id": "req_33",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case lacks specific security header names and does not verify exact field values or formats, making it vague and not fully aligned with the requirement."
+      }
+    },
+    {
+      "case_id": "req_34",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the activation-before-deactivation order, provides concrete steps and preconditions, explicitly checks the order and state, and clearly defines pass/fail conditions."
+      }
+    },
+    {
+      "case_id": "req_35",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "good",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "pass",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "pass",
+        "reasoning": "The test case includes all required fields, directly tests the requirement's core behavior, provides concrete steps and preconditions, checks for the specific details of clarity and completeness, and clearly defines pass/fail conditions."
+      }
+    }
+  ]
+}

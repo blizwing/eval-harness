@@ -1163,3 +1163,97 @@ Also modified: `Day22_loader.py`, `Day7_zeroshot_testcase.py`,
 `serialize_case()` extraction), `Day11_assertions.py` (`check_valid_json`
 fix), `Day1_first_call.py`/`Day4_json_mode.py` (`model`/
 `thinking_enabled`/`max_tokens` made overridable, defaults unchanged).
+
+---
+
+## Day 25 — Reporter (Fri 4 Sep 2026)
+
+`Day25_reporter.py` — joins Day 23's run results with Day 24's score
+results on case_id, computes pass rates/cost/latency, and lists every
+failure with its reason, via a single flat-argparse command. Designed
+end-to-end through six rounds of back-and-forth before any code was
+written — the resulting decisions all visibly mattered once real data
+ran through them, not just in the abstract.
+
+**Join integrity, mirroring Day 24's `ScoreIntegrityError` pattern.**
+Before any metric is computed, the case_id sets from both files are
+checked for exact equality. A mismatch — either direction — raises
+`ReportIntegrityError` naming exactly which IDs are missing from which
+side, and no partial report is ever generated. Considered letting a
+partial report through with a loud warning instead; rejected because the
+reporter never makes API calls itself, so there's no cost tradeoff to
+weigh — the only real question was "see partial data now" vs "forced to
+fix the gap first," and hard-stop keeps that decision consistent with
+Day 24's own severity model (an untrustworthy result halts, it doesn't
+degrade).
+
+**Assertion pass rate and judge pass rate are reported separately, never
+combined.** A case can be well-formed but semantically weak, or vice
+versa, and those are different problems needing different fixes — a
+combined number would hide which one is happening. Judge pass rate is
+strict: only `verdict == "good"` counts as a pass, `borderline` counts as
+a fail alongside `bad`. Deliberate, given today's own finding (see
+below) that `borderline` tends to mean "real vagueness a stronger judge
+caught," not a safe middle ground.
+
+Any metric whose mode wasn't run across the joined cases (e.g. judge pass
+rate when scoring was `assertions`-only) shows the literal string `"not
+run"`, never a number or blank — checked from the data itself (whether
+any joined row actually carries a result) rather than trusted from a
+single mode label, since Day 24's `mode` is technically per-row.
+
+**Cost and latency both split two ways, deliberately kept from
+collapsing into one number** — same reasoning as the pass-rate split.
+Confirmed on real data that the two cost splits diverge in exactly the
+way that matters: `req_13` (status `invalid`) is the sole assertion
+failure, so cost-by-assertion-outcome isolates just its $0.0002. But
+cost-by-judge-outcome shows $0.0003 failed, because `req_33` passed
+assertions cleanly but failed judge — money spent on an output that
+*looks* fine mechanically but isn't semantically. A combined split would
+have hidden that `req_33` costs anything at all. Latency is reported
+both across all joined cases and across `status == "valid"` only, since
+retries on failed calls inflate wall-clock time in a way that would
+misrepresent "how long does a normal call take."
+
+**Failure lists ("every failure with its reason") kept separate per
+Day 25's spec — assertion failures (case_id + which of the 4 named checks
+failed) and judge failures (case_id + verdict + reasoning) — plus a
+"Failed BOTH" callout: case_ids present in both lists, surfaced without
+requiring manual cross-referencing.** This is the same instinct behind
+the Day 14 `req_01` finding made structural: the interesting cases are
+where multiple signals disagree or agree on the same thing, and that
+shouldn't require inspection to notice. Confirmed against real data:
+`req_13` correctly appears in all three sections (it fails both checks);
+`req_33` correctly appears only in judge failures, and correctly does
+*not* appear in "Failed BOTH."
+
+**Smoke-tested the `api_error` path directly, not deferred.** A synthetic
+`api_error` row was appended to scratch copies of both input files (real
+files untouched, scratch files removed after) to verify the one status
+value with zero real occurrences in the current 35-case dataset. Behaved
+correctly: $0 cost attributed rather than silently dropped from the total,
+excluded from both latency means (not defaulted to 0, which would have
+understated them), and surfaced in both failure sections plus "Failed
+BOTH."
+
+**Real numbers on the actual 35-case run:** assertion pass rate 97.1%
+(34/35), judge pass rate 94.3% strict-good (33/35), total cost $0.0050,
+mean latency 2989.3ms all cases / 2985.2ms valid-only — close together
+because the one non-valid row (`req_13`, `invalid`) still made a real API
+call and carries real latency, unlike a true `api_error` row would.
+
+**Day 24 addendum:** `--save` flag added to `Day24_scorer.py`
+(`argparse.BooleanOptionalAction`, default on) persisting `score_all()`'s
+output to `Day24_Scorer_Results/Day24_score_results.json`, following
+Day 23's `save_results` envelope shape (`generated_at`, source file, mode,
+count, results). No change to `score_all()`'s scoring logic itself.
+
+**Checkpoint met:** one command reads both files and prints a readable
+report — pass rate, total cost, mean latency, every failure with its
+reason — hard-stopping cleanly on a verified join mismatch rather than
+degrading to a partial view.
+
+**Raw files:** `Day25_reporter.py`, `Day24_Scorer_Results/` (new).
+Modified: `Day24_scorer.py` (`--save` flag), `schemas.py` (`PassRates`,
+`CostReport`, `LatencyReport`, `AssertionFailure`, `JudgeFailure`,
+`FailureReport`, `Report`).

@@ -30,6 +30,8 @@ Design notes:
 
 import argparse
 import json
+import os
+from datetime import datetime, timezone
 from typing import Literal
 
 from Day11_assertions import (
@@ -42,6 +44,9 @@ from Day12_LLM_Judge import NO_OUTPUT_MARKER, judge_single_case, load_prompt_tem
 from schemas import AssertionScore, JudgeScore, ScoreResult
 
 DEFAULT_JUDGE_PROMPT_FILE = "Day15_Judge_Rubric_V2/judge_v2.txt"
+
+OUTPUT_DIR = "Day24_Scorer_Results"
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "Day24_score_results.json")
 
 ASSERTION_CHECK_KEYS = ("valid_json", "fields_present", "non_empty", "under_token_cap")
 
@@ -182,6 +187,31 @@ def score_all(
     return [score_case(row, mode, judge_prompt_template) for row in data["results"]]
 
 
+def serialize_score(r: ScoreResult) -> dict:
+    """Flattens a ScoreResult into the dict row shape used by
+    Day24_score_results.json (case_id, mode, and the full assertion_result /
+    judge_result payloads Day 25 joins against Day 23's rows)."""
+    return r.model_dump()
+
+
+def save_scores(results: list[ScoreResult], mode: str, source_results_file: str) -> None:
+    """Persists score_all()'s output, following Day23_runner.save_results's
+    envelope shape (generated_at, source file, count, results)."""
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "source_results_file": source_results_file,
+        "mode": mode,
+        "count": len(results),
+        "results": [serialize_score(r) for r in results],
+    }
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+
+    print(f"Saved {len(results)} score(s) -> {OUTPUT_FILE}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Day 24 — score Day 23's run results.")
     parser.add_argument(
@@ -200,9 +230,18 @@ if __name__ == "__main__":
         default=DEFAULT_JUDGE_PROMPT_FILE,
         help="Override the default judge_v2.txt rubric file.",
     )
+    parser.add_argument(
+        "--save",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Persist results to Day24_Scorer_Results/Day24_score_results.json (default: on; use --no-save to skip).",
+    )
     args = parser.parse_args()
 
     scored = score_all(args.results_file, args.mode, args.judge_prompt)
+
+    if args.save:
+        save_scores(scored, args.mode, args.results_file)
 
     print(f"Scored {len(scored)} case(s) in mode={args.mode}.")
     for r in scored:
