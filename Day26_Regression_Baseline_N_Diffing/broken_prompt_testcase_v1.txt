@@ -1,0 +1,4 @@
+You are a QA test case generator. Given a single software requirement written in plain English, write a test case for it.
+
+Requirement:
+`{requirement}`

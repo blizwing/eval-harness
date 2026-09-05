@@ -24,6 +24,7 @@ Design notes:
   kill a 35-case run.
 """
 
+import argparse
 import json
 import os
 import time
@@ -107,13 +108,16 @@ def call_with_retry(client: LLMClient, prompt: str) -> tuple[MeteredResult | Non
     return None, MAX_RETRIES + 1, last_error
 
 
-def run_all(requirements_file: str = REQUIREMENTS_FILE) -> list[CaseResult]:
+def run_all(
+    requirements_file: str = REQUIREMENTS_FILE,
+    prompt_file: str = PROMPT_FILE,
+) -> list[CaseResult]:
     status, payload = load_requirements(requirements_file)
     if status != "valid":
         raise RuntimeError(f"Cannot run — requirements file invalid: {status}: {payload}")
 
     req_set: RequirementSet = payload
-    prompt_template = load_prompt_template(PROMPT_FILE)
+    prompt_template = load_prompt_template(prompt_file)
     client = LLMClient()
 
     total = len(req_set.requirements)
@@ -184,8 +188,14 @@ def serialize_case(r: CaseResult) -> dict:
     return entry
 
 
-def save_results(results: list[CaseResult], source_file: str) -> None:
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+def save_results(
+    results: list[CaseResult],
+    source_file: str,
+    prompt_file: str = PROMPT_FILE,
+    output_file: str = OUTPUT_FILE,
+) -> None:
+    out_dir = os.path.dirname(output_file) or "."
+    os.makedirs(out_dir, exist_ok=True)
 
     serializable = [serialize_case(r) for r in results]
 
@@ -196,18 +206,32 @@ def save_results(results: list[CaseResult], source_file: str) -> None:
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_requirements_file": source_file,
-        "prompt_file": PROMPT_FILE,
+        "prompt_file": prompt_file,
         "count": len(results),
         "status_counts": counts,
         "results": serializable,
     }
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
 
-    print(f"\nSaved {len(results)} results -> {OUTPUT_FILE}")
+    print(f"\nSaved {len(results)} results -> {output_file}")
     print(f"Status breakdown: {counts}")
 
 
 if __name__ == "__main__":
-    results = run_all()
-    save_results(results, REQUIREMENTS_FILE)
+    parser = argparse.ArgumentParser(description="Day 23 — run every requirement through the model.")
+    parser.add_argument("--requirements-file", default=REQUIREMENTS_FILE)
+    parser.add_argument(
+        "--prompt-file",
+        default=PROMPT_FILE,
+        help="Override the prompt template — e.g. a sabotaged copy for Day 26 regression testing.",
+    )
+    parser.add_argument(
+        "--output-file",
+        default=OUTPUT_FILE,
+        help="Where to save results. Use a different path for a sabotage run so it doesn't overwrite the real Day23_run_results.json.",
+    )
+    args = parser.parse_args()
+
+    results = run_all(args.requirements_file, args.prompt_file)
+    save_results(results, args.requirements_file, args.prompt_file, args.output_file)

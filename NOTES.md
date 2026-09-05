@@ -1257,3 +1257,132 @@ degrading to a partial view.
 Modified: `Day24_scorer.py` (`--save` flag), `schemas.py` (`PassRates`,
 `CostReport`, `LatencyReport`, `AssertionFailure`, `JudgeFailure`,
 `FailureReport`, `Report`).
+
+## Day 26 — Regression baseline/diffing (Sat 5 Sep 2026)
+
+`Day26_baseline.py` — `save` generates a Day 25 `Report` from a pair of
+run/score result files and persists it as `baseline.json`; `diff`
+generates a fresh `Report` and compares its `assertion_pass_rate` /
+`judge_pass_rate` against the saved baseline, per Day 2's founding
+constraint that outputs are non-deterministic and diffing therefore can't
+be exact-match.
+
+**Threshold-based, not exact-match.** A pass rate has to drop by more
+than `REGRESSION_THRESHOLD` (0.05, i.e. 5 percentage points — roughly
+"more than one case flips out of 35") to be flagged `REGRESSION`;
+anything smaller is `OK`. This threshold is a judgment call, not a value
+derived from measured pass-rate variance — Day 2's finding was about raw
+output uniqueness, not how much a pass rate itself swings run-to-run
+under an unchanged prompt. Revisit once a few real baseline/diff cycles
+show what that noise actually looks like. Cost and latency are recorded
+in `baseline.json` for the historical record but aren't diffed — that's
+Day 30/31's guardrail, not this one.
+
+**A "not run" pass rate on either side is `MODE_MISMATCH`, not silently
+skipped and not scored as a regression** — comparing a number against the
+string `"not run"` isn't a real threshold comparison, and treating it as
+either an automatic pass or fail would be exactly the silent-wrong-answer
+grader failure mode the Day 24 integrity check exists to catch.
+
+**Smoke-tested two ways before touching real data.** (1) `save` then
+`diff` against the same Day 23/24 files → both metrics `OK`, delta 0%. (2)
+A scratch copy of Day 24's score results with 4 judge verdicts flipped
+`good` → `bad` → `judge_pass_rate` correctly flagged `REGRESSION`
+(94.3% → 82.9%), `assertion_pass_rate` (untouched) correctly stayed `OK`,
+exit code 1. Real `baseline.json` was saved from the actual 35-case Day
+23/24 output (97.1% assertion, 94.3% judge — same numbers as Day 25's
+report), not from either smoke test.
+
+**Added minimal CLI overrides to `Day23_runner.py` and `Day24_scorer.py`**
+(`--prompt-file`/`--output-file` on the runner, `--output-file` on the
+scorer) — both hardcoded their output paths, which would have made any
+sabotage run silently overwrite the real Day 23/24 result files backing
+today's baseline. Purely additive: every new flag defaults to the
+existing hardcoded constant, so default invocation behavior is unchanged.
+
+**First real sabotage attempt did NOT trip a regression — an honest
+negative result, not a bug in the detector.** Pratham's sabotaged copy
+(`Day26_Regression_Baseline_N_Diffing/broken_prompt_testcase_v1.txt`)
+dropped three things from `prompt_testcase_v1.txt`: "output ONLY the JSON
+object, no prose/fences," the ambiguity-handling instruction, and the
+don't-fabricate-specific-data instruction. Result on the real 35-case
+set: all 35 rows `status=valid`, all 35 judge verdicts `good` —
+`assertion_pass_rate` 97.1% → 100%, `judge_pass_rate` 94.3% → 100%, both
+`OK`, no regression flagged. Root-caused: `Day1_first_call.py`'s
+`callOpenAISchemaAPI` (what the runner ultimately calls) is a plain chat
+completion with no `response_format`/JSON-mode enforcement — so removing
+the "output only JSON" line had no lever to pull, the model already
+produces clean JSON on this dataset without being told to. Why the
+ambiguity/fabrication instructions removal didn't move the judge either
+is still open — could be genuinely non-load-bearing for these 35
+requirements, or could be single-run noise (only run once, per Day 2).
+DONE WHEN not yet met on this attempt — next attempt needs a more
+structurally damaging cut (e.g. the field list/schema description itself)
+to actually give the detector something to catch, and arguably a second
+run of the same sabotage before concluding "no effect" either way.
+
+**Second sabotage attempt: DONE WHEN met.** Stripped the entire JSON
+schema/field list and the "as JSON" framing from the same scratch copy —
+down to "write a test case for it" with no structure specified at all.
+Result: all 35 rows came back `status=invalid_json` (the model wrote
+free-text test cases, not JSON), `assertions_passed=False` and
+`judge_verdict=bad` across the board. `Day26_baseline.py diff` correctly
+flagged both metrics `REGRESSION` (`assertion_pass_rate` 97.1% → 0.0%,
+`judge_pass_rate` 94.3% → 0.0%), exit code 1. Confirms the detector fires
+on a real, structurally-broken prompt — the first attempt's null result
+was a genuine finding about this specific weakening (see above), not a
+gap in the detector.
+
+**Three more sabotage variants, each targeting a different check, to stress
+the detector across the harness's actual failure surface rather than just
+one blunt break:**
+
+- **Schema mismatch** (`broken_prompt_schema_mismatch.txt`) — kept the
+  JSON framing but renamed `test_steps` → `steps` and changed `priority`
+  to an integer 1-5 instead of the `Literal["low","medium","high"]` the
+  real `TestCase` schema expects. All 35 rows came back `status=invalid`
+  (JSON parsed fine, schema didn't match) — a cleanly different signature
+  from the earlier full-schema-removal sabotage's `invalid_json`, and one
+  that specifically exercises `check_fields_present` rather than
+  `check_valid_json`. `diff`: both pass rates `REGRESSION`, 97.1%→0%,
+  94.3%→0%.
+- **Token-cap blowout** (`broken_prompt_token_blowout.txt`) — kept the
+  real schema, instructed maximal verbosity on every field ("write as much
+  detail as you possibly can... longer is always better"). Intended to
+  trip `check_under_token_cap` (cap 583) in isolation while everything
+  else stayed valid. Didn't land as designed: all 35 rows came back
+  `invalid_json` instead — output_tokens averaged exactly 1024
+  (`MAX_TOKENS` in `Day1_first_call.py`), meaning every response got
+  hard-truncated mid-JSON before it could close, never reaching a
+  "valid-but-over-cap" state. **Real finding, not noise:** with
+  `TOKEN_CAP=583` sitting well under `MAX_TOKENS=1024`, a verbosity
+  sabotage severe enough to threaten the cap is also severe enough to hit
+  the truncation ceiling first — there's a narrow, hard-to-hit band where
+  output would be valid JSON *and* over 583 tokens. This may explain part
+  of why Day 11 never saw the cap catch anything organically. Flagging as
+  a BACKLOG candidate: isolating `under_token_cap` cleanly would need a
+  request that's verbose in prose but still schema-shaped, not a blanket
+  "write more" instruction. `diff`: both pass rates `REGRESSION` (same
+  97.1%→0%, 94.3%→0%) — for the wrong reason relative to what was being
+  tested, worth remembering if this file gets reused later.
+- **Judge-only vagueness** (`broken_prompt_vague_judge.txt`) — kept the
+  real schema exactly, instructed generic/boilerplate content per field
+  ("never anything specific to the requirement"). This is the one that
+  landed as designed: all 35 rows `status=valid`, `assertions_passed=True`
+  across the board (`assertion_pass_rate` 97.1%→**100%**, `OK`) while
+  judge verdicts were `bad` for 34/35 and, notably, `borderline` for
+  `req_34` — `judge_pass_rate` 94.3%→**0%**, `REGRESSION`. This is the
+  cleanest proof yet that the two pass rates genuinely move independently
+  (Day 25's whole reason for reporting them separately), and it's a
+  second real occurrence of `borderline` under the *default* judge model
+  (flash, no thinking) — worth setting alongside the Day 24 model-variant
+  finding that `borderline` was reached only once before, under
+  `pro+thinking`. `req_34`'s reasoning: "lacks concrete steps and a clear
+  pass/fail condition" (`specificity: fail`, `pass_fail_clarity: fail`,
+  everything else `pass`) — a genuinely borderline case, not a
+  fluke label.
+
+**Raw files:** `Day26_baseline.py`, `baseline.json`,
+`Day26_Regression_Baseline_N_Diffing/` (5 sabotaged prompt variants +
+their run/score result files). Modified: `Day23_runner.py`,
+`Day24_scorer.py` (additive `--output-file` overrides).

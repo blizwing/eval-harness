@@ -1,0 +1,778 @@
+{
+  "generated_at": "2026-09-05T07:35:22.962668+00:00",
+  "source_results_file": "Day26_Regression_Baseline_N_Diffing/Day23_run_results_token_blowout.json",
+  "mode": "both",
+  "count": 35,
+  "results": [
+    {
+      "case_id": "req_01",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is invalid as no output was produced, so it lacks all required fields and fails to test the requirement."
+      }
+    },
+    {
+      "case_id": "req_02",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_03",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case produced no valid output, so it lacks all required fields and does not test the requirement."
+      }
+    },
+    {
+      "case_id": "req_04",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_05",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_06",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot cover the requirement or provide any concrete steps or expected results."
+      }
+    },
+    {
+      "case_id": "req_07",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_08",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The generated test case produced no valid output, so it lacks all required fields and does not test the requirement."
+      }
+    },
+    {
+      "case_id": "req_09",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No valid test case was produced, so it lacks all required fields and does not test the login restriction."
+      }
+    },
+    {
+      "case_id": "req_10",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any evaluation criteria."
+      }
+    },
+    {
+      "case_id": "req_11",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_12",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_13",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_14",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_15",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case produced no valid output, so it lacks all required fields and does not test the requirement."
+      }
+    },
+    {
+      "case_id": "req_16",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case produced no valid output, so it lacks all required fields and cannot test the requirement."
+      }
+    },
+    {
+      "case_id": "req_17",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_18",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_19",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_20",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_21",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_22",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_23",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_24",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_25",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_26",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_27",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_28",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No valid test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_29",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was generated, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_30",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case produced no valid output, so it lacks all required fields, does not test the requirement, and provides no concrete steps or expected results."
+      }
+    },
+    {
+      "case_id": "req_31",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it lacks all required fields, does not cover the requirement, and has no concrete steps or expected results."
+      }
+    },
+    {
+      "case_id": "req_32",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it lacks all required fields, does not cover the requirement, and has no concrete steps or expected results."
+      }
+    },
+    {
+      "case_id": "req_33",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so it cannot satisfy any criteria."
+      }
+    },
+    {
+      "case_id": "req_34",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "No test case was produced, so all criteria fail."
+      }
+    },
+    {
+      "case_id": "req_35",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": false,
+          "fields_present": false,
+          "non_empty": false,
+          "under_token_cap": false
+        },
+        "passed": false
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "fail",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is invalid as no output was produced, so it lacks all required fields and does not test the requirement."
+      }
+    }
+  ]
+}

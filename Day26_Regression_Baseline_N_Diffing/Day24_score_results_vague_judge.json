@@ -1,0 +1,778 @@
+{
+  "generated_at": "2026-09-05T07:36:21.351117+00:00",
+  "source_results_file": "Day26_Regression_Baseline_N_Diffing/Day23_run_results_vague_judge.json",
+  "mode": "both",
+  "count": 35,
+  "results": [
+    {
+      "case_id": "req_01",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too vague and does not specify concrete steps, inputs, or expected outcomes that directly verify the unique task ID and customer details as required."
+      }
+    },
+    {
+      "case_id": "req_02",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and lacks concrete details about technician matching, travel, formalities, and time constraints, so it does not cover the requirement's specifics."
+      }
+    },
+    {
+      "case_id": "req_03",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic, lacking concrete details about scheduling parameters and expected outcomes, and does not specifically verify the assignment logic described in the requirement."
+      }
+    },
+    {
+      "case_id": "req_04",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected results, and does not verify specific details like customer approval or evidence capture."
+      }
+    },
+    {
+      "case_id": "req_05",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not mention obtaining the customer's signature or traveling to home base, lacks concrete steps, and its expected result is vague."
+      }
+    },
+    {
+      "case_id": "req_06",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete preconditions, steps, and expected results, and its expected result is too vague to verify the specific reassignment behavior."
+      }
+    },
+    {
+      "case_id": "req_07",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic and does not specifically verify that the entire task result is shown after technician submission, lacking concrete steps and expected outcome."
+      }
+    },
+    {
+      "case_id": "req_08",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too vague and does not specifically verify that evidences are visible without errors, lacking concrete steps and expected results."
+      }
+    },
+    {
+      "case_id": "req_09",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not specify the roles (Dispatcher and Admin) or test that other roles are denied, and the expected result is vague."
+      }
+    },
+    {
+      "case_id": "req_10",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too vague and does not specify concrete steps, expected outcomes, or exact verification of the role restriction."
+      }
+    },
+    {
+      "case_id": "req_11",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not specifically address the requirement of logging full-day leave requests for a specific date with approval from the Resource Planner."
+      }
+    },
+    {
+      "case_id": "req_12",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected results, and does not verify the specific requirement of logging lunch breaks and downtime with specified hours or minutes."
+      }
+    },
+    {
+      "case_id": "req_13",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic and does not specifically address time zone handling, DST, or the expected behavior of no time shifts."
+      }
+    },
+    {
+      "case_id": "req_14",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not mention the Timesheets module, leave requests, or specific expected data, so it fails to cover the requirement and lacks concrete steps and verification."
+      }
+    },
+    {
+      "case_id": "req_15",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected results, and does not specifically verify the mandatory rejection reason."
+      }
+    },
+    {
+      "case_id": "req_16",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not mention Resource Planner, leave request, or Capacity Management, and its expected result is vague."
+      }
+    },
+    {
+      "case_id": "req_17",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected result details, and does not specifically verify that lunch breaks and downtime are reflected with their respective hours or minutes."
+      }
+    },
+    {
+      "case_id": "req_18",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic and does not specifically target the Skills section, lacks concrete steps, and its expected result is vague."
+      }
+    },
+    {
+      "case_id": "req_19",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case uses vague terms like 'relevant section' and 'target entity' instead of specifying Technician and Skills, and the expected result does not verify the actual addition/removal of skills."
+      }
+    },
+    {
+      "case_id": "req_20",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected results that verify the specific display of license issue and expiration dates as required."
+      }
+    },
+    {
+      "case_id": "req_21",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case focuses on resource assignments instead of licenses for technicians, lacks concrete steps and expected results, and does not verify the specific license add/remove functionality."
+      }
+    },
+    {
+      "case_id": "req_22",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic, does not mention licenses, and lacks concrete steps and expected results."
+      }
+    },
+    {
+      "case_id": "req_23",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not specify the 15-day alert, the technician role, or the exact content of the notification, making it impossible to verify the requirement."
+      }
+    },
+    {
+      "case_id": "req_24",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks specific details about the provisioning options and serial number input, and its expected result is too vague to verify the requirement."
+      }
+    },
+    {
+      "case_id": "req_25",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not specify the required sequence of activation, deactivation, and connection check, nor does it verify the exact expected states or outcomes."
+      }
+    },
+    {
+      "case_id": "req_26",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete details and specific expected outcomes, failing to verify the exact behavior of the asynchronous request as required."
+      }
+    },
+    {
+      "case_id": "req_27",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not mention speed test, network upgrade, subscribed plan, or the 5 Mbps tolerance, so it fails to cover the requirement and lacks concrete steps and expected results."
+      }
+    },
+    {
+      "case_id": "req_28",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is too generic, lacking specific details about the Dispatcher role, FSM Web App, EIPS, and the expected trace logs, and its expected result does not verify the specific behavior described in the requirement."
+      }
+    },
+    {
+      "case_id": "req_29",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete preconditions and steps, and its expected result is vague, failing to verify the specific asynchronous non-blocking behavior."
+      }
+    },
+    {
+      "case_id": "req_30",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete steps and expected results that specifically validate schemas for activate, deactivate, and reprovision operations."
+      }
+    },
+    {
+      "case_id": "req_31",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete details about the required headers and body fields, and its expected result is too vague to verify the specific requirement."
+      }
+    },
+    {
+      "case_id": "req_32",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case lacks concrete details about the required headers and body fields, and its expected result is too vague to verify the specific requirement."
+      }
+    },
+    {
+      "case_id": "req_33",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case does not specify the exact security headers or the exact fields (orderId, action, serviceId, deviceSerialId) in the body, and the expected result is vague, not verifying the presence and correctness of these specific elements."
+      }
+    },
+    {
+      "case_id": "req_34",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "borderline",
+        "field_completeness": "pass",
+        "requirement_coverage": "pass",
+        "specificity": "fail",
+        "verification_fidelity": "pass",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case covers the requirement but lacks concrete steps and a clear pass/fail condition."
+      }
+    },
+    {
+      "case_id": "req_35",
+      "mode": "both",
+      "assertion_result": {
+        "checks": {
+          "valid_json": true,
+          "fields_present": true,
+          "non_empty": true,
+          "under_token_cap": true
+        },
+        "passed": true
+      },
+      "judge_result": {
+        "verdict": "bad",
+        "field_completeness": "pass",
+        "requirement_coverage": "fail",
+        "specificity": "fail",
+        "verification_fidelity": "fail",
+        "pass_fail_clarity": "fail",
+        "reasoning": "The test case is generic and does not specifically target the Task Side panel's Provisioning Logs section, nor does it verify clear and easy-to-follow presentation of triggered requests to EIPS."
+      }
+    }
+  ]
+}

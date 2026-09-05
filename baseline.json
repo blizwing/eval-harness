@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-09-05T06:15:06.058855+00:00",
+  "source_run_results_file": "Day23_Runner_Results/Day23_run_results.json",
+  "source_score_results_file": "Day24_Scorer_Results/Day24_score_results.json",
+  "report": {
+    "joined_count": 35,
+    "pass_rates": {
+      "assertion_pass_rate": 0.9714285714285714,
+      "judge_pass_rate": 0.9428571428571428
+    },
+    "cost": {
+      "total_cost_usd": 0.0049721,
+      "cost_by_day23_status": {
+        "valid": 0.0048181000000000005,
+        "invalid": 0.00015400000000000003
+      },
+      "cost_by_assertion_outcome": {
+        "passed": 0.0048181000000000005,
+        "failed": 0.00015400000000000003
+      },
+      "cost_by_judge_outcome": {
+        "passed": 0.00467558,
+        "failed": 0.00029652000000000004
+      }
+    },
+    "latency": {
+      "mean_latency_all_ms": 2989.3147457141563,
+      "mean_latency_valid_only_ms": 2985.1599029410436
+    },
+    "failures": {
+      "assertion_failures": [
+        {
+          "case_id": "req_13",
+          "failed_checks": {
+            "fields_present": false,
+            "non_empty": false
+          }
+        }
+      ],
+      "judge_failures": [
+        {
+          "case_id": "req_13",
+          "verdict": "bad",
+          "reasoning": "No test case was produced, so all criteria fail."
+        },
+        {
+          "case_id": "req_33",
+          "verdict": "bad",
+          "reasoning": "The test case lacks specific security header names and does not verify exact field values or formats, making it vague and not fully aligned with the requirement."
+        }
+      ],
+      "failed_both": [
+        "req_13"
+      ]
+    }
+  }
+}

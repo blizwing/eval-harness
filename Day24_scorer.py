@@ -194,10 +194,16 @@ def serialize_score(r: ScoreResult) -> dict:
     return r.model_dump()
 
 
-def save_scores(results: list[ScoreResult], mode: str, source_results_file: str) -> None:
+def save_scores(
+    results: list[ScoreResult],
+    mode: str,
+    source_results_file: str,
+    output_file: str = OUTPUT_FILE,
+) -> None:
     """Persists score_all()'s output, following Day23_runner.save_results's
     envelope shape (generated_at, source file, count, results)."""
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    out_dir = os.path.dirname(output_file) or "."
+    os.makedirs(out_dir, exist_ok=True)
 
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -206,10 +212,10 @@ def save_scores(results: list[ScoreResult], mode: str, source_results_file: str)
         "count": len(results),
         "results": [serialize_score(r) for r in results],
     }
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(results)} score(s) -> {OUTPUT_FILE}")
+    print(f"Saved {len(results)} score(s) -> {output_file}")
 
 
 if __name__ == "__main__":
@@ -236,12 +242,17 @@ if __name__ == "__main__":
         default=True,
         help="Persist results to Day24_Scorer_Results/Day24_score_results.json (default: on; use --no-save to skip).",
     )
+    parser.add_argument(
+        "--output-file",
+        default=OUTPUT_FILE,
+        help="Where to save scores. Use a different path for a sabotage run so it doesn't overwrite the real Day24_score_results.json.",
+    )
     args = parser.parse_args()
 
     scored = score_all(args.results_file, args.mode, args.judge_prompt)
 
     if args.save:
-        save_scores(scored, args.mode, args.results_file)
+        save_scores(scored, args.mode, args.results_file, args.output_file)
 
     print(f"Scored {len(scored)} case(s) in mode={args.mode}.")
     for r in scored:

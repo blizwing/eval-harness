@@ -1,0 +1,1032 @@
+{
+  "generated_at": "2026-09-05T07:33:42.846938+00:00",
+  "source_requirements_file": "Day8_Project_Requirements/fsm_requirements.yaml",
+  "prompt_file": "Day26_Regression_Baseline_N_Diffing/broken_prompt_vague_judge.txt",
+  "count": 35,
+  "status_counts": {
+    "valid": 35
+  },
+  "results": [
+    {
+      "id": "req_01",
+      "requirement_text": "A task will be created with a unique task ID for a specific customer with the customer details like their name, phone number, location, service details which will go for a set amount of time.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Task creation with unique ID and customer details",
+        "description": "Verify that the system successfully creates a new task with a unique identifier and associates the relevant customer and service information.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Necessary input data is available."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate task creation.",
+          "Provide the required input data.",
+          "Trigger the relevant action to create the task."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Task creation with unique ID and customer details\",\n  \"description\": \"Verify that the system successfully creates a new task with a unique identifier and associates the relevant customer and service information.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Necessary input data is available.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate task creation.\",\n    \"Provide the required input data.\",\n    \"Trigger the relevant action to create the task.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 291,
+      "output_tokens": 128,
+      "latency_ms": 2728.2793000049423,
+      "cost_usd": 7.658e-05
+    },
+    {
+      "id": "req_02",
+      "requirement_text": "A technician with the matching skills will be assigned the task and they have to travel to the job site, complete the formalities, complete the work required to close the job all within the specified time.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify task assignment and completion within time constraints",
+        "description": "This test verifies that the system correctly handles the assignment and completion of a task under specified conditions.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant entities and resources are available."
+        ],
+        "test_steps": [
+          "Set up the necessary context and parameters.",
+          "Trigger the relevant action.",
+          "Perform the necessary steps to complete the process.",
+          "Verify the outcome."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify task assignment and completion within time constraints\",\n  \"description\": \"This test verifies that the system correctly handles the assignment and completion of a task under specified conditions.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant entities and resources are available.\"\n  ],\n  \"test_steps\": [\n    \"Set up the necessary context and parameters.\",\n    \"Trigger the relevant action.\",\n    \"Perform the necessary steps to complete the process.\",\n    \"Verify the outcome.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 292,
+      "output_tokens": 130,
+      "latency_ms": 1983.1793000048492,
+      "cost_usd": 7.727999999999999e-05
+    },
+    {
+      "id": "req_03",
+      "requirement_text": "FSM Scheduling needs to assign the created task to a technician for a specific time based on a number of parameters like the distance between the technician and the job site, mode of transport the technician uses to travel, the skillset of the technician required for the task, time required for the task.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Task assignment to technician based on scheduling parameters",
+        "description": "Verify that the system correctly assigns a task to an appropriate resource considering relevant scheduling constraints.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Required resources and data are available."
+        ],
+        "test_steps": [
+          "Set up the necessary context and parameters.",
+          "Trigger the relevant action.",
+          "Observe the system output."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Task assignment to technician based on scheduling parameters\",\n  \"description\": \"Verify that the system correctly assigns a task to an appropriate resource considering relevant scheduling constraints.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Required resources and data are available.\"\n  ],\n  \"test_steps\": [\n    \"Set up the necessary context and parameters.\",\n    \"Trigger the relevant action.\",\n    \"Observe the system output.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 311,
+      "output_tokens": 117,
+      "latency_ms": 1308.4702999913134,
+      "cost_usd": 7.630000000000001e-05
+    },
+    {
+      "id": "req_04",
+      "requirement_text": "The technician will reach the job site, get the customer's approval on the work, do the required work while simultaneously capturing the evidence of the work they do with the FSM mobile app.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Technician completes job with customer approval and evidence capture",
+        "description": "Verify the end-to-end workflow where a field technician performs on-site work, obtains customer consent, and records evidence of the work using a mobile application.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Technician is authenticated and has an assigned job.",
+          "Mobile application is installed and accessible."
+        ],
+        "test_steps": [
+          "Navigate to the relevant job or task.",
+          "Perform the necessary steps to reach the job site.",
+          "Trigger the relevant action to obtain customer approval.",
+          "Execute the required work actions.",
+          "Capture evidence of the work using the mobile application.",
+          "Complete the process and verify the outcome."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Technician completes job with customer approval and evidence capture\",\n  \"description\": \"Verify the end-to-end workflow where a field technician performs on-site work, obtains customer consent, and records evidence of the work using a mobile application.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Technician is authenticated and has an assigned job.\",\n    \"Mobile application is installed and accessible.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant job or task.\",\n    \"Perform the necessary steps to reach the job site.\",\n    \"Trigger the relevant action to obtain customer approval.\",\n    \"Execute the required work actions.\",\n    \"Capture evidence of the work using the mobile application.\",\n    \"Complete the process and verify the outcome.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 290,
+      "output_tokens": 182,
+      "latency_ms": 2123.315700009698,
+      "cost_usd": 9.156000000000001e-05
+    },
+    {
+      "id": "req_05",
+      "requirement_text": "Once the task is completed the technician will get the customer's signature for the work done document and start travelling to the home base.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify post-completion workflow transition",
+        "description": "This test verifies that the system correctly handles the transition from a completed task to the subsequent required action.",
+        "preconditions": [
+          "System is in a valid state.",
+          "A task is in a state that allows completion."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to complete the task.",
+          "Trigger the relevant action to proceed to the next phase.",
+          "Confirm the system reflects the appropriate next state."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify post-completion workflow transition\",\n  \"description\": \"This test verifies that the system correctly handles the transition from a completed task to the subsequent required action.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"A task is in a state that allows completion.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to complete the task.\",\n    \"Trigger the relevant action to proceed to the next phase.\",\n    \"Confirm the system reflects the appropriate next state.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 278,
+      "output_tokens": 132,
+      "latency_ms": 1708.2826000114437,
+      "cost_usd": 7.588000000000001e-05
+    },
+    {
+      "id": "req_06",
+      "requirement_text": "FSM Scheduling needs to reassign the task in the scenario where the originally assigned technician is not able to work on that task, can be due to things like falling sick, being on leave, or getting assigned some other work.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Task reassignment when assigned technician becomes unavailable",
+        "description": "Verify that the system correctly handles a scenario where a previously assigned resource becomes unavailable and the task is reassigned appropriately.",
+        "preconditions": [
+          "System is in a valid state.",
+          "A task is assigned to a technician.",
+          "The technician is currently available."
+        ],
+        "test_steps": [
+          "Set up the initial state with a task assigned to a technician.",
+          "Simulate the assigned technician becoming unavailable (e.g., due to illness, leave, or conflicting assignment).",
+          "Trigger the reassignment process.",
+          "Observe the system's response and the resulting task assignment."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Task reassignment when assigned technician becomes unavailable\",\n  \"description\": \"Verify that the system correctly handles a scenario where a previously assigned resource becomes unavailable and the task is reassigned appropriately.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"A task is assigned to a technician.\",\n    \"The technician is currently available.\"\n  ],\n  \"test_steps\": [\n    \"Set up the initial state with a task assigned to a technician.\",\n    \"Simulate the assigned technician becoming unavailable (e.g., due to illness, leave, or conflicting assignment).\",\n    \"Trigger the reassignment process.\",\n    \"Observe the system's response and the resulting task assignment.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 298,
+      "output_tokens": 168,
+      "latency_ms": 1703.8297999824863,
+      "cost_usd": 8.876000000000001e-05
+    },
+    {
+      "id": "req_07",
+      "requirement_text": "The FSM web application needs to show the entire result of the task, once the technician submits the data from their end on task completion.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify task result visibility after technician submission",
+        "description": "Verify that the system correctly handles the display of information following a user submission action.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User is authenticated and authorized to perform the action.",
+          "A task is in a state that allows submission."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the submission action.",
+          "Trigger the relevant action to submit the data.",
+          "Observe the system response after the submission is completed."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify task result visibility after technician submission\",\n  \"description\": \"Verify that the system correctly handles the display of information following a user submission action.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User is authenticated and authorized to perform the action.\",\n    \"A task is in a state that allows submission.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the submission action.\",\n    \"Trigger the relevant action to submit the data.\",\n    \"Observe the system response after the submission is completed.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 280,
+      "output_tokens": 141,
+      "latency_ms": 1649.685300013516,
+      "cost_usd": 7.868e-05
+    },
+    {
+      "id": "req_08",
+      "requirement_text": "The evidences should be visible without any error.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Evidence visibility check",
+        "description": "Verify that the system displays the relevant content without any errors.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant content is available."
+        ],
+        "test_steps": [
+          "Navigate to the appropriate section.",
+          "Trigger the action to display the content.",
+          "Observe the system response."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Evidence visibility check\",\n  \"description\": \"Verify that the system displays the relevant content without any errors.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant content is available.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the appropriate section.\",\n    \"Trigger the action to display the content.\",\n    \"Observe the system response.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 261,
+      "output_tokens": 107,
+      "latency_ms": 2352.7672000054736,
+      "cost_usd": 6.65e-05
+    },
+    {
+      "id": "req_09",
+      "requirement_text": "The FSM web app should allow login to only the Dispatcher and the Admin user.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Login access control for authorized user roles",
+        "description": "Verify that the system restricts access to only authorized user roles during the login process.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Test environment is prepared with appropriate user credentials."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the login process.",
+          "Trigger the relevant action to submit credentials.",
+          "Observe the system response."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Login access control for authorized user roles\",\n  \"description\": \"Verify that the system restricts access to only authorized user roles during the login process.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Test environment is prepared with appropriate user credentials.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the login process.\",\n    \"Trigger the relevant action to submit credentials.\",\n    \"Observe the system response.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 270,
+      "output_tokens": 122,
+      "latency_ms": 1813.4830000053626,
+      "cost_usd": 7.196000000000001e-05
+    },
+    {
+      "id": "req_10",
+      "requirement_text": "The FSM mobile app should allow login to only the mobile user (technician).",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify mobile user login access",
+        "description": "Verify that the system restricts access to the intended user role and denies access to unauthorized roles.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Test environment is available with appropriate user credentials."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the login process.",
+          "Trigger the relevant action with valid credentials for the intended user role.",
+          "Attempt to access the system with credentials for an unauthorized role.",
+          "Observe the system response for each attempt."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify mobile user login access\",\n  \"description\": \"Verify that the system restricts access to the intended user role and denies access to unauthorized roles.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Test environment is available with appropriate user credentials.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the login process.\",\n    \"Trigger the relevant action with valid credentials for the intended user role.\",\n    \"Attempt to access the system with credentials for an unauthorized role.\",\n    \"Observe the system response for each attempt.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 269,
+      "output_tokens": 144,
+      "latency_ms": 2059.272599988617,
+      "cost_usd": 7.798000000000001e-05
+    },
+    {
+      "id": "req_11",
+      "requirement_text": "The FSM Mobile App will have a new Timesheets module allowing Technicians to log full-day leave requests for a specific date, subject to approval from the Resource Planner.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Timesheets module leave request approval flow",
+        "description": "Verify the system supports a user-initiated action that requires approval from another role before it is considered complete.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User is authenticated with appropriate permissions.",
+          "Approver role is available and active."
+        ],
+        "test_steps": [
+          "Navigate to the relevant module.",
+          "Initiate the action with the required details.",
+          "Submit the action for approval.",
+          "Verify the action is recorded in a pending state.",
+          "Have the approver review and approve the action.",
+          "Confirm the final state of the action."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Timesheets module leave request approval flow\",\n  \"description\": \"Verify the system supports a user-initiated action that requires approval from another role before it is considered complete.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User is authenticated with appropriate permissions.\",\n    \"Approver role is available and active.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant module.\",\n    \"Initiate the action with the required details.\",\n    \"Submit the action for approval.\",\n    \"Verify the action is recorded in a pending state.\",\n    \"Have the approver review and approve the action.\",\n    \"Confirm the final state of the action.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 286,
+      "output_tokens": 166,
+      "latency_ms": 1977.088099985849,
+      "cost_usd": 8.652e-05
+    },
+    {
+      "id": "req_12",
+      "requirement_text": "Technicians will be able to log Lunch Breaks and Downtime in the Timesheets module by specifying the required hours or minutes.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Log non-productive time entries in timesheets",
+        "description": "Verify that the system allows users to record non-productive time entries with a specified duration.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to access the relevant module."
+        ],
+        "test_steps": [
+          "Navigate to the relevant module.",
+          "Perform the necessary steps to initiate a new time entry.",
+          "Select the appropriate entry type.",
+          "Specify the duration in the required unit.",
+          "Confirm the entry."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Log non-productive time entries in timesheets\",\n  \"description\": \"Verify that the system allows users to record non-productive time entries with a specified duration.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to access the relevant module.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant module.\",\n    \"Perform the necessary steps to initiate a new time entry.\",\n    \"Select the appropriate entry type.\",\n    \"Specify the duration in the required unit.\",\n    \"Confirm the entry.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 279,
+      "output_tokens": 143,
+      "latency_ms": 1762.9780000133906,
+      "cost_usd": 7.91e-05
+    },
+    {
+      "id": "req_13",
+      "requirement_text": "The Timesheets module will respect the Technician's time zone. Although the server runs in UTC, Technicians in different time zones will not experience DST or time zone issues, such as times being shifted one hour ahead or behind.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Timesheets module time zone handling",
+        "description": "Verify that the system correctly handles time zone differences for users in various regions.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User accounts are configured with different time zones."
+        ],
+        "test_steps": [
+          "Set up the environment with the required user profiles.",
+          "Perform the necessary steps to access the relevant module.",
+          "Trigger the relevant action to record or display time data.",
+          "Observe the output for any time discrepancies."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Timesheets module time zone handling\",\n  \"description\": \"Verify that the system correctly handles time zone differences for users in various regions.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User accounts are configured with different time zones.\"\n  ],\n  \"test_steps\": [\n    \"Set up the environment with the required user profiles.\",\n    \"Perform the necessary steps to access the relevant module.\",\n    \"Trigger the relevant action to record or display time data.\",\n    \"Observe the output for any time discrepancies.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 298,
+      "output_tokens": 138,
+      "latency_ms": 2335.707399994135,
+      "cost_usd": 8.036e-05
+    },
+    {
+      "id": "req_14",
+      "requirement_text": "The Resource Planner will be able to access the Timesheets module from the FSM Web App and view leave requests submitted by Technicians.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Access Timesheets Module and View Leave Requests",
+        "description": "Verify that the system allows navigation to a specific module and displays relevant user-submitted data.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to access the module.",
+          "Relevant data exists in the system."
+        ],
+        "test_steps": [
+          "Navigate to the designated module.",
+          "Trigger the action to view the relevant data.",
+          "Observe the displayed information."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Access Timesheets Module and View Leave Requests\",\n  \"description\": \"Verify that the system allows navigation to a specific module and displays relevant user-submitted data.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to access the module.\",\n    \"Relevant data exists in the system.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the designated module.\",\n    \"Trigger the action to view the relevant data.\",\n    \"Observe the displayed information.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 279,
+      "output_tokens": 132,
+      "latency_ms": 1312.9004999937024,
+      "cost_usd": 7.602000000000001e-05
+    },
+    {
+      "id": "req_15",
+      "requirement_text": "The Resource Planner will be able to approve or reject leave requests. When rejecting a request, the Resource Planner must provide a reason.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Leave request approval/rejection with mandatory rejection reason",
+        "description": "Verify that the system correctly handles the approval and rejection of a request, including the enforcement of a mandatory reason when rejecting.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to perform the action.",
+          "A request exists in a state that allows the action."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the action.",
+          "Attempt to complete the action without providing the required additional information.",
+          "Provide the required additional information and complete the action.",
+          "Verify the outcome of the action."
+        ],
+        "expected_result": "The system behaves as expected, enforcing all mandatory inputs and completing the action successfully when valid data is provided.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Leave request approval/rejection with mandatory rejection reason\",\n  \"description\": \"Verify that the system correctly handles the approval and rejection of a request, including the enforcement of a mandatory reason when rejecting.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to perform the action.\",\n    \"A request exists in a state that allows the action.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the action.\",\n    \"Attempt to complete the action without providing the required additional information.\",\n    \"Provide the required additional information and complete the action.\",\n    \"Verify the outcome of the action.\"\n  ],\n  \"expected_result\": \"The system behaves as expected, enforcing all mandatory inputs and completing the action successfully when valid data is provided.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 278,
+      "output_tokens": 176,
+      "latency_ms": 1589.8811999941245,
+      "cost_usd": 8.82e-05
+    },
+    {
+      "id": "req_16",
+      "requirement_text": "Once the Resource Planner approves a leave request, the approved leave will be reflected in the Capacity Management section of the FSM Web App.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Approved leave request reflected in capacity management",
+        "description": "Verify that after an approval action is completed, the relevant downstream view is updated accordingly.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to perform the approval action.",
+          "Relevant data exists for the downstream view."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the approval action.",
+          "Trigger the relevant action to complete the approval.",
+          "Navigate to the downstream view that should reflect the change.",
+          "Observe the displayed information."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Approved leave request reflected in capacity management\",\n  \"description\": \"Verify that after an approval action is completed, the relevant downstream view is updated accordingly.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to perform the approval action.\",\n    \"Relevant data exists for the downstream view.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the approval action.\",\n    \"Trigger the relevant action to complete the approval.\",\n    \"Navigate to the downstream view that should reflect the change.\",\n    \"Observe the displayed information.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 279,
+      "output_tokens": 150,
+      "latency_ms": 1818.7238999817055,
+      "cost_usd": 8.106e-05
+    },
+    {
+      "id": "req_17",
+      "requirement_text": "Lunch Breaks and Downtime logged by the Technician will also be reflected in Capacity Management with their respective hours or minutes.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify technician logged time appears in capacity management",
+        "description": "This test verifies that time entries recorded by a technician are correctly reflected in the capacity management view.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to log time and view capacity management."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to log a time entry.",
+          "Trigger the relevant action to update capacity management.",
+          "Navigate to the capacity management view.",
+          "Verify the logged time entry is displayed with its corresponding duration."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify technician logged time appears in capacity management\",\n  \"description\": \"This test verifies that time entries recorded by a technician are correctly reflected in the capacity management view.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to log time and view capacity management.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to log a time entry.\",\n    \"Trigger the relevant action to update capacity management.\",\n    \"Navigate to the capacity management view.\",\n    \"Verify the logged time entry is displayed with its corresponding duration.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 278,
+      "output_tokens": 146,
+      "latency_ms": 2133.4725999913644,
+      "cost_usd": 7.98e-05
+    },
+    {
+      "id": "req_18",
+      "requirement_text": "The FSM Workforce module will have a new section called Skills.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify new module section is present",
+        "description": "Verify that a newly introduced section within a module is correctly displayed and accessible.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to view the module."
+        ],
+        "test_steps": [
+          "Navigate to the relevant module.",
+          "Perform the necessary steps to access the new section.",
+          "Observe the section's presence and any associated content."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify new module section is present\",\n  \"description\": \"Verify that a newly introduced section within a module is correctly displayed and accessible.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to view the module.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant module.\",\n    \"Perform the necessary steps to access the new section.\",\n    \"Observe the section's presence and any associated content.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 265,
+      "output_tokens": 123,
+      "latency_ms": 3149.1580000147223,
+      "cost_usd": 7.154000000000001e-05
+    },
+    {
+      "id": "req_19",
+      "requirement_text": "The Resource Planner will be able to add and remove Skills for a particular Technician.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Skill management for technician",
+        "description": "Verify the system supports adding and removing associated items for a given entity.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to perform the action."
+        ],
+        "test_steps": [
+          "Navigate to the relevant section.",
+          "Select the target entity.",
+          "Perform the necessary steps to add an item.",
+          "Confirm the addition is reflected.",
+          "Perform the necessary steps to remove the item.",
+          "Confirm the removal is reflected."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Skill management for technician\",\n  \"description\": \"Verify the system supports adding and removing associated items for a given entity.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to perform the action.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant section.\",\n    \"Select the target entity.\",\n    \"Perform the necessary steps to add an item.\",\n    \"Confirm the addition is reflected.\",\n    \"Perform the necessary steps to remove the item.\",\n    \"Confirm the removal is reflected.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 268,
+      "output_tokens": 140,
+      "latency_ms": 1632.109300000593,
+      "cost_usd": 7.672000000000001e-05
+    },
+    {
+      "id": "req_20",
+      "requirement_text": "The FSM Workforce module will have a Licenses section for each Technician, displaying their licenses along with the issue date and expiration date.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Technician Licenses Section Display",
+        "description": "Verify that the system correctly displays a list of licenses associated with a technician, including relevant dates.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate access rights to view technician details."
+        ],
+        "test_steps": [
+          "Navigate to the relevant technician profile or detail view.",
+          "Locate the section designated for licenses.",
+          "Trigger the action to display the licenses information.",
+          "Observe the displayed data for each license."
+        ],
+        "expected_result": "The system behaves as expected, showing the required information accurately and completely.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Technician Licenses Section Display\",\n  \"description\": \"Verify that the system correctly displays a list of licenses associated with a technician, including relevant dates.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate access rights to view technician details.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant technician profile or detail view.\",\n    \"Locate the section designated for licenses.\",\n    \"Trigger the action to display the licenses information.\",\n    \"Observe the displayed data for each license.\"\n  ],\n  \"expected_result\": \"The system behaves as expected, showing the required information accurately and completely.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 279,
+      "output_tokens": 147,
+      "latency_ms": 1726.590899983421,
+      "cost_usd": 8.022000000000001e-05
+    },
+    {
+      "id": "req_21",
+      "requirement_text": "The Resource Planner will be able to add and remove Licenses for a particular Technician.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "License management for technician",
+        "description": "Verify that the system supports adding and removing resource assignments for a user.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to manage resource assignments."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to add a resource assignment.",
+          "Confirm the addition is successful.",
+          "Perform the necessary steps to remove the resource assignment.",
+          "Confirm the removal is successful."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"License management for technician\",\n  \"description\": \"Verify that the system supports adding and removing resource assignments for a user.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to manage resource assignments.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to add a resource assignment.\",\n    \"Confirm the addition is successful.\",\n    \"Perform the necessary steps to remove the resource assignment.\",\n    \"Confirm the removal is successful.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 269,
+      "output_tokens": 127,
+      "latency_ms": 1611.0928999842145,
+      "cost_usd": 7.322000000000001e-05
+    },
+    {
+      "id": "req_22",
+      "requirement_text": "The FSM Mobile App will display the licenses of the logged-in Technician on the Profile page.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify licenses display on profile page",
+        "description": "Verify that the system correctly displays relevant information on the user profile page.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User is logged in with appropriate permissions."
+        ],
+        "test_steps": [
+          "Navigate to the profile page.",
+          "Trigger the relevant action to load the profile information.",
+          "Observe the displayed information."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify licenses display on profile page\",\n  \"description\": \"Verify that the system correctly displays relevant information on the user profile page.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User is logged in with appropriate permissions.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the profile page.\",\n    \"Trigger the relevant action to load the profile information.\",\n    \"Observe the displayed information.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 271,
+      "output_tokens": 116,
+      "latency_ms": 1352.2979999834206,
+      "cost_usd": 7.042e-05
+    },
+    {
+      "id": "req_23",
+      "requirement_text": "The Technician will receive an alert 15 days before a license expires, notifying them that the license is approaching expiration so they can renew it.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "License expiration alert notification",
+        "description": "Verify that the system sends a notification to the appropriate user at a specified time before an event, and that the notification contains the expected information.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant user account is active and has permissions to receive notifications.",
+          "An event with a known expiration date is set up in the system."
+        ],
+        "test_steps": [
+          "Set up the system with an event that has an expiration date within the required notification window.",
+          "Trigger the relevant action or wait for the scheduled time to occur.",
+          "Check the notification delivery mechanism for the user.",
+          "Verify the content of the notification for the expected details."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"License expiration alert notification\",\n  \"description\": \"Verify that the system sends a notification to the appropriate user at a specified time before an event, and that the notification contains the expected information.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant user account is active and has permissions to receive notifications.\",\n    \"An event with a known expiration date is set up in the system.\"\n  ],\n  \"test_steps\": [\n    \"Set up the system with an event that has an expiration date within the required notification window.\",\n    \"Trigger the relevant action or wait for the scheduled time to occur.\",\n    \"Check the notification delivery mechanism for the user.\",\n    \"Verify the content of the notification for the expected details.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 281,
+      "output_tokens": 180,
+      "latency_ms": 1784.497900021961,
+      "cost_usd": 8.974000000000002e-05
+    },
+    {
+      "id": "req_24",
+      "requirement_text": "On the FSM Mobile App, when performing certain task types, a Provisioning page will show activate/deactivate/reprovision options and a serial number input box for the technician to enter the device serial number being provisioned.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Provisioning page options and serial input validation",
+        "description": "Verify that when a specific task type is initiated, the system presents the appropriate provisioning controls and accepts the required input.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to perform the task."
+        ],
+        "test_steps": [
+          "Initiate the relevant task type.",
+          "Observe the displayed page for the expected controls.",
+          "Enter a valid input in the designated field.",
+          "Submit or confirm the action."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Provisioning page options and serial input validation\",\n  \"description\": \"Verify that when a specific task type is initiated, the system presents the appropriate provisioning controls and accepts the required input.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to perform the task.\"\n  ],\n  \"test_steps\": [\n    \"Initiate the relevant task type.\",\n    \"Observe the displayed page for the expected controls.\",\n    \"Enter a valid input in the designated field.\",\n    \"Submit or confirm the action.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 297,
+      "output_tokens": 141,
+      "latency_ms": 1618.9617000054568,
+      "cost_usd": 8.106000000000001e-05
+    },
+    {
+      "id": "req_25",
+      "requirement_text": "For a device swap, the new service will be activated first, then the old service will be deactivated, and then a connection status check will be done to verify the service is working as expected.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Device swap service activation and verification",
+        "description": "Verify the correct sequence of operations during a device replacement process.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant device and service records exist."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to initiate the process.",
+          "Trigger the relevant action.",
+          "Verify the intermediate states as required.",
+          "Complete the process and check the final outcome."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Device swap service activation and verification\",\n  \"description\": \"Verify the correct sequence of operations during a device replacement process.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant device and service records exist.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to initiate the process.\",\n    \"Trigger the relevant action.\",\n    \"Verify the intermediate states as required.\",\n    \"Complete the process and check the final outcome.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 292,
+      "output_tokens": 124,
+      "latency_ms": 1781.5845000150148,
+      "cost_usd": 7.560000000000001e-05
+    },
+    {
+      "id": "req_26",
+      "requirement_text": "The Technician will be able to send a request through the FSM App on the Task Provision Page to fetch the latest status data from the external service API. The call will be asynchronous.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Asynchronous data fetch request from external service",
+        "description": "Verify that the system can initiate an asynchronous request to retrieve updated information from an external source and handle the response appropriately.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User is authenticated and authorized to perform the action.",
+          "Relevant external service is reachable."
+        ],
+        "test_steps": [
+          "Navigate to the appropriate page or screen.",
+          "Trigger the relevant action to initiate the request.",
+          "Wait for the asynchronous operation to complete.",
+          "Observe the system's response and any resulting updates."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Asynchronous data fetch request from external service\",\n  \"description\": \"Verify that the system can initiate an asynchronous request to retrieve updated information from an external source and handle the response appropriately.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User is authenticated and authorized to perform the action.\",\n    \"Relevant external service is reachable.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the appropriate page or screen.\",\n    \"Trigger the relevant action to initiate the request.\",\n    \"Wait for the asynchronous operation to complete.\",\n    \"Observe the system's response and any resulting updates.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 289,
+      "output_tokens": 155,
+      "latency_ms": 2033.4350999910384,
+      "cost_usd": 8.386e-05
+    },
+    {
+      "id": "req_27",
+      "requirement_text": "After a network upgrade, a speed test performed by the Technician should match the upload and download numbers of the Technician's subscribed plan, allowing for a fluctuation of no more than 5 Mbps.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Network upgrade speed test validation",
+        "description": "Verify that the system correctly handles a post-change performance validation scenario.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant change has been applied.",
+          "User has appropriate permissions."
+        ],
+        "test_steps": [
+          "Set up the environment according to the test scenario.",
+          "Perform the necessary steps to trigger the validation.",
+          "Observe and record the system output."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Network upgrade speed test validation\",\n  \"description\": \"Verify that the system correctly handles a post-change performance validation scenario.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant change has been applied.\",\n    \"User has appropriate permissions.\"\n  ],\n  \"test_steps\": [\n    \"Set up the environment according to the test scenario.\",\n    \"Perform the necessary steps to trigger the validation.\",\n    \"Observe and record the system output.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 290,
+      "output_tokens": 125,
+      "latency_ms": 1922.7370000153314,
+      "cost_usd": 7.560000000000001e-05
+    },
+    {
+      "id": "req_28",
+      "requirement_text": "The Dispatcher will be able to log into the FSM Web App to trace requests triggered by the Technician via the Mobile App to the External Integration Provisioning System (EIPS), in the Task Side panel under the Provisioning Logs section.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify Dispatcher login and access to request trace logs",
+        "description": "Verify that an authorized user can log in and access a specific section to view trace information related to requests from another system.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate credentials and permissions."
+        ],
+        "test_steps": [
+          "Perform the necessary steps to log in.",
+          "Navigate to the relevant section.",
+          "Trigger the action to view the trace information.",
+          "Observe the displayed data."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify Dispatcher login and access to request trace logs\",\n  \"description\": \"Verify that an authorized user can log in and access a specific section to view trace information related to requests from another system.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate credentials and permissions.\"\n  ],\n  \"test_steps\": [\n    \"Perform the necessary steps to log in.\",\n    \"Navigate to the relevant section.\",\n    \"Trigger the action to view the trace information.\",\n    \"Observe the displayed data.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 301,
+      "output_tokens": 138,
+      "latency_ms": 1604.1972000093665,
+      "cost_usd": 8.078000000000001e-05
+    },
+    {
+      "id": "req_29",
+      "requirement_text": "Since the EIPS is a separate service, all calls made to it will be asynchronous, so the Technician will not be blocked waiting for a response before continuing other work.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Asynchronous service call does not block user",
+        "description": "Verifies that interactions with an external service do not impede the user's ability to continue working.",
+        "preconditions": [
+          "System is in a valid state.",
+          "External service is available or its unavailability is handled gracefully."
+        ],
+        "test_steps": [
+          "Trigger the relevant action that initiates a call to the external service.",
+          "Immediately attempt to perform another unrelated action in the user interface.",
+          "Observe whether the user interface remains responsive and allows the action to proceed."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Asynchronous service call does not block user\",\n  \"description\": \"Verifies that interactions with an external service do not impede the user's ability to continue working.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"External service is available or its unavailability is handled gracefully.\"\n  ],\n  \"test_steps\": [\n    \"Trigger the relevant action that initiates a call to the external service.\",\n    \"Immediately attempt to perform another unrelated action in the user interface.\",\n    \"Observe whether the user interface remains responsive and allows the action to proceed.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 286,
+      "output_tokens": 146,
+      "latency_ms": 2010.467799991602,
+      "cost_usd": 8.092e-05
+    },
+    {
+      "id": "req_30",
+      "requirement_text": "For the EIPS, request and response schemas will be validated for each case: activate, deactivate, and reprovision.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Schema validation for lifecycle operations",
+        "description": "Verify that the system validates request and response schemas for each supported operation.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Relevant operation endpoints are available."
+        ],
+        "test_steps": [
+          "Trigger the relevant action for each operation.",
+          "Observe the system's validation behavior."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Schema validation for lifecycle operations\",\n  \"description\": \"Verify that the system validates request and response schemas for each supported operation.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Relevant operation endpoints are available.\"\n  ],\n  \"test_steps\": [\n    \"Trigger the relevant action for each operation.\",\n    \"Observe the system's validation behavior.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 278,
+      "output_tokens": 107,
+      "latency_ms": 1503.8243000162765,
+      "cost_usd": 6.888e-05
+    },
+    {
+      "id": "req_31",
+      "requirement_text": "The Activate request must include an OAuth2 bearer token in the Authorization header and a unique X-Request-Id header for idempotency. The body must contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Validate required headers and body fields in activation request",
+        "description": "Verify that the system correctly processes a request when all mandatory authentication, idempotency, and payload elements are present and valid.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Valid authentication credentials are available.",
+          "A unique request identifier can be generated."
+        ],
+        "test_steps": [
+          "Prepare the request with all required components.",
+          "Trigger the relevant action.",
+          "Observe the system response."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Validate required headers and body fields in activation request\",\n  \"description\": \"Verify that the system correctly processes a request when all mandatory authentication, idempotency, and payload elements are present and valid.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Valid authentication credentials are available.\",\n    \"A unique request identifier can be generated.\"\n  ],\n  \"test_steps\": [\n    \"Prepare the request with all required components.\",\n    \"Trigger the relevant action.\",\n    \"Observe the system response.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 300,
+      "output_tokens": 136,
+      "latency_ms": 1950.401400012197,
+      "cost_usd": 8.008e-05
+    },
+    {
+      "id": "req_32",
+      "requirement_text": "The Deactivate request must include an OAuth2 bearer token in the Authorization header and a unique X-Request-Id header for idempotency. The body must contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Validate Deactivate request headers and body",
+        "description": "Verify that the system correctly handles a request requiring specific authentication, idempotency, and payload structure.",
+        "preconditions": [
+          "System is in a valid state.",
+          "Necessary credentials and identifiers are available."
+        ],
+        "test_steps": [
+          "Prepare the request with the required authentication and idempotency headers.",
+          "Include the mandatory fields in the request body.",
+          "Submit the request to the relevant endpoint.",
+          "Observe the system response."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Validate Deactivate request headers and body\",\n  \"description\": \"Verify that the system correctly handles a request requiring specific authentication, idempotency, and payload structure.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"Necessary credentials and identifiers are available.\"\n  ],\n  \"test_steps\": [\n    \"Prepare the request with the required authentication and idempotency headers.\",\n    \"Include the mandatory fields in the request body.\",\n    \"Submit the request to the relevant endpoint.\",\n    \"Observe the system response.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 300,
+      "output_tokens": 142,
+      "latency_ms": 1690.321900008712,
+      "cost_usd": 8.176e-05
+    },
+    {
+      "id": "req_33",
+      "requirement_text": "The Reprovision request should contain the security headers, and the body should contain orderId, action, serviceId, and deviceSerialId.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Verify reprovision request payload and headers",
+        "description": "Verify that a request includes the required security headers and that its body contains all mandatory fields with valid values.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has necessary permissions to initiate the request."
+        ],
+        "test_steps": [
+          "Prepare the request with the required security headers.",
+          "Include all mandatory fields in the request body.",
+          "Submit the request.",
+          "Inspect the request as sent to the system."
+        ],
+        "expected_result": "The system behaves as expected.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Verify reprovision request payload and headers\",\n  \"description\": \"Verify that a request includes the required security headers and that its body contains all mandatory fields with valid values.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has necessary permissions to initiate the request.\"\n  ],\n  \"test_steps\": [\n    \"Prepare the request with the required security headers.\",\n    \"Include all mandatory fields in the request body.\",\n    \"Submit the request.\",\n    \"Inspect the request as sent to the system.\"\n  ],\n  \"expected_result\": \"The system behaves as expected.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 280,
+      "output_tokens": 137,
+      "latency_ms": 1738.0477999977302,
+      "cost_usd": 7.756000000000001e-05
+    },
+    {
+      "id": "req_34",
+      "requirement_text": "For a device swap, the new service will be activated first, its connection status verified as working, and only then will the old service be deactivated.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Device swap service activation order validation",
+        "description": "Verify that when a replacement is initiated, the activation of the new component completes successfully and is confirmed before the deactivation of the existing component is allowed to proceed.",
+        "preconditions": [
+          "System is in a valid state.",
+          "A replacement operation is available and initiated."
+        ],
+        "test_steps": [
+          "Trigger the replacement operation.",
+          "Perform the necessary steps to activate the new component.",
+          "Verify the connection status of the new component.",
+          "Attempt to deactivate the old component.",
+          "Observe the sequence and outcome of the operation."
+        ],
+        "expected_result": "The system behaves as expected, ensuring the new component is fully operational before the old component is deactivated.",
+        "priority": "high"
+      },
+      "raw_response_text": "{\n  \"title\": \"Device swap service activation order validation\",\n  \"description\": \"Verify that when a replacement is initiated, the activation of the new component completes successfully and is confirmed before the deactivation of the existing component is allowed to proceed.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"A replacement operation is available and initiated.\"\n  ],\n  \"test_steps\": [\n    \"Trigger the replacement operation.\",\n    \"Perform the necessary steps to activate the new component.\",\n    \"Verify the connection status of the new component.\",\n    \"Attempt to deactivate the old component.\",\n    \"Observe the sequence and outcome of the operation.\"\n  ],\n  \"expected_result\": \"The system behaves as expected, ensuring the new component is fully operational before the old component is deactivated.\",\n  \"priority\": \"high\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 283,
+      "output_tokens": 173,
+      "latency_ms": 1800.4087999870535,
+      "cost_usd": 8.806000000000001e-05
+    },
+    {
+      "id": "req_35",
+      "requirement_text": "The Task Side panel's Provisioning Logs section should give the Dispatcher a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+      "status": "valid",
+      "attempts": 1,
+      "parsed_output": {
+        "title": "Task Side Panel Provisioning Logs Section Usability and Visibility",
+        "description": "Verify that the relevant section provides a clear and easy-to-follow view of all triggered requests, ensuring the user can understand the information presented.",
+        "preconditions": [
+          "System is in a valid state.",
+          "User has appropriate permissions to access the relevant section.",
+          "Relevant data exists for the current context."
+        ],
+        "test_steps": [
+          "Navigate to the relevant section.",
+          "Trigger the relevant action to generate or display data.",
+          "Observe the presentation and organization of the displayed information.",
+          "Interact with any available controls or filters to explore the view."
+        ],
+        "expected_result": "The system behaves as expected, presenting the information in a clear and easy-to-follow manner.",
+        "priority": "medium"
+      },
+      "raw_response_text": "{\n  \"title\": \"Task Side Panel Provisioning Logs Section Usability and Visibility\",\n  \"description\": \"Verify that the relevant section provides a clear and easy-to-follow view of all triggered requests, ensuring the user can understand the information presented.\",\n  \"preconditions\": [\n    \"System is in a valid state.\",\n    \"User has appropriate permissions to access the relevant section.\",\n    \"Relevant data exists for the current context.\"\n  ],\n  \"test_steps\": [\n    \"Navigate to the relevant section.\",\n    \"Trigger the relevant action to generate or display data.\",\n    \"Observe the presentation and organization of the displayed information.\",\n    \"Interact with any available controls or filters to explore the view.\"\n  ],\n  \"expected_result\": \"The system behaves as expected, presenting the information in a clear and easy-to-follow manner.\",\n  \"priority\": \"medium\"\n}",
+      "validation_detail": null,
+      "error_message": null,
+      "input_tokens": 287,
+      "output_tokens": 182,
+      "latency_ms": 1808.1213000114076,
+      "cost_usd": 9.114e-05
+    }
+  ]
+}

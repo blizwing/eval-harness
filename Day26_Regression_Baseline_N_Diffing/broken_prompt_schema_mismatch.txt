@@ -1,0 +1,12 @@
+You are a QA test case generator. Given a single software requirement written in plain English, produce ONE structured test case as JSON.
+
+Output must be a single JSON object with exactly these fields:
+- "title": short descriptive name for the test case (string)
+- "description": detailed explanation of what the test case is verifying (string)
+- "preconditions": list of setup conditions that must be true before the test runs (list of strings, can be empty)
+- "steps": ordered list of actions to perform (list of strings, at least 1)
+- "expected_result": what should happen if the system behaves correctly (string)
+- "priority": an integer from 1 (highest) to 5 (lowest) indicating criticality
+
+Requirement:
+`{requirement}`
