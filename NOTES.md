@@ -1386,3 +1386,91 @@ one blunt break:**
 `Day26_Regression_Baseline_N_Diffing/` (5 sabotaged prompt variants +
 their run/score result files). Modified: `Day23_runner.py`,
 `Day24_scorer.py` (additive `--output-file` overrides).
+
+---
+
+## Day 27 — Buffer/Rest Day (Sun 6 Sep 2026)
+
+Recharging yourself is necessary in order to achieve great things.
+
+---
+
+## Day 28 — Improve Day 7's prompt using only what the harness reports (Mon 7 Sep 2026)
+
+Verified Day 26 landed before starting: `Day26_baseline.py`, `baseline.json`,
+and `Day26_Regression_Baseline_N_Diffing/` all present, DONE WHEN met.
+
+**Scoping decision, made explicit before editing anything.** `baseline.json`
+carries two live tool-reported findings that could anchor this day: the
+Day 7 priority-field skew (32/34 valid rows `high`, no grounding criteria
+in the prompt) and `req_33`'s judge failure ("lacks specific security
+header names... vague"). Pratham chose the `req_33` specificity finding;
+priority grounding stays open for a future day. Per the standing
+ownership split, the prompt wording itself was Pratham's edit — Claude's
+job was capturing before/after numbers, not writing the fix.
+
+**First edit: regression, on two separate runs.** Added a rule requiring
+exact header/field/value names instead of generic terms. Result over two
+reruns: `assertion_pass_rate` 97.1% → 88.6% then 94.3%; `judge_pass_rate`
+94.3% → 88.6% then 91.4%. `Day26_baseline.py diff` flagged `REGRESSION`
+on run 1 (both metrics, threshold breached) and `OK` on run 2 (both within
+the 5pp threshold) — the same edit landing on opposite sides of the
+regression threshold across two runs, a live demonstration of why Day 26
+built threshold-based diffing instead of trusting one run.
+
+Splitting the noise from the signal across baseline + both reruns:
+- **Empty/invalid-response failures are confirmed non-deterministic
+  noise, not a prompt effect** — baseline (`req_13`), run 1 (`req_02`,
+  `req_29`), run 2 (`req_11`, `req_24`): six different case_ids across
+  three runs, no repeats. Matches Day 2's founding finding directly.
+- **Token-cap failures (`req_03`, `req_30` in run 1) did not reproduce in
+  run 2** — inconclusive at n=2, not confirmed as a systematic effect of
+  the added verbosity, though the mechanism (more specificity instructions
+  → more output tokens) is plausible and matches Day 26's token-blowout
+  sabotage finding.
+- **The real signal:** `req_33`'s exact complaint recurred three times
+  running — baseline, then twice more in run 1 (`req_33` again plus a new
+  case, `req_32`) and once in run 2 (`req_31`) — always the same shape:
+  lacks a named, verifiable pass/fail condition. The edit added precision
+  about *names* but never told the model to state one checkable *condition*,
+  so it didn't touch what the judge was actually penalizing.
+
+**Second edit: DONE WHEN met, confirmed stable across two runs.** Rewrote
+the rule to require `expected_result` state one verifiable pass/fail
+condition in ≤25 words, using exact names where the requirement implies
+them — targeting the actual judge complaint, not just naming precision.
+Result: `assertion_pass_rate` 97.1% → **100.0%** on both runs (all 70
+cases across two reruns valid, zero token-cap or empty-response failures);
+`judge_pass_rate` 94.3% → **97.1%** then **94.3%** — at or above baseline
+both times, `OK` on `diff` both times. The `req_33`-pattern complaint
+(vague, no verifiable condition) did not reappear in either run; each
+run's one or two residual judge failures were on different, non-repeating
+cases — ordinary judge strictness, not the systematic gap the earlier
+edit left unfixed. Output tokens also dropped substantially (~13,000 →
+~7,900 across the run), consistent with the ≤25-word cap doing real work
+rather than the model happening to comply.
+
+**Priority distribution, checked as a sanity control, not touched this
+day:** 100% `high` across all post-edit runs (up slightly from baseline's
+94%) — expected, since line 9 was never edited. Confirms the Day 7 finding
+is still live and unaddressed; a real target for a future day, not this
+one.
+
+**flash+thinking, considered and declined for this comparison.** Asked
+mid-session whether to run the judge with thinking enabled. Declined:
+`baseline.json` was built on the default judge (flash, no thinking), and
+swapping judge config mid-comparison would have measured two different
+judges instead of isolating the prompt edit — exactly the model-swap
+CLAUDE.md already flags not to do off a single data point. Parked as its
+own comparison for later, not folded into today's numbers.
+
+**Checkpoint met:** before/after numbers from a change the tool reported,
+for a real edit that visibly worked — and, en route, a second edit that
+visibly didn't, with the regression correctly caught. Both outcomes came
+from the same discipline Day 26 established: rerun before trusting a
+single verdict.
+
+**Raw files:** `Day7_prompt_file/prompt_testcase_v1.txt` (edited twice,
+in place — not a sabotage copy, since this is the real prompt-improvement
+day). `Day23_Runner_Results/`, `Day24_Scorer_Results/` regenerated per run,
+not individually archived per attempt.
