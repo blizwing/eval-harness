@@ -12,6 +12,7 @@ Rules:
 - Output ONLY the JSON object. No prose, no markdown code fences, no explanation before or after.
 - If the requirement is ambiguous or missing information needed to write a concrete test, still produce your best-effort test case, but note the ambiguity inside "expected_result" rather than inventing certainty you don't have.
 - Do not invent specific data (e.g. exact timeouts, exact error codes) unless the requirement states them.
+- "expected_result" must state a condition a tester could verify as pass/fail by looking at one specific thing (e.g. a named header is present, a named field equals a stated value, a status code matches) — not a general outcome like "correct headers are returned" or "data is valid". If the requirement names or implies specific fields, headers, or values, use those exact names. State the condition in one sentence, 25 words or fewer, with no added explanation.
 
 Requirement:
 `{requirement}`
