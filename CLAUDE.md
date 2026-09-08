@@ -131,32 +131,41 @@ integrity check itself is found to have a gap.
   other Day-file's capital-D convention, so the fix touches one file
   instead of the dozen-plus import sites).
 
-## Roadmap status (as of 5 Sep 2026)
-Complete through **Day 25**. Day 26 (Sat 5 Sep, "home turf," no session) is
-next: regression baseline/diffing.
+## Roadmap status (as of 8 Sep 2026)
+Complete through **Day 29**. Day 26 (regression baseline/diffing), Day 27
+(buffer), Day 28 (Day 7 prompt fix using only harness output), and Day 29
+(GitHub Actions CI) are all closed. Day 30 (pass-rate CI gate) is next.
 
-- Save results to `baseline.json`.
-- Diff subsequent runs against it, flag regressions.
-- Core design problem: outputs are non-deterministic (Day 2), so this must
-  use pass-rate thresholds, not exact-match diffing.
-- **DONE WHEN:** deliberately worsening the prompt makes the tool report a
-  regression.
-- The prompt to deliberately worsen for this test is `prompt_testcase_v1.txt`
-  (Day 7) — the zero-shot prompt that drives test-case generation, i.e. the
-  thing the whole harness measures the quality of. Use a second/sabotaged
-  copy, don't overwrite the real file.
+- Day 26 built `baseline.json` + `Day26_baseline.py diff`, pass-rate
+  threshold based (not exact-match, per Day 2's non-determinism finding).
+  Proven against 5 sabotaged prompt variants, each targeting a different
+  check (schema mismatch, token-cap, judge-only vagueness, etc.).
+- Day 28 fixed the `req_33`-style vagueness finding in
+  `prompt_testcase_v1.txt` (added a verifiable-pass/fail-condition rule) —
+  `assertion_pass_rate` 97.1%→100.0%, `judge_pass_rate` 94.3%→97.1%/94.3%
+  across two reruns, confirmed stable. Priority-field skew (Day 7 finding)
+  deliberately left untouched — a target for a future day.
+- Day 29 added `.github/workflows/harness.yml` (push-triggered, real
+  end-to-end run against the live API, no gate/mocking yet — that's Days
+  30/32). First push went red on the `day5_validate.py`/`Day5_validate`
+  filename-case bug flagged below — closed via rename, second push green.
 
-Real numbers from the current 35-case dataset (Day 25 report), useful as
-the baseline reference point: assertion pass rate 97.1% (34/35), judge pass
+Real numbers from the current 35-case dataset (Day 25 report), still the
+`baseline.json` reference point (captured before the Day 28 prompt fix —
+intentionally not regenerated, since baseline.json is a fixed comparison
+point, not a running total): assertion pass rate 97.1% (34/35), judge pass
 rate 94.3% strict-good (33/35), total cost $0.0050, mean latency ~2989ms.
 
-### Upcoming after Day 26
-- **Day 28:** use the harness on the Day 7 prompt itself — improve it based
-  only on what the tool reports, re-run, get before/after numbers.
-- **Days 29–33 (Week 5):** CI via GitHub Actions, pass-rate gate that fails
-  CI on regression, cost guardrail with hard abort, tests for the harness
-  itself (mocked API, no network in `pytest`), final README with Day 19
-  metrics table and 400–600 words on the Day 14 judge-disagreement finding.
+### Upcoming after Day 29
+- **Day 30:** CI fails when pass rate drops below threshold — pushing a
+  bad prompt should turn CI red. The actual quality gate.
+- **Day 31:** cost guardrail — abort if projected spend exceeds a cap
+  (test cap: $0.001), fail loud with a clear message.
+- **Day 32:** tests for the harness itself, API mocked, `pytest` with no
+  network access.
+- **Day 33:** final README — problem/approach/how-to-run/example output,
+  Day 19 metrics table, 400–600 words on the Day 14 judge-disagreement
+  finding.
 - **Day 34 (Sun 13 Sep): ship.** Public repo, README complete, CI green,
   message the two senior advisors separately (not copy-pasted) — what was
   built, one surprise, no ask. Then start `ambiguity-chaser` repo (P2).
