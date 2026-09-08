@@ -121,11 +121,15 @@ integrity check itself is found to have a gap.
   `pass_fail_clarity` from every score with no error — the same silent-wrong-
   answer failure mode raised earlier, but in the schema layer. `JudgeScore`
   expanded to all 5 fields.
-- **`day5_validate.py` filename case bug (open, Day 5):** file is tracked on
-  GitHub as `day5_validate.py` (lowercase d) but imported as
-  `Day5_validate` (capital D) in places. Works on Windows (case-insensitive
-  filesystem), breaks on Linux/CI. Not yet fixed — flag if it surfaces in a
-  CI context.
+- **`day5_validate.py` filename case bug (found Day 5, closed Day 29):**
+  file was tracked on GitHub as `day5_validate.py` (lowercase d) but
+  imported as `Day5_validate` (capital D) everywhere. Worked on Windows
+  (case-insensitive filesystem), broke on Linux/CI — surfaced exactly as
+  predicted the first time the harness ran on the Day 29 GitHub Actions
+  runner (`ModuleNotFoundError: No module named 'Day5_validate'`). Fixed
+  by renaming the file to `Day5_validate.py` via `git mv` (matches every
+  other Day-file's capital-D convention, so the fix touches one file
+  instead of the dozen-plus import sites).
 
 ## Roadmap status (as of 5 Sep 2026)
 Complete through **Day 25**. Day 26 (Sat 5 Sep, "home turf," no session) is

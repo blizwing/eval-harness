@@ -1524,3 +1524,20 @@ rather than left dangling as an uncommitted diff.
 **Raw files:** `.github/workflows/harness.yml` (new). Regenerated:
 `Day23_Runner_Results/Day23_run_results.json`,
 `Day24_Scorer_Results/Day24_score_results.json`.
+
+**First real push: red, exactly as CLAUDE.md's open bug log predicted.**
+`Day23_runner.py` crashed on the Actions runner at the very first import —
+`ModuleNotFoundError: No module named 'Day5_validate'`. This is the
+Day 5 filename-case bug (tracked as `day5_validate.py`, imported
+everywhere as `Day5_validate`) surfacing for the first time: silently
+fine on Windows' case-insensitive filesystem for 24 days, immediately
+fatal on the Actions runner's Ubuntu/case-sensitive one. The local dry-run
+above couldn't have caught this — it ran on the same Windows filesystem
+that's been masking the bug the whole time; only an actual Linux
+environment exercises it. Fixed via `git mv day5_validate.py
+Day5_validate.py` (two-step, to work around Windows' case-insensitivity
+not registering a case-only rename in one `mv`) — matches every other
+Day-file's capital-D convention, so the fix is one rename instead of
+touching a dozen-plus import sites. CLAUDE.md's known-bugs entry updated
+from open to closed. Re-push needed to actually confirm green — not
+done as of this entry.
