@@ -1474,3 +1474,53 @@ single verdict.
 in place — not a sabotage copy, since this is the real prompt-improvement
 day). `Day23_Runner_Results/`, `Day24_Scorer_Results/` regenerated per run,
 not individually archived per attempt.
+
+---
+
+## Day 29 — GitHub Actions: run the harness on every push (Tue 8 Sep 2026)
+
+Verified Day 27–28 landed before starting: commits `34f708a`/`f249b26`
+present, DONE WHEN met (before/after numbers from a real Day 7 prompt fix,
+one regression correctly caught along the way).
+
+**Plumbing day, per the standing ownership split** — Claude drafted the
+workflow, Pratham adds the GitHub secret and does the actual push.
+
+**Scoping decision, asked upfront:** what should the workflow run, given
+Day 32 (mocked tests, no network) hasn't happened yet? Two options —
+a cheap import/syntax smoke test, or the real harness end-to-end against
+the live API. Chose the real end-to-end run: matches Day 29's literal
+DONE WHEN ("a push triggers a green run") and costs negligible per-run
+cost (same ~$0.004 as every other day's run), vs. deferring the real CI
+wiring to later days for no reason.
+
+**Built `.github/workflows/harness.yml`:** triggers on push, checks out
+the repo, sets up Python 3.11, installs `requirements.txt`, then runs
+`Day23_runner.py` → `Day24_scorer.py` → `Day25_reporter.py` in sequence.
+`DEEPSEEK_API_KEY` is read from a GitHub Actions repo secret of the same
+name — no other env vars needed since `DEEPSEEK_OPENAI_BASE_URL`/
+`DEEPSEEK_ANTHROPIC_BASE_URL` both default correctly inside
+`Day1_first_call.py` when unset. No pass-rate gate yet (Day 30) and no
+mocking (Day 32) — this day is wiring only, deliberately not scope-creeping
+into either.
+
+**Validated locally before handing off.** Ran the exact three-command
+sequence the workflow runs, against the real API, to catch a broken
+workflow before burning a push on it: 35/35 valid, `assertion_pass_rate`
+100.0%, `judge_pass_rate` 94.3%, cost $0.0041, all three scripts exited
+cleanly. Confirms the sequence itself is sound — what it can't confirm is
+GitHub Actions' environment (secret wiring, Ubuntu runner, Python 3.11 vs.
+the local 3.14) behaving the same way, so DONE WHEN is **not yet fully
+met**: real confirmation is Pratham's push + a green check in the Actions
+tab, still pending as of this entry.
+
+**Side effect of the local validation run:** regenerated
+`Day23_Runner_Results/Day23_run_results.json` and
+`Day24_Scorer_Results/Day24_score_results.json` with fresh numbers under
+the current (already-fixed, Day 28) prompt — no prompt change, just a new
+run's worth of non-determinism (Day 2). Committed alongside the workflow
+rather than left dangling as an uncommitted diff.
+
+**Raw files:** `.github/workflows/harness.yml` (new). Regenerated:
+`Day23_Runner_Results/Day23_run_results.json`,
+`Day24_Scorer_Results/Day24_score_results.json`.

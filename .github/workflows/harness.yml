@@ -1,0 +1,25 @@
+name: Eval Harness
+
+on:
+  push:
+
+jobs:
+  run-harness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run harness (runner -> scorer -> reporter)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          python Day23_runner.py
+          python Day24_scorer.py
+          python Day25_reporter.py
