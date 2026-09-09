@@ -1541,3 +1541,78 @@ Day-file's capital-D convention, so the fix is one rename instead of
 touching a dozen-plus import sites. CLAUDE.md's known-bugs entry updated
 from open to closed. Re-push needed to actually confirm green — not
 done as of this entry.
+
+---
+
+## Day 30 — CI pass-rate gate: fail the build on regression (Wed 9 Sep 2026)
+
+Verified Day 29 landed before starting: `.github/workflows/harness.yml`
+present, `Day5_validate.py` correctly cased, both confirmed against git
+log (`915fb3d`'s parent chain) before touching anything.
+
+**Plumbing day, per the standing ownership split** — Claude drafted the
+gate step and the cost fix, Pratham reviewed, ran the sabotage test, and
+committed/pushed (`915fb3d`).
+
+**Reused Day 26's diff logic instead of building a new gate.**
+`Day26_baseline.py diff` already gates on both `assertion_pass_rate` and
+`judge_pass_rate` at a 5-point threshold, already proven against 5
+sabotaged prompt variants, and its own docstring flagged itself as
+"the exact hook Day 29-33's CI pass-rate gate needs later." Added one
+step to `harness.yml` that runs it after the reporter — no new threshold,
+no new script.
+
+**Cost side-question, raised mid-day:** should the workflow move to
+manual-only (`workflow_dispatch`) given every push burns a live API call?
+Rejected manual-only — it would cost the exact scenario Pratham named
+when asked directly: forgetting to trigger a run, which quietly defeats
+the point of an automatic gate. Instead added `paths-ignore: ['**/*.md']`
+alongside the existing `push` trigger, plus `workflow_dispatch` as a
+manual option alongside it, not instead of it. This keeps every code/
+prompt push auto-triggered (unchanged behavior) while skipping runs where
+the diff is doc-only — the actual source of waste, per the run history
+(several `Update CLAUDE.md through Day N` / `NOTES.md` commits had been
+triggering full paid runs for zero signal).
+
+**Validated on `main` first.** Push `915fb3d` (the real harness.yml
+change, containing no prompt edit) ran green — gate correctly reported
+`[OK]` on both metrics, since the current prompt's numbers sit above
+baseline (`assertion_pass_rate` 97.1% → 100.0%, `judge_pass_rate` 94.3% →
+97.1%), confirming the gate doesn't false-positive on ordinary
+improvement.
+
+**DONE WHEN confirmed via a throwaway branch, not canned JSON.**
+Considered testing by swapping in a pre-made sabotaged results file and
+running `diff` locally, but that would only re-prove Day 26's already-
+proven diff math — Day 30 needed to confirm a *prompt* change flows
+through the *real* pipeline (`Day23_runner.py` against the live API) into
+a failed gate. Branched `test/day30-ci-gate`, copied Day 26's
+`broken_prompt_testcase_v1.txt` over the real prompt, pushed. CI run
+`34309987139` failed as expected:
+
+```
+[REGRESSION] assertion_pass_rate: 97.1% -> 0.0% (delta -97.1%, threshold -5.0%)
+[REGRESSION] judge_pass_rate: 94.3% -> 0.0% (delta -94.3%, threshold -5.0%)
+REGRESSION DETECTED
+```
+
+Exit code 1, workflow marked `failure` — confirmed by reading the run log
+via `gh run view --log` rather than trusting the Actions UI badge alone.
+Branch reverted and deleted afterward; no sabotage left on `main`.
+
+**Understanding check:** two of three WHY questions answered solidly on
+first pass (reuse-don't-rebuild; manual-only's forgotten-trigger risk).
+The third needed a follow-up — the reason a real prompt push was required
+wasn't just "Actions needs a push to trigger," but that Day 26's diff
+logic was already validated in isolation and Day 30's job was proving the
+*whole pipeline's* wiring, prompt-change through to red gate. `paths-ignore`
+mechanics also needed spelling out: it doesn't change *whether* push
+triggers CI, only skips the specific case where every changed file in a
+push matches the ignore pattern — automatic triggering for real changes
+is untouched.
+
+**Raw files:** `.github/workflows/harness.yml` (gate step + `paths-ignore`
++ `workflow_dispatch` added). No `Day23_Runner_Results`/
+`Day24_Scorer_Results` regenerated as part of this day's real commit —
+the sabotage run's results only ever existed on the deleted throwaway
+branch's Actions run, never on `main`.
