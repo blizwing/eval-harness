@@ -2,6 +2,9 @@ name: Eval Harness
 
 on:
   push:
+    paths-ignore:
+      - "**/*.md"
+  workflow_dispatch:
 
 jobs:
   run-harness:
@@ -23,3 +26,8 @@ jobs:
           python Day23_runner.py
           python Day24_scorer.py
           python Day25_reporter.py
+
+      - name: Regression gate (fail if pass rate drops below baseline)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python Day26_baseline.py diff
