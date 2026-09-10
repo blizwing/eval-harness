@@ -1672,3 +1672,66 @@ correctly.
 
 **Raw files:** `Day23_runner.py` (guardrail logic), `.github/workflows/
 harness.yml` (`--cost-cap 0.02`).
+
+---
+
+## Incident — `deepseek-v4-flash` alias repointed, judge pass rate collapsed (Wed 10 Sep 2026)
+
+Discovered while checking the CI run triggered by Day 31's push: it failed
+Day 30's regression gate. Investigated same day rather than left for
+tomorrow, since main was red.
+
+**Not a Day 31 bug.** The cost guardrail never tripped (`--cost-cap 0.02`
+had headroom; actual run cost $0.0042). The failure was Day 26/30's own
+gate, firing correctly on a real signal.
+
+**Confirmed reproducible, not single-run noise.** Reran the identical
+failed CI job (same commit, `gh run rerun`) rather than assuming a fluke:
+
+| Metric | Day 25 baseline | Run 1 | Rerun (same commit) |
+|---|---|---|---|
+| assertion_pass_rate | 97.1% | 88.6% | 97.1% |
+| judge_pass_rate | 94.3% | 40.0% | 45.7% |
+
+`assertion_pass_rate` bounced back on rerun — that dip was ordinary
+invalid-count noise, already documented since Day 7. `judge_pass_rate`
+stayed collapsed on both independent live runs — a persistent shift, not
+noise.
+
+**Ruled out a harness-side cause before concluding it was external.**
+Neither `judge_v2.txt` (unchanged since Day 15) nor `Day24_scorer.py`
+(unchanged since Day 26) nor the generation prompt (unchanged since Day
+27-28) have been touched since Day 28's confirmed 94.3%/97.1% run. Judge
+failure reasons in the CI log were overwhelmingly the same shape as Day
+18's known hedging-vs-`verification_fidelity` tension — but occurring on
+~21/35 rows instead of the 2 adversarial rows Day 18 saw.
+
+**Root cause confirmed directly, not inferred:** the API's echoed
+`response.model` field changed for the exact same requested model string
+(`model="deepseek-v4-flash"`, unchanged in code since Day 1). Day 9's
+saved output (`Day9_outputs.json`, 19 Aug 2026) recorded
+`model_name: "deepseek-v4-flash"`. A one-off diagnostic call made just now
+returned `model_name: "deepseek-flash"` for the identical request. Per
+Pratham, DeepSeek shipped a flash v4.1 model today — the
+`deepseek-v4-flash` alias was almost certainly repointed to it, changing
+generation behavior (heavier hedging in `expected_result`) with zero code
+changes on our side.
+
+**Why this matters going forward:** this is a live instance of the exact
+risk category the harness exists to catch — a third-party hosted model
+silently changing behavior under an alias that looks stable. It's also a
+strong argument for Day 23's `MeteredResult.model_name` (already captured
+per-call) to actually be persisted in `Day23_run_results.json` — right now
+it's dropped in `serialize_case`, which is why this took a live diagnostic
+call to catch rather than a one-line diff against saved output.
+
+**Deliberately left open tonight, not "fixed."** CI on `main` stays red.
+Did not re-baseline against the new model's behavior and did not attempt
+a rubric/prompt patch — both are real decisions (accept the new hedging
+behavior as normal? tighten the generation prompt against it? pin a
+model version if the API supports it?) that deserve a clear head, not a
+low-power-session guess.
+
+**Raw evidence:** CI runs `34468685232` (original + rerun, same commit),
+`Day9_Requirements_JSON_Outputs/Day9_outputs.json` (historical
+`model_name` field), one-off local diagnostic call (not saved to a file).
