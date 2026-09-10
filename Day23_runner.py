@@ -22,6 +22,17 @@ Design notes:
 - A case that exhausts retries is recorded with status "api_error" and
   the run continues — per Pratham's call, a single bad case should not
   kill a 35-case run.
+- Day 31 cost guardrail: after each case, projects total spend as
+  (cost accumulated so far / cases with a metered cost) * total case
+  count, and aborts the run the moment that projection exceeds
+  --cost-cap. This is a projection, not a hard per-call limit — it can
+  only fire once at least one case has returned a real cost, so a cap
+  smaller than a single call's cost (e.g. the $0.001 test value) aborts
+  after case 1, not case 0. Partial results (everything completed
+  before the abort) are still saved to the output file — those calls
+  were already paid for — and the process exits 1 with a clear
+  message. No cap is applied by default (--cost-cap omitted =
+  unlimited), so this never changes behavior for existing local runs.
 """
 
 import argparse
@@ -71,6 +82,14 @@ RETRYABLE_EXCEPTIONS = (
 BAR_WIDTH = 30
 
 
+def project_total_cost(cost_so_far: float, cases_with_cost: int, total_cases: int) -> float | None:
+    """Extrapolates total run cost from cases completed so far. Returns
+    None if no case has produced a real cost yet (nothing to project from)."""
+    if cases_with_cost == 0:
+        return None
+    return (cost_so_far / cases_with_cost) * total_cases
+
+
 def print_progress(current: int, total: int, req_id: str, status: str) -> None:
     filled = int(BAR_WIDTH * current / total)
     bar = "#" * filled + "-" * (BAR_WIDTH - filled)
@@ -111,7 +130,14 @@ def call_with_retry(client: LLMClient, prompt: str) -> tuple[MeteredResult | Non
 def run_all(
     requirements_file: str = REQUIREMENTS_FILE,
     prompt_file: str = PROMPT_FILE,
-) -> list[CaseResult]:
+    cost_cap: float | None = None,
+) -> tuple[list[CaseResult], str | None]:
+    """
+    Returns (results, abort_reason). abort_reason is None when every case
+    ran to completion; otherwise it's a human-readable message explaining
+    why the run stopped early (currently only the cost cap can trigger
+    this).
+    """
     status, payload = load_requirements(requirements_file)
     if status != "valid":
         raise RuntimeError(f"Cannot run — requirements file invalid: {status}: {payload}")
@@ -122,6 +148,9 @@ def run_all(
 
     total = len(req_set.requirements)
     results: list[CaseResult] = []
+    cost_so_far = 0.0
+    cases_with_cost = 0
+    abort_reason: str | None = None
 
     for i, req in enumerate(req_set.requirements, start=1):
         req_text = req.text.strip()
@@ -163,8 +192,21 @@ def run_all(
         results.append(case_result)
         print_progress(i, total, req.id, verdict)
 
+        cost_so_far += metered.cost_usd
+        cases_with_cost += 1
+
+        if cost_cap is not None:
+            projected = project_total_cost(cost_so_far, cases_with_cost, total)
+            if projected is not None and projected > cost_cap:
+                abort_reason = (
+                    f"projected total cost ${projected:.4f} exceeds cap ${cost_cap:.4f} "
+                    f"(based on {cases_with_cost} case(s) costing ${cost_so_far:.4f} so far, "
+                    f"projected across {total} total cases). Stopped after case {i}/{total}."
+                )
+                break
+
     client.print_running_total()
-    return results
+    return results, abort_reason
 
 
 def serialize_case(r: CaseResult) -> dict:
@@ -193,6 +235,7 @@ def save_results(
     source_file: str,
     prompt_file: str = PROMPT_FILE,
     output_file: str = OUTPUT_FILE,
+    abort_reason: str | None = None,
 ) -> None:
     out_dir = os.path.dirname(output_file) or "."
     os.makedirs(out_dir, exist_ok=True)
@@ -209,6 +252,8 @@ def save_results(
         "prompt_file": prompt_file,
         "count": len(results),
         "status_counts": counts,
+        "aborted": abort_reason is not None,
+        "abort_reason": abort_reason,
         "results": serializable,
     }
     with open(output_file, "w", encoding="utf-8") as f:
@@ -231,7 +276,17 @@ if __name__ == "__main__":
         default=OUTPUT_FILE,
         help="Where to save results. Use a different path for a sabotage run so it doesn't overwrite the real Day23_run_results.json.",
     )
+    parser.add_argument(
+        "--cost-cap",
+        type=float,
+        default=None,
+        help="Abort the run if projected total cost (extrapolated from cases completed so far) exceeds this many USD. Default: no cap.",
+    )
     args = parser.parse_args()
 
-    results = run_all(args.requirements_file, args.prompt_file)
-    save_results(results, args.requirements_file, args.prompt_file, args.output_file)
+    results, abort_reason = run_all(args.requirements_file, args.prompt_file, args.cost_cap)
+    save_results(results, args.requirements_file, args.prompt_file, args.output_file, abort_reason)
+
+    if abort_reason:
+        print(f"\n[COST CAP EXCEEDED] {abort_reason}")
+        raise SystemExit(1)
