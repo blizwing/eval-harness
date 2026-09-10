@@ -1616,3 +1616,59 @@ is untouched.
 `Day24_Scorer_Results` regenerated as part of this day's real commit —
 the sabotage run's results only ever existed on the deleted throwaway
 branch's Actions run, never on `main`.
+
+---
+
+## Day 31 — Cost guardrail: abort on projected overspend (Thu 10 Sep 2026)
+
+Verified Day 30 landed before starting: `915fb3d`/`5e0eefc` on `main`, CI
+pass-rate gate wired into `harness.yml` — confirmed via git log first.
+
+**Process note — one-off exception to "Claude never executes."** Pratham
+had Claude make the edits and run verification directly in-session rather
+than handing over a Claude Code prompt. Approved explicitly, one-off only —
+standing convention (Claude gives code/prompts, Pratham runs) stays in
+place going forward.
+
+**Plumbing day, per the standing ownership split** — Claude drafted and
+applied the guardrail + `harness.yml` wiring; Pratham reviewed the diff and
+committed (`c209d23`).
+
+**Design: projection-based, not a hard per-call cutoff.** After each case,
+`Day23_runner.py` extrapolates total spend as `(cost so far / cases with a
+metered cost) * total case count`, aborting once that projection exceeds
+`--cost-cap`. A cap smaller than one call's cost (the $0.001 test value)
+fires after case 1, not case 0 — nothing to project from before a real
+cost lands.
+
+**Partial results kept, not discarded, on abort.** Whatever completed
+before the cap tripped is written to the output file with `"aborted": true`
++ `abort_reason` — those calls were already paid for. Exits 1 with
+`[COST CAP EXCEEDED] ...`, so CI reads it as a failed step.
+
+**No default cap locally.** `--cost-cap` defaults to `None` (unlimited) —
+existing local runs are unaffected. `harness.yml`'s runner step now passes
+`--cost-cap 0.02` (~4x current $0.0050 full-run cost).
+
+**DONE WHEN confirmed directly against the live API:**
+
+```
+[COST CAP EXCEEDED] projected total cost $0.0042 exceeds cap $0.0010
+(based on 1 case(s) costing $0.0001 so far, projected across 35 total
+cases). Stopped after case 1/35.
+```
+
+Exit code 1, output confirmed `"aborted": true` with case 1's full
+metering intact. Test output file deleted afterward.
+
+**Understanding check: closed same day, simplified format.** Three
+recognition-style questions (low-power session — pick-the-right-answer,
+not free-form) instead of the usual open WHY questions: averaging smooths
+out a fluke case rather than trusting only the last one; the check runs
+mid-run because true cost is only known after the API responds, not
+before; `--cost-cap` defaults unlimited locally so a forgotten flag can't
+silently abort a run you expected to complete. All three answered
+correctly.
+
+**Raw files:** `Day23_runner.py` (guardrail logic), `.github/workflows/
+harness.yml` (`--cost-cap 0.02`).
