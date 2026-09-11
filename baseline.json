@@ -1,36 +1,50 @@
 {
-  "generated_at": "2026-09-05T06:15:06.058855+00:00",
+  "generated_at": "2026-09-11T05:03:24.720167+00:00",
   "source_run_results_file": "Day23_Runner_Results/Day23_run_results.json",
   "source_score_results_file": "Day24_Scorer_Results/Day24_score_results.json",
   "report": {
     "joined_count": 35,
     "pass_rates": {
-      "assertion_pass_rate": 0.9714285714285714,
-      "judge_pass_rate": 0.9428571428571428
+      "assertion_pass_rate": 0.9142857142857143,
+      "judge_pass_rate": 0.42857142857142855
     },
     "cost": {
-      "total_cost_usd": 0.0049721,
+      "total_cost_usd": 0.0069692999999999995,
       "cost_by_day23_status": {
-        "valid": 0.0048181000000000005,
-        "invalid": 0.00015400000000000003
+        "valid": 0.006328049999999999,
+        "invalid": 0.0006412499999999999
       },
       "cost_by_assertion_outcome": {
-        "passed": 0.0048181000000000005,
-        "failed": 0.00015400000000000003
+        "passed": 0.006328049999999999,
+        "failed": 0.0006412499999999999
       },
       "cost_by_judge_outcome": {
-        "passed": 0.00467558,
-        "failed": 0.00029652000000000004
+        "passed": 0.00285045,
+        "failed": 0.00411885
       }
     },
     "latency": {
-      "mean_latency_all_ms": 2989.3147457141563,
-      "mean_latency_valid_only_ms": 2985.1599029410436
+      "mean_latency_all_ms": 1634.869591428573,
+      "mean_latency_valid_only_ms": 1637.6558999999986
     },
     "failures": {
       "assertion_failures": [
         {
-          "case_id": "req_13",
+          "case_id": "req_11",
+          "failed_checks": {
+            "fields_present": false,
+            "non_empty": false
+          }
+        },
+        {
+          "case_id": "req_28",
+          "failed_checks": {
+            "fields_present": false,
+            "non_empty": false
+          }
+        },
+        {
+          "case_id": "req_35",
           "failed_checks": {
             "fields_present": false,
             "non_empty": false
@@ -39,18 +53,110 @@
       ],
       "judge_failures": [
         {
-          "case_id": "req_13",
+          "case_id": "req_01",
           "verdict": "bad",
-          "reasoning": "No test case was produced, so all criteria fail."
+          "reasoning": "The test covers the required fields and behavior, but its expected result admits ambiguity about duration format and uniqueness scope, so it does not unambiguously verify the specific unique-ID and duration details the requirement names."
+        },
+        {
+          "case_id": "req_02",
+          "verdict": "bad",
+          "reasoning": "The test case covers the requirement's flow but fails verification fidelity and pass/fail clarity because the expected result only confirms a broader outcome without checking the specific 'specified time' value, and its steps are too vague to execute concretely."
+        },
+        {
+          "case_id": "req_03",
+          "verdict": "bad",
+          "reasoning": "The test case covers the right behavior but its expected result explicitly admits it cannot verify the specific assignment criteria or time values, making verification fidelity and pass/fail clarity fail, which forces a bad verdict."
+        },
+        {
+          "case_id": "req_04",
+          "verdict": "bad",
+          "reasoning": "The test case covers the requirement's flow but its expected result only vaguely confirms approval and evidence are reflected without checking any specific detail, and it explicitly admits fields/statuses are unspecified, making pass/fail ambiguous."
+        },
+        {
+          "case_id": "req_05",
+          "verdict": "bad",
+          "reasoning": "The test case covers the requirement's behavior, but its expected result adds a system-enforced signature gate that the requirement never states, so it verifies an invented constraint rather than the actual requirement."
+        },
+        {
+          "case_id": "req_06",
+          "verdict": "borderline",
+          "reasoning": "The test covers the requirement and has concrete steps, but its expected result includes an ambiguous fallback ('may leave it unchanged, indicating ambiguity') that undermines a clear pass/fail condition."
+        },
+        {
+          "case_id": "req_07",
+          "verdict": "bad",
+          "reasoning": "The test case covers the correct behavior and has all fields, but the expected result only vaguely asserts that 'the entire task result' is displayed without defining specific fields or format, so verification fidelity and pass/fail clarity fail, making the verdict bad."
+        },
+        {
+          "case_id": "req_08",
+          "verdict": "borderline",
+          "reasoning": "All required fields are present and the test covers the requirement's core intent, but the steps are somewhat generic (e.g., 'locate the evidence items') and the expected result notes requirement ambiguity, making execution less concrete though pass/fail remains clear."
+        },
+        {
+          "case_id": "req_11",
+          "verdict": "bad",
+          "reasoning": "The generated test case contains no valid output at all, so it lacks required fields, does not cover the requirement, and provides no executable steps or verifiable expected result."
+        },
+        {
+          "case_id": "req_16",
+          "verdict": "bad",
+          "reasoning": "The test covers the correct behavior but the expected result hedges with 'if the exact reflection method is unspecified' and offers alternatives, so it does not verify the specific reflection detail the requirement names nor state an unambiguous pass/fail condition."
+        },
+        {
+          "case_id": "req_17",
+          "verdict": "bad",
+          "reasoning": "The test covers the right behavior but the expected result hedges with 'if the requirement's mapping is ambiguous' and does not specify exact values or a clear pass/fail condition, failing verification fidelity and pass/fail clarity."
+        },
+        {
+          "case_id": "req_22",
+          "verdict": "borderline",
+          "reasoning": "The test case covers the requirement and is executable, but its expected result hedges on empty-state behavior and does not state an unambiguous pass/fail condition."
+        },
+        {
+          "case_id": "req_24",
+          "verdict": "borderline",
+          "reasoning": "The test case covers all required fields and directly verifies the Provisioning page elements, but its expected result includes a vague conditional clause ('if the task type is not specified, this may not apply') that undermines a clear pass/fail condition."
+        },
+        {
+          "case_id": "req_26",
+          "verdict": "borderline",
+          "reasoning": "The test case covers the asynchronous fetch from the Task Provision Page with concrete steps and preconditions, but its expected result is ambiguous because it allows either data display or a success indication and explicitly notes that exact UI elements, timeouts, and error handling cannot be verified, leaving pass/fail unclear."
+        },
+        {
+          "case_id": "req_28",
+          "verdict": "bad",
+          "reasoning": "The generated test case contains no valid output at all, so it lacks required fields, does not cover the requirement, and provides no executable steps or verifiable expected result."
+        },
+        {
+          "case_id": "req_29",
+          "verdict": "borderline",
+          "reasoning": "The test case covers the asynchronous non-blocking requirement with concrete steps and preconditions, but its expected result is somewhat vague ('does not block or freeze') and the case itself acknowledges ambiguity about exact UI behavior or timeout, weakening pass/fail clarity."
+        },
+        {
+          "case_id": "req_31",
+          "verdict": "bad",
+          "reasoning": "The test covers all required headers and body fields, but its expected result only checks for a 2xx status rather than verifying that the specific required headers and body fields were actually validated or accepted."
+        },
+        {
+          "case_id": "req_32",
+          "verdict": "bad",
+          "reasoning": "The test covers all required headers and body fields, but its expected result only checks a broad success/rejection outcome rather than verifying the specific header formats (OAuth2 bearer token, unique X-Request-Id) and body field values named in the requirement."
         },
         {
           "case_id": "req_33",
           "verdict": "bad",
-          "reasoning": "The test case lacks specific security header names and does not verify exact field values or formats, making it vague and not fully aligned with the requirement."
+          "reasoning": "The test covers the right behavior but the expected result hedges with 'if security headers are not explicitly defined, this cannot be fully verified,' so it does not concretely verify the named security headers or give an unambiguous pass/fail condition."
+        },
+        {
+          "case_id": "req_35",
+          "verdict": "bad",
+          "reasoning": "The generated test case contains no valid output, so it lacks all required fields and cannot test or verify the requirement in any way."
         }
       ],
       "failed_both": [
-        "req_13"
+        "req_11",
+        "req_28",
+        "req_35"
       ]
     }
   }
