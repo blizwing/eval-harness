@@ -1913,3 +1913,75 @@ output tokens at the off-peak rates, exact match.
 `MeteredResult.pricing_tier`), `Day23_runner.py` (`serialize_case`),
 `tests/test_day3_llm_client.py` (new), `tests/test_day23_runner.py`
 (updated).
+
+---
+
+## Incident closed — re-baselined against the new model's behavior (Fri 11 Sep 2026)
+
+Of the three options on the table (accept new behavior/re-baseline,
+tighten the prompt, pin a model version), Pratham chose re-baseline —
+DeepSeek's own research already confirmed there's no version to pin, and
+tightening the prompt is a separate, deliberate improvement effort, not
+something to reach for reactively just to make CI green again.
+
+**This lowers the bar CI enforces — it does not fix a quality
+regression.** Worth being explicit about, since it's the opposite of
+every other regression-baseline decision in this repo so far: Day 28's
+prompt fix raised real numbers and the baseline stayed frozen on purpose
+(CLAUDE.md's own note: "baseline.json is a fixed comparison point, not a
+running total"). This time the underlying generation quality genuinely
+dropped — for reasons outside our prompt or code, a third-party model
+swap — and the baseline was moved down to match it. Future CI runs will
+now go green against this lower floor, not because anything got better.
+
+**Full pipeline rerun end to end** (`Day23_runner.py --cost-cap 0.05` →
+`Day24_scorer.py` → `Day25_reporter.py` → `Day26_baseline.py save`),
+overwriting `Day23_Runner_Results/`, `Day24_Scorer_Results/`, and
+`baseline.json` — not just editing numbers by hand. Confirmed the new
+baseline is self-consistent by immediately running `diff` against it:
+`[OK]` on both metrics, delta `+0.0%`, exit 0.
+
+| Metric | Old baseline (5 Sep 2026) | New baseline (11 Sep 2026) |
+|---|---|---|
+| assertion_pass_rate | 97.1% (34/35) | 91.4% (32/35) |
+| judge_pass_rate (strict) | 94.3% (33/35) | 42.9% (15/35) |
+| total_cost_usd | $0.0050 | $0.0070 (new peak/off-peak pricing, not just more tokens) |
+| borderline verdicts | 0 | 6 (17.1%) |
+
+**Judge failure reasons confirm the root cause directly, not just the
+symptom.** All 20 judge failures were read, not sampled — the overwhelming
+majority explicitly cite hedging language in `expected_result` ("if X is
+unspecified, this cannot be verified", "may leave it unchanged", "does
+not specify exact values or a clear pass/fail condition"). This is the
+new model's own writing habit surfacing through the judge's
+`verification_fidelity`/`pass_fail_clarity` criteria exactly as designed
+— the judge isn't malfunctioning, it's correctly penalizing a real
+behavior change in what the generator now produces. Assertion failures
+also rose (1 -> 3 cases: `req_11`, `req_28`, `req_35`, all zero-output
+rows) — a higher structural-failure rate than before, not just softer
+wording.
+
+**Unplanned finding: the "borderline is structurally unreachable"
+conclusion (Day 18 -> Day 24) needs revisiting again.** 6 of 35 cases
+landed on `borderline` today — the highest count ever seen on this
+dataset, and the first time it's happened at real volume rather than as
+a single Day-24-experiment data point (`pro+thinking`, n=1). Sharpened
+read: the judge and `judge_v2.txt` rubric were probably never the
+limiting factor. The old model's outputs were consistently clear-cut
+(solidly fine or clearly broken), so nothing landed in the genuine middle
+for the judge to call borderline. The new model's hedging habit produces
+outputs that are *actually* ambiguous, and the judge correctly recognizes
+that instead of forcing a binary call. Not verified against the BACKLOG.md
+judge-model-comparison item (that's about judge *model* choice, flash vs
+pro — this is about a change in what's being judged, the generator's
+output, holding the judge model fixed) — flagged here rather than
+re-opened, since acting on it wasn't today's task.
+
+**Not done today, left for a deliberate call later:** whether to now
+also tighten `prompt_testcase_v1.txt` against the hedging habit itself
+(the "improve the generator" path, distinct from "accept it and move
+the goalposts," which is what today's re-baseline actually did).
+
+**Raw files:** `Day23_Runner_Results/Day23_run_results.json`,
+`Day24_Scorer_Results/Day24_score_results.json`, `baseline.json` (all
+regenerated, not hand-edited).
