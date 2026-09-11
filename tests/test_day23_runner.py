@@ -14,7 +14,7 @@ VALID_TESTCASE_JSON = (
 )
 
 
-def make_metered(text=VALID_TESTCASE_JSON, cost=0.0001):
+def make_metered(text=VALID_TESTCASE_JSON, cost=0.0001, pricing_tier="off_peak"):
     return MeteredResult(
         schema="openai",
         text=text,
@@ -24,6 +24,7 @@ def make_metered(text=VALID_TESTCASE_JSON, cost=0.0001):
         model_name="deepseek-v4-flash",
         latency_ms=5.0,
         cost_usd=cost,
+        pricing_tier=pricing_tier,
         raw_response={},
     )
 
@@ -157,3 +158,31 @@ def test_run_all_records_api_error_and_continues(monkeypatch):
     assert results[0].status == "api_error"
     assert results[1].status == "valid"
     assert abort_reason is None
+
+
+# --- serialize_case: pricing_tier must actually be persisted, not just computed ---
+
+def test_serialize_case_includes_pricing_tier():
+    metered = make_metered(cost=0.002, pricing_tier="peak")
+    case = runner.CaseResult(
+        id="req_01",
+        requirement_text="Do the thing.",
+        status="valid",
+        parsed_output={"title": "t"},
+        raw_response_text=VALID_TESTCASE_JSON,
+        metered=metered,
+    )
+
+    entry = runner.serialize_case(case)
+
+    assert entry["pricing_tier"] == "peak"
+    assert entry["cost_usd"] == 0.002
+
+
+def test_serialize_case_omits_metered_fields_on_api_error():
+    case = runner.CaseResult(
+        id="req_01", requirement_text="Unreachable.", status="api_error", metered=None
+    )
+    entry = runner.serialize_case(case)
+    assert "pricing_tier" not in entry
+    assert "cost_usd" not in entry

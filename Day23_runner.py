@@ -227,6 +227,7 @@ def serialize_case(r: CaseResult) -> dict:
         entry["output_tokens"] = r.metered.output_tokens
         entry["latency_ms"] = r.metered.latency_ms
         entry["cost_usd"] = r.metered.cost_usd
+        entry["pricing_tier"] = r.metered.pricing_tier
     return entry
 
 
