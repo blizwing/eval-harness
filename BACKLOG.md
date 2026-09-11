@@ -128,3 +128,42 @@ Day 33's README is being written and a stronger "how do we know this
 never burns tokens" claim would strengthen it.
 
 ---
+
+## Generator-side thinking effort as a hedging fix (raised 11 Sep 2026, Day 32 follow-up)
+
+Idea: enable thinking (some reasoning-effort level) on the *generator*
+step specifically, as a fix for the hedging behavior that collapsed
+judge_pass_rate after the DeepSeek model swap — distinct from both
+"re-baseline" (done) and "tighten the prompt" (not started).
+
+Decision: deferred — inconclusive on the data gathered so far, not
+adopted, not investigated further today.
+- `Day32_thinking_effort_experiment.py` tested disabled/low/high/max
+  thinking effort on 10 curated ambiguous requirements (5 from
+  `Day24_Borderline_Smoketest`, 5 real-dataset adversarial cases from Day
+  17), judge held fixed to isolate the generator's effect. See NOTES.md's
+  "generator thinking-effort experiment" entry for the full account,
+  including a first-round result (thinking doesn't help, `low` hurts)
+  that turned out to be an artifact of an under-provisioned token budget
+  causing truncation, and a corrected second round that showed the
+  opposite direction (40%/50%/60%/60% good-rate across
+  disabled/low/high/max) but couldn't be trusted at face value either —
+  the `disabled` control itself swung 20 points between the two rounds
+  with zero config change, which is larger than the effect being
+  measured.
+- The only credible signal from round 2 was per-requirement, not
+  aggregate: 3 of 10 requirements improved consistently across all three
+  thinking-enabled configs, 2 of 10 stayed bad regardless, and the rest
+  moved non-monotonically (noise). That's suggestive, not sufficient.
+- Cost is real regardless of outcome: reasoning tokens averaged ~750-935
+  per call vs. 0 for disabled, roughly 4-5x the generation cost per call.
+
+**Revisit trigger:** if this is worth resolving, it needs repeated runs
+per config (pass-rate thresholds across multiple runs, per Day 2's
+non-determinism finding and Day 26's regression-detection approach) —
+not another single-run experiment at n=10. Also worth deciding then
+whether to test on the full 35-case dataset rather than only the curated
+ambiguous subset, since the incident's hedging was observed broadly, not
+only on adversarial cases.
+
+---

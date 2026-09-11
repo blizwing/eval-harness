@@ -1985,3 +1985,88 @@ the goalposts," which is what today's re-baseline actually did).
 **Raw files:** `Day23_Runner_Results/Day23_run_results.json`,
 `Day24_Scorer_Results/Day24_score_results.json`, `baseline.json` (all
 regenerated, not hand-edited).
+
+---
+
+## Follow-up — generator thinking-effort experiment on ambiguous requirements: inconclusive, and a retraction (Fri 11 Sep 2026)
+
+Prompted by: with the incident re-baselined rather than fixed, is
+generator-side thinking a real fix for the hedging behavior, distinct
+from both "re-baseline" (done) and "tighten the prompt" (not started)?
+Untested territory — Day 24's model-variant experiment varied thinking on
+generation AND judging together, so it couldn't isolate the generator's
+effect.
+
+**Design: isolate the generator, hold the judge fixed.** New
+`Day32_thinking_effort_experiment.py` generates each requirement's test
+case under several thinking configs, but always judges with the same
+fixed config (`deepseek-v4-flash`, thinking disabled, `judge_v2.txt`) —
+so any verdict shift is attributable to what changed on the generation
+side, not a whole-pipeline swap. Requirement set: the two existing
+curated "ambiguous" sets rather than a fresh sample —
+`Day24_Borderline_Smoketest`'s 5 hand-written good/borderline/bad-
+targeting requirements, plus the 5 real-dataset requirements Day 17
+already flagged adversarial (`req_24`, `req_25`, `req_33`, `req_34`,
+`req_35`), pulled live from `fsm_requirements.yaml` by id so they can't
+drift from the real dataset text.
+
+**Round 1 (disabled/low/high, `max_tokens=2048`) said thinking doesn't
+help and `low` actively hurts — wrong, and here's why.** Good-rate:
+disabled 60%, low 20%, high 50%. But `req_b03` at `low` effort spent 1998
+of the 2048-token budget on reasoning, leaving too little room for the
+actual JSON, and came back `invalid_json` — a failure mode baseline never
+has. 2048 was under-provisioned; Day 24's own prior experiment used 4096
+for exactly this reason and round 1 didn't check that precedent.
+
+**Two real process gaps surfaced mid-experiment, fixed before round 2:**
+Pratham asked why each thinking mode's results weren't being logged
+separately. The actual gap: the script wrote one combined JSON file only
+once, at the very end of the whole run, to a fixed filename — a crash (or
+a slow `max`-effort call) would have lost every row already paid for, and
+a rerun would silently clobber the previous round's data (nearly happened
+to round 1's file when round 2 was launched with the same filename).
+Fixed: the script now checkpoints to disk after every single row, and the
+output filename bakes in `max_tokens` so different rounds can't collide.
+Round 1's file was manually rescued under
+`Day32_thinking_effort_experiment_results_round1_maxtok2048.json` before
+round 2 overwrote it, precisely because the collision-proofing didn't
+exist yet.
+
+**Round 2 (disabled/low/high/max, `max_tokens=8192`) reversed the
+conclusion — and then complicated it.** No truncation this time (all
+non-`disabled` rows `gen_status=valid`). Good-rate: disabled 40%, low
+50%, high 60%, max 60% — looks like a clean improvement with more effort.
+**But the `disabled` control itself swung from 60% good (round 1) to 40%
+(round 2) with zero config change between runs** — a bigger swing than
+the low->high improvement being measured. This is Day 2's non-determinism
+finding showing up directly in a place it hadn't been checked before:
+single-run pass-rate comparisons at n=10 aren't trustworthy evidence
+either way.
+
+**The more credible signal is the per-requirement pattern, not the
+aggregate rate.** 3 of 10 requirements (`req_b02`, `req_b03`, `req_24`)
+improved consistently across all three thinking-enabled configs vs.
+disabled — three quasi-independent samples agreeing is real signal.
+2 of 10 (`req_b04`, `req_35`) stayed bad under every config — genuinely
+too vague for reasoning effort to rescue, not a generator problem. The
+rest (`req_b05`, `req_25`, `req_34`) moved non-monotonically between
+configs — noise.
+
+**Cost, measured directly rather than assumed:** average
+`reasoning_tokens` across low/high/max clustered around 750-935/call
+(both rounds) vs 0 for disabled — roughly 4-5x the generation cost per
+call, for a benefit this dataset size can't yet confirm.
+
+**Decision: inconclusive, not adopted, not pursued further today.**
+Getting real confidence needs repeated runs per config (pass-rate
+thresholds, the same lesson Day 26 already applies to regression
+detection) rather than more single-run experiments at this sample size —
+diminishing returns for today's timebox. Logged to BACKLOG.md with that
+as the explicit revisit condition, rather than left as an unrecorded loose
+end.
+
+**Raw files:** `Day32_thinking_effort_experiment.py`,
+`Day32_thinking_effort_experiment_results_maxtok8192.json` (round 2, the
+trustworthy one), `Day32_thinking_effort_experiment_results_round1_maxtok2048.json`
+(round 1, kept for the record but confounded by truncation — don't treat
+its numbers as evidence).
