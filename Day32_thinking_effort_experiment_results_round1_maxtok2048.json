@@ -1,0 +1,891 @@
+{
+  "results": [
+    {
+      "id": "req_b01",
+      "source": "day24_borderline",
+      "requirement_text": "When a technician marks a task as complete after uploading required photo evidence, the system must transition the task's status from IN_PROGRESS to COMPLETED and record completed_at as the exact UTC timestamp of that action in ISO-8601 format.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 207,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Task status transitions to COMPLETED with UTC timestamp upon completion with photo evidence",
+        "description": "Verify that when a technician marks a task as complete after uploading the required photo evidence, the system transitions the task's status from IN_PROGRESS to COMPLETED and records the completed_at field as the exact UTC timestamp of the action in ISO-8601 format.",
+        "preconditions": [
+          "A task exists with status IN_PROGRESS",
+          "The task has required photo evidence uploaded",
+          "A technician user is authenticated and authorized to complete the task"
+        ],
+        "test_steps": [
+          "Record the current UTC time immediately before the action.",
+          "As the technician, mark the task as complete.",
+          "Retrieve the task's status and completed_at field."
+        ],
+        "expected_result": "Task status equals COMPLETED and completed_at is an ISO-8601 UTC timestamp matching the action time.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the IN_PROGRESS to COMPLETED transition with photo evidence, provides concrete executable steps, verifies the exact ISO-8601 UTC timestamp, and states an unambiguous pass condition."
+    },
+    {
+      "id": "req_b01",
+      "source": "day24_borderline",
+      "requirement_text": "When a technician marks a task as complete after uploading required photo evidence, the system must transition the task's status from IN_PROGRESS to COMPLETED and record completed_at as the exact UTC timestamp of that action in ISO-8601 format.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 1011,
+      "gen_reasoning_tokens": 813,
+      "parsed_output": {
+        "title": "Task Completion Status Transition and Timestamp Recording",
+        "description": "Verify that when a technician marks a task as complete after uploading required photo evidence, the task's status changes from IN_PROGRESS to COMPLETED and the completed_at field is set to the exact UTC timestamp of the action in ISO-8601 format.",
+        "preconditions": [
+          "A task exists with status IN_PROGRESS",
+          "Required photo evidence has been uploaded for the task",
+          "A technician is logged in and authorized to mark tasks as complete"
+        ],
+        "test_steps": [
+          "Technician uploads the required photo evidence for the task if not already uploaded.",
+          "Technician marks the task as complete.",
+          "System processes the completion action."
+        ],
+        "expected_result": "Task status is COMPLETED and completed_at is a valid ISO-8601 UTC timestamp.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The expected result only checks that completed_at is a valid ISO-8601 UTC timestamp, but the requirement demands it be the exact UTC timestamp of the completion action, so verification fidelity fails."
+    },
+    {
+      "id": "req_b01",
+      "source": "day24_borderline",
+      "requirement_text": "When a technician marks a task as complete after uploading required photo evidence, the system must transition the task's status from IN_PROGRESS to COMPLETED and record completed_at as the exact UTC timestamp of that action in ISO-8601 format.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 886,
+      "gen_reasoning_tokens": 677,
+      "parsed_output": {
+        "title": "Task completion transitions status and records UTC completed_at",
+        "description": "Verify that when a technician marks a task as complete after uploading required photo evidence, the task status transitions from IN_PROGRESS to COMPLETED and completed_at is recorded as the exact UTC timestamp of that action in ISO-8601 format.",
+        "preconditions": [
+          "A task exists with status IN_PROGRESS.",
+          "A technician user is authenticated and authorized to complete the task.",
+          "The task's required photo evidence has been uploaded."
+        ],
+        "test_steps": [
+          "Record the current UTC time immediately before submitting the completion action.",
+          "As the technician, mark the task as complete after confirming the required photo evidence is uploaded.",
+          "Retrieve the task record or inspect the completion response."
+        ],
+        "expected_result": "status equals COMPLETED and completed_at matches the recorded completion action time in ISO-8601 UTC format.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the IN_PROGRESS to COMPLETED transition with photo evidence, provides concrete steps, and verifies the exact UTC ISO-8601 completed_at timestamp with an unambiguous pass condition."
+    },
+    {
+      "id": "req_b02",
+      "source": "day24_borderline",
+      "requirement_text": "If a technician takes an unreasonably long time to complete an assigned task, the system should flag the task's status as OVERDUE once the elapsed time since assignment exceeds the task's configured SLA threshold, and notify the appropriate supervisor in a timely manner.",
+      "thinking_config": "disabled",
+      "gen_status": "invalid",
+      "gen_output_tokens": 233,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": null,
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The generated test case contains no valid output, so it lacks all required fields and cannot test the requirement."
+    },
+    {
+      "id": "req_b02",
+      "source": "day24_borderline",
+      "requirement_text": "If a technician takes an unreasonably long time to complete an assigned task, the system should flag the task's status as OVERDUE once the elapsed time since assignment exceeds the task's configured SLA threshold, and notify the appropriate supervisor in a timely manner.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 1006,
+      "gen_reasoning_tokens": 802,
+      "parsed_output": {
+        "title": "Flag overdue task after SLA threshold exceeded",
+        "description": "Verify that when a technician takes longer than the task's configured SLA threshold to complete an assigned task, the task status is flagged OVERDUE and the appropriate supervisor is notified.",
+        "preconditions": [
+          "A task is assigned to a technician.",
+          "The task has a configured SLA threshold.",
+          "The task remains incomplete.",
+          "An appropriate supervisor is associated with the task or technician."
+        ],
+        "test_steps": [
+          "Record the task assignment time and configured SLA threshold.",
+          "Allow or simulate elapsed time until it exceeds the configured SLA threshold without task completion.",
+          "Query the task status.",
+          "Check whether the appropriate supervisor receives a notification."
+        ],
+        "expected_result": "Task status equals OVERDUE after the configured SLA threshold is exceeded; supervisor notification timing is unverifiable because 'timely manner' is undefined.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the core OVERDUE flagging behavior, but its expected result explicitly declares the supervisor notification timing unverifiable, failing to verify the requirement's 'timely manner' notification detail and leaving pass/fail ambiguous."
+    },
+    {
+      "id": "req_b02",
+      "source": "day24_borderline",
+      "requirement_text": "If a technician takes an unreasonably long time to complete an assigned task, the system should flag the task's status as OVERDUE once the elapsed time since assignment exceeds the task's configured SLA threshold, and notify the appropriate supervisor in a timely manner.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1121,
+      "gen_reasoning_tokens": 916,
+      "parsed_output": {
+        "title": "Flag assigned task as OVERDUE after SLA threshold and notify supervisor",
+        "description": "Verify that when a technician does not complete an assigned task before the configured SLA threshold elapses, the system flags the task status as OVERDUE and generates a supervisor notification. The requirement does not specify the exact timing, recipient selection rules, or notification mechanism.",
+        "preconditions": [
+          "An assigned task exists for a technician and is not completed.",
+          "The task has a configured SLA threshold.",
+          "An appropriate supervisor is associated with the technician or task.",
+          "The system can evaluate elapsed time since task assignment."
+        ],
+        "test_steps": [
+          "Record the task assignment time and its configured SLA threshold.",
+          "Allow or simulate elapsed time to exceed the configured SLA threshold without completing the task.",
+          "Check the task's status field.",
+          "Check whether the appropriate supervisor receives a notification."
+        ],
+        "expected_result": "Task status equals OVERDUE and configured supervisor is notified; exact timing and recipient criteria are unspecified in the requirement.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the OVERDUE flagging and supervisor notification behavior, provides concrete executable steps, verifies the specific OVERDUE status and notification, and states an unambiguous pass condition."
+    },
+    {
+      "id": "req_b03",
+      "source": "day24_borderline",
+      "requirement_text": "When a customer cancels a scheduled task, the system must waive the cancellation fee if the cancellation occurs more than 24 hours before the appointment window; cancellations made inside that window should incur a fee that reasonably reflects the shortened notice given.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 300,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Cancellation Fee Waiver Based on 24-Hour Notice",
+        "description": "Verify that when a customer cancels a scheduled task, the system waives the cancellation fee if the cancellation is made more than 24 hours before the appointment window, and charges a fee if the cancellation is made within 24 hours of the appointment window.",
+        "preconditions": [
+          "A customer has a scheduled task with a defined appointment window.",
+          "The system has a cancellation fee policy configured.",
+          "The current time is known relative to the appointment window."
+        ],
+        "test_steps": [
+          "Create a scheduled task with an appointment window starting at a known future time.",
+          "Cancel the task more than 24 hours before the appointment window start time.",
+          "Observe the cancellation fee applied to the cancellation.",
+          "Create another scheduled task with an appointment window starting at a known future time.",
+          "Cancel the task within 24 hours before the appointment window start time.",
+          "Observe the cancellation fee applied to the cancellation."
+        ],
+        "expected_result": "Cancellation more than 24 hours before the appointment window results in a waived fee (fee amount equals zero); cancellation within 24 hours results in a fee greater than zero. Note: the requirement does not specify the exact fee amount or how 'reasonably reflects' is determined, so the fee value cannot be verified precisely.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the 24-hour waiver boundary with concrete steps, and its expected result clearly distinguishes pass/fail by checking zero vs. greater-than-zero fee while appropriately noting the unspecified exact fee amount."
+    },
+    {
+      "id": "req_b03",
+      "source": "day24_borderline",
+      "requirement_text": "When a customer cancels a scheduled task, the system must waive the cancellation fee if the cancellation occurs more than 24 hours before the appointment window; cancellations made inside that window should incur a fee that reasonably reflects the shortened notice given.",
+      "thinking_config": "low",
+      "gen_status": "invalid_json",
+      "gen_output_tokens": 2048,
+      "gen_reasoning_tokens": 1998,
+      "parsed_output": null,
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The generated test case contains no valid output, so it lacks all required fields and cannot test the requirement."
+    },
+    {
+      "id": "req_b03",
+      "source": "day24_borderline",
+      "requirement_text": "When a customer cancels a scheduled task, the system must waive the cancellation fee if the cancellation occurs more than 24 hours before the appointment window; cancellations made inside that window should incur a fee that reasonably reflects the shortened notice given.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 700,
+      "gen_reasoning_tokens": 518,
+      "parsed_output": {
+        "title": "Waive cancellation fee for cancellation more than 24 hours before appointment window",
+        "description": "Verify that canceling a scheduled task more than 24 hours before the appointment window waives the cancellation fee.",
+        "preconditions": [
+          "Customer has a scheduled task with a defined appointment window.",
+          "A cancellation fee is configured for the scheduled task.",
+          "Current time is more than 24 hours before the appointment window start."
+        ],
+        "test_steps": [
+          "Open the scheduled task for the customer.",
+          "Confirm the appointment window starts more than 24 hours from the current time.",
+          "Cancel the scheduled task.",
+          "Review the cancellation fee applied to the cancellation."
+        ],
+        "expected_result": "The cancellation fee for the canceled scheduled task is 0 (waived).",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case fully covers the waiver branch of the requirement with concrete preconditions, executable steps, and an unambiguous expected result of a zero fee, though it does not test the inside-24-hour fee branch."
+    },
+    {
+      "id": "req_b04",
+      "source": "day24_borderline",
+      "requirement_text": "The system should generally make sure task scheduling and technician assignment work well for everyone involved, avoiding problems and keeping things running smoothly.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 183,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Verify task scheduling and technician assignment complete without errors",
+        "description": "Test that the system can schedule a task and assign a technician without encountering errors or conflicts, ensuring smooth operation for all involved parties.",
+        "preconditions": [
+          "System is running and accessible",
+          "At least one task exists that requires scheduling",
+          "At least one technician is available for assignment"
+        ],
+        "test_steps": [
+          "Create or select a task that needs scheduling",
+          "Initiate the scheduling process for the task",
+          "Assign an available technician to the task",
+          "Confirm the scheduling and assignment"
+        ],
+        "expected_result": "The task is scheduled and a technician is assigned with no errors or conflicts; however, the requirement is ambiguous regarding specific success criteria, so this is a best-effort verification.",
+        "priority": "medium"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test case covers the general scheduling/assignment behavior but its steps and expected result are vague and self-admittedly best-effort, failing to specify concrete success criteria or an unambiguous pass/fail condition."
+    },
+    {
+      "id": "req_b04",
+      "source": "day24_borderline",
+      "requirement_text": "The system should generally make sure task scheduling and technician assignment work well for everyone involved, avoiding problems and keeping things running smoothly.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 725,
+      "gen_reasoning_tokens": 546,
+      "parsed_output": {
+        "title": "Verify task scheduling and technician assignment workflow",
+        "description": "Broadly verify that scheduling a task and assigning a technician execute without blocking errors, while noting that the requirement provides no concrete success criteria, roles, fields, or expected values.",
+        "preconditions": [
+          "System has at least one task requiring scheduling.",
+          "System has at least one available technician.",
+          "Tester can access the task scheduling and technician assignment functionality."
+        ],
+        "test_steps": [
+          "Navigate to the task scheduling module.",
+          "Create or select a task that requires scheduling.",
+          "Assign an available technician through the system workflow.",
+          "Submit or confirm the scheduling and technician assignment.",
+          "Observe the system response and the resulting schedule or assignment state."
+        ],
+        "expected_result": "Pass if scheduling and technician assignment complete without errors; requirement lacks specific fields, criteria, and roles, so exact pass/fail is indeterminate.",
+        "priority": "medium"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "All fields are present and the test targets the right workflow, but the requirement is too vague to yield concrete steps or a determinate pass/fail, and the expected result explicitly admits it cannot verify the requirement's specific intent."
+    },
+    {
+      "id": "req_b04",
+      "source": "day24_borderline",
+      "requirement_text": "The system should generally make sure task scheduling and technician assignment work well for everyone involved, avoiding problems and keeping things running smoothly.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1251,
+      "gen_reasoning_tokens": 1069,
+      "parsed_output": {
+        "title": "Task Scheduling and Technician Assignment Basic Success",
+        "description": "Verifies that a task requiring scheduling is processed by the system and assigned to an available technician without visible errors or conflicts, as a best-effort interpretation of an otherwise vague requirement.",
+        "preconditions": [
+          "The system has task scheduling and technician assignment functionality.",
+          "A task that requires scheduling exists.",
+          "At least one technician is available for assignment."
+        ],
+        "test_steps": [
+          "Open the existing task that requires scheduling.",
+          "Trigger the system's scheduling and technician assignment process.",
+          "Observe the task's assigned technician and any displayed error or conflict messages."
+        ],
+        "expected_result": "The task is assigned to an available technician and no error or conflict message is displayed; measurable acceptance criteria are not specified.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test case covers the general scheduling/assignment behavior but is too vague to execute and its expected result only confirms a broad outcome without any specific measurable criteria, failing verification fidelity and pass/fail clarity."
+    },
+    {
+      "id": "req_b05",
+      "source": "day24_borderline",
+      "requirement_text": "When a task is reassigned to a different technician mid-shift, the system must transition the task's status from ASSIGNED to REASSIGNED and require the original technician to leave a handoff note that gives the new technician enough context to continue the work without needing to re-contact the customer for basic details.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 296,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Task Reassignment Status Transition and Handoff Note Requirement",
+        "description": "Verify that when a task is reassigned to a different technician mid-shift, the system transitions the task status from ASSIGNED to REASSIGNED and enforces that the original technician provides a handoff note containing sufficient context for the new technician to continue without re-contacting the customer for basic details.",
+        "preconditions": [
+          "A task exists with status ASSIGNED to an original technician.",
+          "The reassignment occurs mid-shift.",
+          "A different technician is available to receive the reassignment.",
+          "The original technician is logged in and has permission to reassign tasks."
+        ],
+        "test_steps": [
+          "Log in as the original technician.",
+          "Open the assigned task.",
+          "Initiate reassignment of the task to a different technician.",
+          "Observe the task status immediately after reassignment is initiated.",
+          "Attempt to complete the reassignment without providing a handoff note.",
+          "Provide a handoff note that includes sufficient context for the new technician to continue without re-contacting the customer for basic details.",
+          "Complete the reassignment."
+        ],
+        "expected_result": "Task status changes from ASSIGNED to REASSIGNED and reassignment is blocked until a handoff note is provided; note sufficiency is not automatically verifiable.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "borderline",
+      "judge_reasoning": "The test covers the status transition and handoff note requirement with concrete steps, but its expected result admits that note sufficiency is not automatically verifiable, making the pass/fail condition ambiguous for the sufficiency aspect."
+    },
+    {
+      "id": "req_b05",
+      "source": "day24_borderline",
+      "requirement_text": "When a task is reassigned to a different technician mid-shift, the system must transition the task's status from ASSIGNED to REASSIGNED and require the original technician to leave a handoff note that gives the new technician enough context to continue the work without needing to re-contact the customer for basic details.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 1693,
+      "gen_reasoning_tokens": 1453,
+      "parsed_output": {
+        "title": "Reassign Task Mid-Shift Requires Handoff Note and Status REASSIGNED",
+        "description": "Verify that when an ASSIGNED task is reassigned from one technician to a different technician during the same shift, the system transitions the task status to REASSIGNED and requires the original technician to submit a handoff note before reassignment completes.",
+        "preconditions": [
+          "Task exists with status ASSIGNED.",
+          "Task is assigned to the original technician.",
+          "Original technician and new technician are both on shift.",
+          "User has permission to reassign the task.",
+          "A different technician is available for reassignment."
+        ],
+        "test_steps": [
+          "Open the ASSIGNED task.",
+          "Initiate reassignment to a different technician who is on shift.",
+          "Attempt to confirm the reassignment without entering a handoff note.",
+          "Observe whether the reassignment is blocked and whether task status remains ASSIGNED.",
+          "Enter a handoff note for the new technician.",
+          "Confirm the reassignment."
+        ],
+        "expected_result": "Task status equals REASSIGNED after original technician submits a handoff note; without note reassignment is blocked; note adequacy needs manual review.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the status transition and handoff note requirement, but its expected result only checks that a note is submitted and defers note adequacy to manual review, failing to verify the requirement's specific detail that the note gives enough context to continue without re-contacting the customer, and it lacks an unambiguous pass/fail condition."
+    },
+    {
+      "id": "req_b05",
+      "source": "day24_borderline",
+      "requirement_text": "When a task is reassigned to a different technician mid-shift, the system must transition the task's status from ASSIGNED to REASSIGNED and require the original technician to leave a handoff note that gives the new technician enough context to continue the work without needing to re-contact the customer for basic details.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1901,
+      "gen_reasoning_tokens": 1661,
+      "parsed_output": {
+        "title": "Reassign task mid-shift with mandatory handoff note",
+        "description": "Verify that reassigning an ASSIGNED task to a different technician during an active shift requires the original technician to enter a handoff note and transitions the task status to REASSIGNED.",
+        "preconditions": [
+          "A task exists with status ASSIGNED.",
+          "The task is assigned to the original technician.",
+          "The original technician is working mid-shift.",
+          "A different technician is available for reassignment."
+        ],
+        "test_steps": [
+          "Log in as the original technician during the active shift.",
+          "Open the ASSIGNED task.",
+          "Initiate reassignment to a different technician.",
+          "Attempt to confirm the reassignment without entering a handoff note.",
+          "Enter a handoff note intended to provide context for the new technician.",
+          "Confirm the reassignment."
+        ],
+        "expected_result": "Reassignment is blocked without a handoff note; once provided, task status field equals REASSIGNED and note is saved; note sufficiency is ambiguous.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the reassignment and handoff note requirement, but its expected result admits the note sufficiency is ambiguous and does not verify that the note gives enough context to avoid re-contacting the customer, so verification fidelity and pass/fail clarity fail."
+    },
+    {
+      "id": "req_24",
+      "source": "day17_adversarial",
+      "requirement_text": "On the FSM Mobile App, when performing certain task types, a Provisioning page will show activate/deactivate/reprovision options and a serial number input box for the technician to enter the device serial number being provisioned.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 265,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Provisioning Page Displays Options and Serial Number Input for Certain Task Types",
+        "description": "Verify that when a technician performs a task type that requires provisioning on the FSM Mobile App, the Provisioning page displays the activate, deactivate, and reprovision options along with a serial number input box for entering the device serial number.",
+        "preconditions": [
+          "Technician is logged into the FSM Mobile App",
+          "A task of a type that requires provisioning is assigned to the technician",
+          "The technician has opened the task and navigated to the point where provisioning is performed"
+        ],
+        "test_steps": [
+          "Open the FSM Mobile App and log in as a technician.",
+          "Navigate to the assigned task that requires provisioning.",
+          "Initiate the provisioning action for the task.",
+          "Observe the Provisioning page that appears.",
+          "Verify the presence of activate, deactivate, and reprovision options.",
+          "Verify the presence of a serial number input box."
+        ],
+        "expected_result": "The Provisioning page shows activate, deactivate, and reprovision options and a serial number input box; note: the requirement does not specify which task types trigger this page.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the Provisioning page's activate/deactivate/reprovision options and serial number input for provisioning task types, provides concrete preconditions and steps, and its expected result unambiguously verifies the exact UI elements named in the requirement."
+    },
+    {
+      "id": "req_24",
+      "source": "day17_adversarial",
+      "requirement_text": "On the FSM Mobile App, when performing certain task types, a Provisioning page will show activate/deactivate/reprovision options and a serial number input box for the technician to enter the device serial number being provisioned.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 925,
+      "gen_reasoning_tokens": 730,
+      "parsed_output": {
+        "title": "Provisioning Page Options and Serial Number Input Display",
+        "description": "Verify that when a technician opens a task type that triggers provisioning, the FSM Mobile App Provisioning page shows activate/deactivate/reprovision options and a serial number input box for entering the device serial number.",
+        "preconditions": [
+          "FSM Mobile App is installed and running",
+          "Technician is logged in with access to provisioning tasks",
+          "A task of a type that triggers the Provisioning page is available and assigned to the technician"
+        ],
+        "test_steps": [
+          "Launch the FSM Mobile App and log in as a technician",
+          "Open an assigned task of a type that triggers the Provisioning page",
+          "Navigate to or open the Provisioning page for that task",
+          "Inspect the Provisioning page for available options and inputs"
+        ],
+        "expected_result": "Provisioning page displays activate/deactivate/reprovision options and a serial number input box; exact triggering task types are unspecified.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the requirement's Provisioning page options and serial number input, provides concrete executable steps, and its expected result unambiguously verifies the named UI elements."
+    },
+    {
+      "id": "req_24",
+      "source": "day17_adversarial",
+      "requirement_text": "On the FSM Mobile App, when performing certain task types, a Provisioning page will show activate/deactivate/reprovision options and a serial number input box for the technician to enter the device serial number being provisioned.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1072,
+      "gen_reasoning_tokens": 822,
+      "parsed_output": {
+        "title": "Provisioning page displays activation options and serial number input",
+        "description": "Verify that when a technician opens a task type that triggers provisioning, the FSM Mobile App shows the Provisioning page with Activate, Deactivate, and Reprovision options plus a serial number input box for entering the device serial number.",
+        "preconditions": [
+          "FSM Mobile App is installed and the tester is logged in as a technician.",
+          "A task type that triggers the Provisioning page is assigned or available.",
+          "The device serial number to provision is available or can be entered during the test."
+        ],
+        "test_steps": [
+          "Open the FSM Mobile App as a technician.",
+          "Navigate to and open a task whose type is known to trigger the Provisioning page.",
+          "Observe the Provisioning page.",
+          "Verify that Activate, Deactivate, and Reprovision options are displayed.",
+          "Verify that a serial number input box is displayed."
+        ],
+        "expected_result": "Provisioning page shows Activate, Deactivate, Reprovision options and a serial number input box; task-type trigger is unspecified.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "All required fields are present, the test directly covers the Provisioning page options and serial number input described in the requirement, steps are concrete, and the expected result clearly states the pass condition."
+    },
+    {
+      "id": "req_25",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, then the old service will be deactivated, and then a connection status check will be done to verify the service is working as expected.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 237,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Device Swap Service Activation and Deactivation Order",
+        "description": "Verify that during a device swap, the new service is activated before the old service is deactivated, and a connection status check confirms the service is working as expected.",
+        "preconditions": [
+          "A device swap scenario is configured with a new service and an old service.",
+          "The system is in a state where the device swap can be initiated.",
+          "The new service and old service are identifiable in the system."
+        ],
+        "test_steps": [
+          "Initiate a device swap for the specified device.",
+          "Observe the sequence of operations performed by the system.",
+          "Verify that the new service is activated first.",
+          "Verify that the old service is deactivated after the new service activation.",
+          "Verify that a connection status check is performed after the old service deactivation.",
+          "Check the result of the connection status check."
+        ],
+        "expected_result": "The new service is activated before the old service is deactivated, and the connection status check indicates the service is working as expected.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly covers the activation-deactivation order and connection status check, provides concrete steps and preconditions, and states an unambiguous expected result matching the requirement."
+    },
+    {
+      "id": "req_25",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, then the old service will be deactivated, and then a connection status check will be done to verify the service is working as expected.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 958,
+      "gen_reasoning_tokens": 753,
+      "parsed_output": {
+        "title": "Device Swap Service Activation and Deactivation Order",
+        "description": "Verify that during a device swap, the new service is activated before the old service is deactivated, and that a subsequent connection status check confirms the service is working as expected.",
+        "preconditions": [
+          "A device swap operation is available and initiated for a target device.",
+          "Both the new service and the old service exist for the device swap.",
+          "The tester can observe service activation, service deactivation, and connection status check results."
+        ],
+        "test_steps": [
+          "Initiate the device swap for the target device.",
+          "Record when the new service is activated.",
+          "Record when the old service is deactivated.",
+          "Observe or trigger the connection status check after the old service is deactivated.",
+          "Verify the activation, deactivation, and connection status check occur in the required order."
+        ],
+        "expected_result": "New service activates before old service deactivates; connection status check confirms service working, though its exact status field is unspecified.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the required activation/deactivation order and connection check, but the expected result admits the connection status field is unspecified, so it does not verify the specific working state the requirement names and lacks an unambiguous pass/fail condition."
+    },
+    {
+      "id": "req_25",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, then the old service will be deactivated, and then a connection status check will be done to verify the service is working as expected.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 725,
+      "gen_reasoning_tokens": 567,
+      "parsed_output": {
+        "title": "Device swap service activation order and connectivity verification",
+        "description": "Verify that during a device swap, the new service is activated before the old service is deactivated, and a connection status check confirms the service is working as expected.",
+        "preconditions": [
+          "A device swap has been requested or triggered.",
+          "The old service is currently active.",
+          "The new service is available and configured for activation."
+        ],
+        "test_steps": [
+          "Initiate the device swap.",
+          "Observe the activation of the new service.",
+          "Observe the deactivation of the old service.",
+          "Perform or observe the connection status check for the service."
+        ],
+        "expected_result": "The new service activates before the old service deactivates, and the connection status check reports the service is working.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "borderline",
+      "judge_reasoning": "All required fields are present and the test covers the exact activation/deactivation order and connection check, but the steps are somewhat vague (e.g., 'Observe the activation') lacking concrete actions or timing details."
+    },
+    {
+      "id": "req_33",
+      "source": "day17_adversarial",
+      "requirement_text": "The Reprovision request should contain the security headers, and the body should contain orderId, action, serviceId, and deviceSerialId.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 206,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Verify Reprovision Request Security Headers and Body Fields",
+        "description": "Test that a Reprovision request includes the required security headers and that the request body contains the fields orderId, action, serviceId, and deviceSerialId.",
+        "preconditions": [
+          "A Reprovision request can be triggered in the system under test.",
+          "A tool or proxy is available to capture the outgoing Reprovision request."
+        ],
+        "test_steps": [
+          "Trigger a Reprovision request.",
+          "Capture the outgoing Reprovision request.",
+          "Inspect the request headers for security headers.",
+          "Inspect the request body for the fields orderId, action, serviceId, and deviceSerialId."
+        ],
+        "expected_result": "The request includes security headers and the body contains orderId, action, serviceId, and deviceSerialId; the requirement does not specify which security headers, so exact header names cannot be verified.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the Reprovision request's security headers and body fields, provides concrete executable steps, and its expected result clearly checks the named body fields while acknowledging the unspecified security headers."
+    },
+    {
+      "id": "req_33",
+      "source": "day17_adversarial",
+      "requirement_text": "The Reprovision request should contain the security headers, and the body should contain orderId, action, serviceId, and deviceSerialId.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 743,
+      "gen_reasoning_tokens": 570,
+      "parsed_output": {
+        "title": "Verify Reprovision Request Headers and Body Fields",
+        "description": "Validates that an outbound Reprovision request includes the required security headers and that its body contains the orderId, action, serviceId, and deviceSerialId fields.",
+        "preconditions": [
+          "Reprovision endpoint is available.",
+          "A valid Reprovision request can be constructed by the test client."
+        ],
+        "test_steps": [
+          "Construct a Reprovision request.",
+          "Add the security headers required by the API contract.",
+          "Set the request body to include orderId, action, serviceId, and deviceSerialId.",
+          "Send the Reprovision request.",
+          "Capture the request headers and body for verification."
+        ],
+        "expected_result": "Reprovision request includes security headers (specific names unspecified) and body contains orderId, action, serviceId, and deviceSerialId.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the right behavior but fails verification fidelity because it does not specify the actual security header names or verify their presence, and its expected result is vague and non-deterministic, making pass/fail unclear."
+    },
+    {
+      "id": "req_33",
+      "source": "day17_adversarial",
+      "requirement_text": "The Reprovision request should contain the security headers, and the body should contain orderId, action, serviceId, and deviceSerialId.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1043,
+      "gen_reasoning_tokens": 811,
+      "parsed_output": {
+        "title": "Verify Reprovision request includes security headers and required body fields",
+        "description": "Validate that a Reprovision request includes security headers and that the request body contains orderId, action, serviceId, and deviceSerialId.",
+        "preconditions": [
+          "A Reprovision endpoint is available for testing.",
+          "A valid Reprovision request payload can be constructed with orderId, action, serviceId, and deviceSerialId.",
+          "Any required authentication or session setup for sending the request is configured."
+        ],
+        "test_steps": [
+          "Prepare a Reprovision request with a body containing orderId, action, serviceId, and deviceSerialId.",
+          "Send the Reprovision request to the system under test.",
+          "Inspect the sent request headers for security headers.",
+          "Inspect the sent request body for orderId, action, serviceId, and deviceSerialId."
+        ],
+        "expected_result": "The Reprovision request contains security headers (header names unspecified) and body fields orderId, action, serviceId, deviceSerialId.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case fully covers the requirement by verifying both security headers and all four required body fields, with concrete steps and an unambiguous expected result."
+    },
+    {
+      "id": "req_34",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, its connection status verified as working, and only then will the old service be deactivated.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 181,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Device Swap Activation Order",
+        "description": "Verify that during a device swap, the new service is activated and its connection status is confirmed as working before the old service is deactivated.",
+        "preconditions": [
+          "A device swap request exists for a customer with an old service and a new service.",
+          "The old service is currently active.",
+          "The new service is currently inactive."
+        ],
+        "test_steps": [
+          "Initiate the device swap process for the customer.",
+          "Observe the activation status of the new service.",
+          "Verify the connection status of the new service.",
+          "Observe the deactivation status of the old service."
+        ],
+        "expected_result": "The new service is activated and its connection status is verified as working before the old service is deactivated.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the activation-before-deactivation ordering with concrete preconditions and steps, and its expected result unambiguously verifies the required sequence."
+    },
+    {
+      "id": "req_34",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, its connection status verified as working, and only then will the old service be deactivated.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 491,
+      "gen_reasoning_tokens": 285,
+      "parsed_output": {
+        "title": "Device swap activation and deactivation order",
+        "description": "Verify that during a device swap, the new service is activated before the old service is deactivated, and that the old service is deactivated only after the new service's connection status is verified as working.",
+        "preconditions": [
+          "A device swap operation is requested or initiated.",
+          "The old service is currently active.",
+          "The new service is available to be activated.",
+          "The system can report the connection status of the new service."
+        ],
+        "test_steps": [
+          "Initiate a device swap.",
+          "Observe the activation of the new service.",
+          "Verify the connection status of the new service is reported as working.",
+          "Observe when the old service is deactivated."
+        ],
+        "expected_result": "New service is activated before connection status is verified as working, and old service is deactivated only after that verification.",
+        "priority": "high"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "good",
+      "judge_reasoning": "The test case includes all required fields, directly tests the activation-before-deactivation ordering with connection verification, provides concrete executable steps, and states an unambiguous pass condition matching the requirement."
+    },
+    {
+      "id": "req_34",
+      "source": "day17_adversarial",
+      "requirement_text": "For a device swap, the new service will be activated first, its connection status verified as working, and only then will the old service be deactivated.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 736,
+      "gen_reasoning_tokens": 535,
+      "parsed_output": {
+        "title": "Device swap activates and verifies new service before deactivating old service",
+        "description": "Verify that during a device swap, the new service is activated first, its connection status is confirmed as working, and only after that confirmation is the old service deactivated.",
+        "preconditions": [
+          "A device swap scenario is available with an old service and a new service.",
+          "The old service is currently active.",
+          "The new service is available to be activated."
+        ],
+        "test_steps": [
+          "Initiate the device swap for the old service and the new service.",
+          "Observe whether the new service is activated.",
+          "Check the connection status of the new service.",
+          "Observe whether the old service is deactivated."
+        ],
+        "expected_result": "New service is activated and its connection status is working before old service is deactivated; exact status field unspecified.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the correct ordering behavior but its expected result explicitly leaves the connection status field unspecified, so it does not verify the specific 'working' state the requirement names, and the steps are too vague to execute deterministically."
+    },
+    {
+      "id": "req_35",
+      "source": "day17_adversarial",
+      "requirement_text": "The Task Side panel's Provisioning Logs section should give the Dispatcher a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+      "thinking_config": "disabled",
+      "gen_status": "valid",
+      "gen_output_tokens": 221,
+      "gen_reasoning_tokens": 0,
+      "parsed_output": {
+        "title": "Provisioning Logs Section Displays Technician-Triggered EIPS Requests",
+        "description": "Verify that the Task Side panel's Provisioning Logs section provides the Dispatcher with a clear, easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+        "preconditions": [
+          "The Task Side panel is accessible to the Dispatcher.",
+          "A Technician has triggered at least one request to the EIPS.",
+          "The Dispatcher is viewing the relevant task in the Task Side panel."
+        ],
+        "test_steps": [
+          "Open the Task Side panel for a task where the Technician has triggered requests to the EIPS.",
+          "Locate the Provisioning Logs section within the panel.",
+          "Review the entries listed in the Provisioning Logs section."
+        ],
+        "expected_result": "The Provisioning Logs section lists all Technician-triggered EIPS requests; clarity and ease-of-following are not objectively verifiable from the requirement.",
+        "priority": "medium"
+      },
+      "assertion_passed": true,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the right area but its expected result explicitly disclaims verifiability of the requirement's core 'clear and easy-to-follow' quality, providing no concrete pass/fail condition, so verification fidelity and pass/fail clarity fail."
+    },
+    {
+      "id": "req_35",
+      "source": "day17_adversarial",
+      "requirement_text": "The Task Side panel's Provisioning Logs section should give the Dispatcher a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+      "thinking_config": "low",
+      "gen_status": "valid",
+      "gen_output_tokens": 968,
+      "gen_reasoning_tokens": 706,
+      "parsed_output": {
+        "title": "Dispatcher views Technician-triggered EIPS requests in Task Side panel Provisioning Logs",
+        "description": "Verify that the Task Side panel's Provisioning Logs section provides the Dispatcher with a clear, easy-to-follow view of all requests triggered by the Technician to EIPS.",
+        "preconditions": [
+          "Dispatcher is logged into the system",
+          "A relevant task is available in the Task Side panel",
+          "At least one request to EIPS has been triggered by the Technician for the task",
+          "The Task Side panel includes a Provisioning Logs section"
+        ],
+        "test_steps": [
+          "Log in as a Dispatcher.",
+          "Open the Task Side panel for a task where the Technician has triggered at least one EIPS request.",
+          "Locate and expand the Provisioning Logs section.",
+          "Compare the entries shown in Provisioning Logs with the known Technician-triggered EIPS requests for that task.",
+          "Confirm the entries are readable and follow a clear sequence."
+        ],
+        "expected_result": "Provisioning Logs shows each Technician-triggered EIPS request; exact fields/order are unspecified in the requirement.",
+        "priority": "high"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test covers the right feature but its steps and expected result are vague and explicitly defer to unspecified fields/order, so it cannot verify the requirement's 'clear and easy-to-follow' view with an unambiguous pass/fail condition."
+    },
+    {
+      "id": "req_35",
+      "source": "day17_adversarial",
+      "requirement_text": "The Task Side panel's Provisioning Logs section should give the Dispatcher a clear and easy-to-follow view of all requests triggered by the Technician to the EIPS.",
+      "thinking_config": "high",
+      "gen_status": "valid",
+      "gen_output_tokens": 1221,
+      "gen_reasoning_tokens": 1025,
+      "parsed_output": {
+        "title": "Dispatcher views Technician-triggered EIPS requests in Provisioning Logs",
+        "description": "Verify that the Task Side panel's Provisioning Logs section provides the Dispatcher with a clear, easy-to-follow view of all requests triggered by the Technician to EIPS.",
+        "preconditions": [
+          "Dispatcher is logged in",
+          "Task Side panel is available",
+          "A Technician has triggered at least one request to EIPS for the task under test"
+        ],
+        "test_steps": [
+          "Open the Task Side panel for the task under test.",
+          "Locate the Provisioning Logs section.",
+          "Review the EIPS requests listed in the Provisioning Logs section.",
+          "Compare the listed requests with the requests triggered by the Technician to EIPS."
+        ],
+        "expected_result": "The Provisioning Logs section shows every Technician-triggered EIPS request as an entry; clarity/ease-of-following criteria are unspecified and cannot be pass/fail verified.",
+        "priority": "medium"
+      },
+      "assertion_passed": false,
+      "judge_status": "valid",
+      "judge_verdict": "bad",
+      "judge_reasoning": "The test case covers the right behavior but its expected result explicitly admits the clarity/ease-of-following criteria are unspecified and cannot be pass/fail verified, so verification fidelity and pass/fail clarity fail, making the verdict bad."
+    }
+  ]
+}
