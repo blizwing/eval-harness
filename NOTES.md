@@ -1735,3 +1735,109 @@ low-power-session guess.
 **Raw evidence:** CI runs `34468685232` (original + rerun, same commit),
 `Day9_Requirements_JSON_Outputs/Day9_outputs.json` (historical
 `model_name` field), one-off local diagnostic call (not saved to a file).
+
+---
+
+## Day 32 — Tests for the harness itself: API mocked, pytest with no network access (Fri 11 Sep 2026)
+
+Verified Day 30/31 landed before starting: `Day26_baseline.py diff` wired
+into `harness.yml`'s regression-gate step, `--cost-cap` present in
+`Day23_runner.py` and passed as `0.02` in CI — confirmed by reading both
+files directly, not just trusting NOTES.md. The Wed 10 Sep model-drift
+incident (judge_pass_rate collapsed after DeepSeek repointed the
+`deepseek-v4-flash` alias) is still open — CI stays red — and was
+deliberately left untouched today; today's tests run entirely offline and
+don't depend on that unresolved question.
+
+**Process note — corrects, not repeats, Day 31's "one-off exception."**
+Claude initially drafted all seven test files plus a hand-off "Claude Code
+prompt" for Pratham to paste elsewhere, reading CLAUDE.md's "Claude does
+not create, edit, or execute project work in its own sandbox" literally.
+Pratham corrected this: this session **is** Claude Code running locally
+with direct file/execution access to the real repo, so that convention
+was written for sessions without tool access (e.g. a web chat) — not this
+one. Claude created the files and ran `pytest` directly in-session.
+Standing rule unchanged: Claude still never runs `git commit`/`git push`.
+Saved as a durable correction (not just a one-off) so future local
+sessions on this repo don't repeat the over-caution.
+
+**Plumbing day, per the standing ownership split** — Claude drafted and
+applied the test suite; Pratham to review the diff and commit.
+
+**Scope: mock only at the API boundary, nowhere else.** Four modules
+(`Day5_validate`, `Day11_assertions`, `Day22_loader`, `Day26_baseline`'s
+diff logic) are already pure functions over dicts/Pydantic models and
+needed no mocking at all — including reusing Day 22's existing
+`Day22_fixtures/*.yaml` rather than inventing new ones. The two modules
+that actually call the model got a fake standing in for the network call
+itself, not a fake of the whole module:
+- `Day23_runner.py`: a `FakeClient` plays back a scripted list of
+  outcomes (a `MeteredResult`, or an exception instance to raise) through
+  `call_openai`, exercising the real `call_with_retry`/`run_all` logic
+  unmodified — retry-then-succeed, retries exhausted, a non-retryable
+  error propagating immediately without retry, and Day 31's cost-cap
+  abort math, all without touching `openai`/`anthropic`'s real clients.
+  `time.sleep` is monkeypatched to a no-op so the retry tests (2s/4s/8s
+  backoff) run in milliseconds instead of ~14s each.
+- `Day24_scorer.py`: `judge_single_case` is monkeypatched directly so
+  `score_judge`/`score_case`/`score_all` run for real, including
+  confirming the `api_error` short-circuit actually skips the model call
+  (asserted via a call-count list, not just checking the returned
+  verdict) and that a malformed judge response still raises
+  `ScoreIntegrityError` — the Day 24 grader-integrity feature this repo
+  already cares about (see CLAUDE.md's "Resolved: grader-output
+  integrity" section) is itself under test now, not just the code it
+  protects.
+
+**Real SDK exception instances, not stand-ins.** `call_with_retry`'s
+`RETRYABLE_EXCEPTIONS` tuple mixes `openai.*` and `anthropic.*` error
+classes — tests construct real `openai.APIConnectionError`/
+`anthropic.APIConnectionError` instances (both take just `request:
+httpx.Request`, confirmed by inspecting the constructor signature before
+writing the test) rather than a generic stand-in exception, so the tests
+prove the actual except-tuple catches both provider families, not just
+that *some* exception gets retried.
+
+**DONE WHEN confirmed directly:**
+
+```
+49 passed in 3.66s
+```
+
+No test touches the network — every case that would otherwise call
+DeepSeek's API has the client itself replaced. `pytest` did need
+installing into `.venv` first (added to `requirements.txt`, wasn't
+present before today).
+
+**Open question, deliberately not decided today:** whether "everything's
+mocked so nothing calls the network" is a strong enough guarantee, or
+whether to add `pytest-socket` (or similar) so a future test that
+*accidentally* skips mocking fails loudly instead of silently making a
+real paid call. Logged to BACKLOG.md rather than added unasked — it's a
+new dependency + design decision, not a today-scope plumbing task.
+
+**Understanding check: closed same day, one open WHY per test-design
+decision.** 1/3 solid, 2 needed correction:
+- Why mock at `LLMClient.call_openai` rather than one layer lower (the
+  raw `openai`/`anthropic` SDK clients)? First answer reached for
+  provider-swapping, but that's not actually in play here — `call_openai`
+  is the only path the runner ever calls. Real reason: `call_with_retry`
+  takes `client` as a parameter, so that's the seam the code already
+  exposes for substitution — mocking there exercises the real retry/cost
+  logic without also having to fake a realistic SDK response object.
+- Why patch `time.sleep` to a no-op in the retry tests? No answer —
+  explained: real backoff is 2s/4s/8s; unpatched, the exhausted-retries
+  test alone costs ~14s, and it multiplies across every retry test. The
+  whole 49-test suite runs in 3.66s because of this.
+- Why assert on `judge_single_case`'s call count, not just the returned
+  verdict, for the `api_error` skip? Right instinct ("checking the API
+  error") but incomplete — a verdict-only check would still pass if a bug
+  called the judge anyway and then discarded the result, silently paying
+  for a wasted call. Same failure shape as the Day 24 grader-integrity
+  check this repo already cares about: looks right on the surface, wrong
+  underneath.
+
+**Raw files:** `tests/conftest.py`, `tests/test_day5_validate.py`,
+`tests/test_day11_assertions.py`, `tests/test_day22_loader.py`,
+`tests/test_day23_runner.py`, `tests/test_day24_scorer.py`,
+`tests/test_day26_baseline.py`, `requirements.txt` (+`pytest`).

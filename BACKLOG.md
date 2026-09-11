@@ -105,3 +105,26 @@ enough to justify the added cost and latency.
   with that item, not bolted onto the Day 22 loader. Flagged 1 Sep 2026.
 
 ---
+
+## Hard network-block guarantee for the Day 32 test suite (raised 11 Sep 2026, Day 32)
+
+Idea: add `pytest-socket` (or equivalent) to `tests/` so any test that
+skips mocking and tries a real network call fails loudly, instead of
+relying on "every test happens to mock the client" holding forever.
+
+Decision: deferred, not built in Day 32.
+- Day 32's suite already achieves the DONE WHEN (`pytest` passes, zero
+  network calls) by mocking at the API boundary (`LLMClient.call_openai`,
+  `judge_single_case`) in every test that would otherwise reach it — the
+  guarantee today is "nothing currently calls out," not "nothing ever
+  could."
+- Adding a new test dependency plus its own config (a socket allow-list
+  for legitimate local I/O like `tmp_path` fixtures) is a small design
+  decision of its own, not a mechanical extension of today's plumbing.
+
+**Revisit trigger:** if a future test change accidentally makes a real
+(paid) call and it isn't caught until a cost/CI anomaly shows up, or when
+Day 33's README is being written and a stronger "how do we know this
+never burns tokens" claim would strengthen it.
+
+---
