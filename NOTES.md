@@ -1841,3 +1841,75 @@ decision.** 1/3 solid, 2 needed correction:
 `tests/test_day11_assertions.py`, `tests/test_day22_loader.py`,
 `tests/test_day23_runner.py`, `tests/test_day24_scorer.py`,
 `tests/test_day26_baseline.py`, `requirements.txt` (+`pytest`).
+
+---
+
+## Follow-up — DeepSeek pricing had already moved too: peak/off-peak cost tracking (Fri 11 Sep 2026)
+
+Surfaced while investigating the still-open Wed 10 Sep model-drift
+incident (`deepseek-v4-flash` silently repointed to a new model). A live
+diagnostic call confirmed the drift was still happening a day later, not
+a one-off blip — `response.model` still echoes `deepseek-flash`
+(DeepSeek-V4.1-Flash), not `deepseek-v4-flash`.
+
+**Researched what actually changed, from primary sources, not a single
+AI-summarized page.** DeepSeek officially shipped V4.1 Flash on 10 Sep
+2026 under model ID `deepseek-flash`; `deepseek-v4-flash` is kept as a
+"temporary" compatibility alias with no fixed retirement date, and
+`deepseek-v4-pro` will itself start routing to V4.1 Flash from 14 Sep
+2026. No request/response schema changed (thinking mode, JSON mode,
+response fields all unaffected), and — importantly — DeepSeek does not
+offer a pinned/dated-snapshot model name at all, which rules out "pin the
+model version" as a real fix; the alias floats regardless of which name
+we request. Cross-checked two sources that initially looked contradictory
+(one said "price cut," a fetch of the raw pricing table looked like a
+price hike) and resolved it: DeepSeek's own V4 Flash rate had already
+crept up between Day 3 (13 Aug 2026, when today's now-former constants
+were set) and the 10 Sep change, so the "cut" is real relative to that
+intermediate price, but relative to what was hardcoded in our own code,
+current pricing is still higher across the board.
+
+**The actual bug found:** `Day3_llm_client.py`'s cost constants
+(`$0.14`/`$0.28` input/output per 1M tokens) were stale, and DeepSeek has
+also added a peak/off-peak pricing split our code had no concept of at
+all. Current published cache-miss rates: off-peak `$0.15`/`$0.60`, peak
+`$0.30`/`$1.20`. Output cost alone was under-priced by roughly 2x
+(off-peak) to 4x (peak) — meaning every cost figure this harness has ever
+reported (Day 25 reports, `baseline.json`, Day 31's cost-cap comparisons)
+was computed against a silently-wrong number. Pratham's framing: "without
+[accurate cost tracking] how do we trust our own tool?" — same failure
+family as the Day 24 grader-integrity check, just found in the cost layer
+instead of the score layer.
+
+**Fix: model peak/off-peak explicitly, don't just bump one constant.**
+`is_peak_hour()` checks UTC hour against DeepSeek's published windows
+(01:00-04:00 and 06:00-10:00, Mon-Fri, half-open intervals — hour 4 and
+hour 10 are already off-peak) with weekends always off-peak regardless of
+hour. `LLMClient._cost` now takes a `peak: bool` and picks the matching
+rate pair. `MeteredResult` gained a `pricing_tier` field ("peak"/
+"off_peak") persisted alongside `cost_usd` — a cost number should be
+auditable after the fact (why did this call cost more than that one?),
+not a black box, which is the same principle the whole `pricing_tier`
+addition is in service of. `Day23_runner.serialize_case` now writes
+`pricing_tier` into every saved row so this is visible in historical
+run data, not just computed and discarded.
+
+**Tested the boundary logic specifically, not just the happy path.**
+New `tests/test_day3_llm_client.py` checks the actual edges of a
+schedule-based rule — start/end of both peak windows (half-open, so hour
+4 and hour 10 are confirmed off-peak, not just "probably fine"), the gap
+between the two windows, and that Saturday/Sunday are off-peak even
+during what would otherwise be a peak hour. `tests/test_day23_runner.py`
+updated for the new required `MeteredResult` field, plus two new tests
+confirming `pricing_tier` actually survives `serialize_case` (not just
+computed correctly in memory). Full suite: **63 passed**.
+
+**Sanity-checked against one live call**, not just the test suite: a real
+call at 04:58 UTC on a Friday (the gap between peak windows) returned
+`cost_usd=$0.00001245 (off_peak)` — hand-verified against 11 input / 18
+output tokens at the off-peak rates, exact match.
+
+**Raw files:** `Day3_llm_client.py` (pricing constants, `is_peak_hour`,
+`MeteredResult.pricing_tier`), `Day23_runner.py` (`serialize_case`),
+`tests/test_day3_llm_client.py` (new), `tests/test_day23_runner.py`
+(updated).
