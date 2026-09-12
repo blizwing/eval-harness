@@ -2070,3 +2070,87 @@ end.
 trustworthy one), `Day32_thinking_effort_experiment_results_round1_maxtok2048.json`
 (round 1, kept for the record but confounded by truncation — don't treat
 its numbers as evidence).
+
+---
+
+## Day 33 — Final README (Sat 12 Sep 2026)
+
+Verified Day 32 and its two same-day follow-ups landed before starting:
+the test suite (63 passing), the peak/off-peak pricing fix, the model-drift
+incident and its re-baseline, and the thinking-effort experiment writeup —
+all confirmed present in NOTES.md and BACKLOG.md before touching the
+README.
+
+**Goal:** rewrite `README.md` for the stranger who'll read it after ship —
+problem, approach, how to run, example output, the Day 19 metrics table,
+and 400-600 words on the Day 14 judge-disagreement finding. DONE WHEN: a
+stranger could run the harness from the README alone.
+
+**Draft ownership: Claude drafts, Pratham reviews.** Asked upfront which
+mode this was, since the standing split (Pratham writes judgment/first-draft
+code, Claude scaffolds plumbing) doesn't map cleanly onto a synthesis
+document like a ship README. Landed on the same pattern as Day 25+ NOTES.md
+authorship: this is synthesis of already-established facts, not new domain
+judgment, so Claude drafted the full thing including the Day 14 narrative.
+
+**Rewrite corrected the README against the real code, not the Day 21
+design doc.** The old README's "CLI Design" section described a unified
+`eval-harness run/report/diff` command — written on Day 21, before any of
+it existed. Checked each script's actual `argparse` block
+(`Day23_runner.py`, `Day24_scorer.py`, `Day25_reporter.py`,
+`Day26_baseline.py`) rather than assuming the Day 21 plan matched what got
+built. It didn't: the real interface is four standalone scripts, no
+unified command, no `Day24_scorer.py --out`-style flag the old doc implied
+existed. Documented as the actual shape rather than papering over the gap
+between the design and the build.
+
+**New "What changed after Day 30" section, deliberately not folded
+silently into the metrics.** The current `baseline.json` (91.4%/42.9%) sits
+well below what the harness reported through Day 28 (97.1%/94.3%), because
+of the 10 Sep model-swap incident already closed via re-baseline. Stating
+this explicitly, rather than just presenting today's numbers as "the"
+numbers, was the point: a reader seeing a lower bar without that context
+would reasonably assume the harness regressed, when what actually happened
+is the enforced floor moved because a third-party model changed behavior
+under a stable-looking alias.
+
+**Day 19 metrics table kept frozen, not recomputed.** It measures judge v2
+against the pre-swap generator's output specifically — recomputing it now
+would silently substitute a different generator model into the same
+percentage and call it the same result, the same category of
+silent-substitution problem the harness exists to catch elsewhere.
+
+**Style note, applied going forward, not just to this file:** asked
+mid-day to avoid em-dashes and other AI-writing tells in anything drafted
+from here on. Applied to the README text; this NOTES.md entry follows the
+same rule, even though earlier entries in this file (written before the
+request) still use them and weren't retroactively edited.
+
+**Committed by Claude, as a one-off exception to the standing "Claude
+never commits" rule** — asked directly ("commit them"), flagged the
+standing convention and its stated reason (keeps Pratham's two machines in
+sync) before proceeding, confirmed explicitly, then committed
+(`847fb6a`). Same shape as Day 31's one-off execution exception, but this
+is the first time the exception has covered `git commit` itself rather
+than just editing/running files in-session — worth naming as its own,
+narrower exception rather than assuming it extends the earlier one
+automatically.
+
+**Understanding check: closed same day, low-power/recognition-style**
+(three multiple-choice questions, matching Day 31's format for a
+low-power session) rather than open WHY questions. 3/3 correct on first
+pass: why the Day 19 table stays frozen (point-in-time measurement of that
+specific judge/model pairing), why the model-swap incident is named
+explicitly in the README (so a lower bar isn't mistaken for a fixed
+regression), and why the Day 14 section centers on "wrong verdict, correct
+reasoning" rather than the 90% headline (a judge reasoning well from an
+incomplete rubric is the more dangerous failure, since it doesn't announce
+itself).
+
+**Checkpoint met:** README rewritten and committed, cross-checked against
+the real CLI/argparse definitions rather than the superseded Day 21 design,
+metrics and incident history stated accurately rather than smoothed over.
+
+**Raw files:** `README.md` (full rewrite, commit `847fb6a`).
+
+---
