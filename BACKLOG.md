@@ -167,3 +167,35 @@ ambiguous subset, since the incident's hedging was observed broadly, not
 only on adversarial cases.
 
 ---
+
+## Split repo into clean main + learning-log branch (raised 13 Sep 2026, Day 34)
+
+Idea: restructure the flat `DayN_*`-prefixed file layout into a
+conventional project structure (e.g. `src/`-style, no day-number
+prefixes) on `main`, and preserve the day-by-day build history as-is on a
+separate branch (e.g. `learning-log`), linked from the README so the
+learning trail isn't lost.
+
+Decision: deferred, not started on Day 34.
+- Ship day's actual DONE WHEN (public repo, README complete, CI green) was
+  already satisfied by Day 33's work — this is new scope, not part of
+  closing Day 34.
+- Renaming ~15+ `DayN_*` files touches imports across every script, the
+  CI workflow (`Day23_runner.py` / `Day24_scorer.py` / `Day25_reporter.py`
+  / `Day26_baseline.py` invocations), and README/NOTES cross-references —
+  real work with real risk of breaking something, not a mechanical rename.
+  Direct precedent: the `Day5_validate.py` filename-case bug (closed Day
+  29) came from exactly this kind of rename/import mismatch, undetected
+  for 24 days.
+- Doing it same-day as advisor messages and the ambiguity-chaser repo
+  kickoff raises the odds of shipping a broken `main` at the worst time to
+  have one.
+
+**Revisit trigger:** after the other Day 34 items (advisor messages,
+`ambiguity-chaser` repo creation) are done. When picked up, cut the
+`learning-log` branch (or tag) at current `main` HEAD first so the
+day-by-day history is frozen untouched, then do the restructuring as its
+own reviewed change on `main` — verify imports and CI pass before
+treating it as done.
+
+---
